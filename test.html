@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <style>
+    .section {
+        display: table;
+        width: 100%;
+    }
+    .section ~ .section {
+        display: table;
+        width: 100%;
+      	border-top: 1px solid #f00;
+    }
+    
+    .section .row {
+        width: 100%;
+    }
+    
+    .section .row li {
+        float: left;
+        width: 24.9%;
+        color: #999;
+        font-size: 12px;
+        text-align: center;
+        height: 22px;
+        line-height: 22px;
+    }
+    
+    .section .row li ~ li {
+        border-left: 1px solid #f00;
+    }
+    
+    .section .row ~ .row li {
+        border-top: 1px solid #f00;
+    }
+    
+    .wrap {
+        width: 1000px;
+        border: 1px solid #f00;
+        overflow: hidden;
+        zoom: 1;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="section">
+            <ul class="row">
+                <li class="one">ID</li>
+                <li class="two">性别</li>
+                <li class="three">年龄</li>
+                <li class="four">地址</li>
+            </ul>
+            <ul class="row">
+                <li class="one">ID</li>
+                <li class="two">性别</li>
+                <li class="three">年龄</li>
+                <li class="four">地址</li>
+            </ul>
+            <ul class="row">
+                <li class="one">ID</li>
+                <li class="two">性别</li>
+                <li class="three">年龄</li>
+                <li class="four">地址</li>
+            </ul>
+            <ul class="row">
+                <li class="one">ID</li>
+                <li class="two">性别</li>
+                <li class="three">年龄</li>
+                <li class="four">地址</li>
+            </ul>
+            <ul class="row">
+                <li class="one">ID</li>
+                <li class="two">性别</li>
+                <li class="three">年龄</li>
+                <li class="four">地址</li>
+            </ul>
+            <ul class="row">
+                <li class="one">ID</li>
+                <li class="two">性别</li>
+                <li class="three">年龄</li>
+                <li class="four">地址</li>
+            </ul>
+            <ul class="row">
+                <li class="one">ID</li>
+                <li class="two">性别</li>
+                <li class="three">年龄</li>
+                <li class="four">地址</li>
+            </ul>
+            <ul class="row">
+                <li class="one">ID</li>
+                <li class="two">性别</li>
+                <li class="three">年龄</li>
+                <li class="four">地址</li>
+            </ul>
+            <ul class="row">
+                <li class="one">ID</li>
+                <li class="two">性别</li>
+                <li class="three">年龄</li>
+                <li class="four">地址</li>
+            </ul>
+            <ul class="row">
+                <li class="one">ID</li>
+                <li class="two">性别</li>
+                <li class="three">年龄</li>
+                <li class="four">地址</li>
+            </ul>
+            <ul class="row">
+                <li class="one">ID</li>
+                <li class="two">性别</li>
+                <li class="three">年龄</li>
+                <li class="four">地址</li>
+            </ul>
+            <ul class="row">
+                <li class="one">ID</li>
+                <li class="two">性别</li>
+                <li class="three">年龄</li>
+                <li class="four">地址</li>
+            </ul>
+            <ul class="row">
+                <li class="one">ID</li>
+                <li class="two">性别</li>
+                <li class="three">年龄</li>
+                <li class="four">地址</li>
+            </ul>
+            <ul class="row">
+                <li class="one">ID</li>
+                <li class="two">性别</li>
+                <li class="three">年龄</li>
+                <li class="four">地址</li>
+            </ul>
+            <ul class="row">
+                <li class="one">ID</li>
+                <li class="two">性别</li>
+                <li class="three">年龄</li>
+                <li class="four">地址</li>
+            </ul>
+            <ul class="row">
+                <li class="one">ID</li>
+                <li class="two">性别</li>
+                <li class="three">年龄</li>
+                <li class="four">地址</li>
+            </ul>
+            <ul class="row">
+                <li class="one">ID</li>
+                <li class="two">性别</li>
+                <li class="three">年龄</li>
+                <li class="four">地址</li>
+            </ul>
+            <ul class="row">
+                <li class="one">ID</li>
+                <li class="two">性别</li>
+                <li class="three">年龄</li>
+                <li class="four">地址</li>
+            </ul>
+            <ul class="row">
+                <li class="one">ID</li>
+                <li class="two">性别</li>
+                <li class="three">年龄</li>
+                <li class="four">地址</li>
+            </ul>
+            <ul class="row">
+                <li class="one">ID</li>
+                <li class="two">性别</li>
+                <li class="three">年龄</li>
+                <li class="four">地址</li>
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="http://demo.lanrenzhijia.com/2014/mouse0725/js/jquery.easing.1.3.js"></script>
+    <script type='text/javascript' src="http://demo.lanrenzhijia.com/2014/mouse0725/js/jquery.scrollify.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+    	var html = [];
+    	var dataHtml = [];
+    	var innerHTML = $('.section').clone()[0].innerHTML;
+    	for (var i = 0; i < 250; i++) {
+    		html.push('<div class="section"></div>');
+    		dataHtml.push(innerHTML);
+    	}
+    	$('.wrap').append(html.join(""));
+    	console.log($('.row').length);
+
+        $('.wrap').css({
+            'height': $('.section')[0].offsetHeight
+        });
+        $('.section').css({
+            'height': $('.section')[0].offsetHeight
+        });
+        var activeIndex = location.hash.replace('#', '');
+        $.scrollify({
+            section: '.section',
+            target: '.wrap',
+            offset: 0,
+            before: function(index, elements) {
+           		console.log(location.hash);
+/*            	console.log(index);
+            	console.log(elements); */
+            	var curIndex = parseInt(location.hash.replace('#', ''), 10);
+            	activeIndex = curIndex;
+            	var prevIndex = curIndex - 1;
+            	//下翻
+            	if (index >= curIndex) {
+            		curIndex < 250 && elements[curIndex].html(dataHtml[curIndex]);
+            		//prevIndex >= 0 && elements[prevIndex].html('');
+            	} else {
+            		if (curIndex == 1) return;
+            		prevIndex - 1 >= 0 && elements[prevIndex - 1].html(dataHtml[prevIndex - 1]);
+            		//prevIndex >= 0 && elements[prevIndex].html('');
+            	}
+            },
+            after: function(index, elements) {
+            	console.log(location.hash);
+            	console.log(index);
+            	console.log(elements);
+            	activeIndex - 1 >= 0 && elements[activeIndex - 1].html('');
+            }
+        });
+    });
+    </script>
+</body>
+
+</html>
