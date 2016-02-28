@@ -14,7 +14,7 @@ var CONF = {
             sectionTpl: ""
         }
     },
-    SubAcountUtil = {
+    SubAccountUtil = {
         pageSize: 100,
         activeIndex: 1,
         byteLength: function(str) {
