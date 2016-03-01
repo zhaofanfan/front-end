@@ -1,0 +1,211 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/subaccount.css" />
+</head>
+<body>
+    <div id="subAccountBox" style="margin-top: 40px;">
+        <div class="ui_fm_item">    
+            <span class="ui_fm_label">姓名：</span>
+            <input id="accountName" type="text" name="accountName" placeholder="请输入姓名" class="ui_input" />
+            <div class="alias_block display_ib">
+                <span class="alias_label extra_span">别名：</span>
+                <input id="aliasName" type="text" name="aliasName" placeholder="请输入别名" class="ui_input" />
+            </div>
+            <div class="status_block hide">
+                <span class="alias_label extra_span">状态：</span>
+                <select name="selectStatus" id="selectStatus" data-w="70" class="ui_fm_select">
+                    <option value="">可用</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="ui_fm_item modify_alias_block hide">    
+            <span class="ui_fm_label">别名：</span>
+            <input id="modifyAliasInput" type="text" name="modifyAlias" placeholder="请输入别名" class="ui_input" />
+        </div>
+
+        <div class="ui_fm_item phone_number_block">    
+            <span class="ui_fm_label">手机号：</span>
+            <input id="phoneNumber" type="text" name="phoneNumber" placeholder="请输入11位手机号" class="ui_input" />
+            <span class="extra_span phone_number_tip">*首次通过手机验证信息即可登录</span>
+        </div>
+        <div class="ui_fm_item">    
+            <span class="ui_fm_label">选择角色：</span>
+            <select name="selectRole" id="selectRole" data-w="176" class="ui_fm_select">
+                <option value="">请选择</option>
+            </select>
+            <span class="extra_span view_role_auth">查看角色权限</span>
+        </div>
+        <div class="ui_fm_item">    
+            <span class="ui_fm_label">选择终端：</span>
+            <div id="terminalBox">
+                <div class="table">
+                    <div class="thead">
+                        <ul class="row clearfix">
+                            <li class="one">
+                                <span id="selectAll" class="ui_checkbox_box">全选<input type="checkbox" /></span>
+                            </li>
+                            <li class="two">
+                                <input type="text" name="terminalNo" class="box ui_input" id="terminalNoInput" />
+                                <button class="btn" data-filter-key="terminalNo" title="搜索"></button>
+                            </li>
+                            <li class="three">
+                                <input type="text" name="merchantCode" class="box ui_input" id="merchantCodeInput" />
+                                <button class="btn" data-filter-key="merchantPrintNo" title="搜索"></button>
+                            </li>
+                            <li class="four">
+                                <input type="text" name="subBranch" class="box ui_input" id="subBranchInput" />
+                                <button class="btn" data-filter-key="merchantPrintName" title="搜索"></button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="wrap" class="tbody wrap">
+                        <div class="section">
+                            <ul class="row clearfix">
+                                <li class="one">
+                                    <span class="ui_checkbox_box"><input type="checkbox" /></span>
+                                </li>
+                                <li class="two">80006365</li>
+                                <li class="three">849441357145001</li>
+                                <li class="four">深圳南山分店</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="holder"></div>
+                <div class="btn_block">
+                    <a href="javascript:;" class="btn btn_return">返回</a>
+                    <a href="javascript:;" class="btn btn_submit">提交</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <script type='text/javascript' src="js/jPages.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/subaccount.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            SubAccountUtil.init();
+
+            $('.view_role_auth').click(function() {
+               /* var win = $.addWin('<div id="subaccount_set_com"><div class="con clearfix"><div class="com_tree tree_1"></div><div class="com_tree tree_2 ml20"></div><div class="com_tree tree_3 ml20"></div></div></div>', {
+                    'title': '设置权限',
+                    'width': 760
+                });
+                $('#subaccount_set_com .tree_1').setTree({
+                    "title": {
+                        "text": "我的摇钱付",
+                        "checkbox": {
+                            "name": ""
+                        },
+                    },
+                    "data": [{
+                        "text": "账户通",
+                        "checkbox": {
+                            "name": ""
+                        },
+                        "children": [{
+                            "text": "银行卡"
+                        }]
+                    }, {
+                        "text": "子账户管理",
+                        "checkbox": {
+                            "name": "",
+                            "checked": true
+                        },
+                        "children": [{
+                            "text": "查看详情"
+                        }, {
+                            "text": "删除子账户"
+                        }, {
+                            "text": "新增子账户"
+                        }]
+                    }, {
+                        "text": "账户设置",
+                        "checkbox": {
+                            "name": ""
+                        },
+                        "children": [{
+                            "text": "修改密码"
+                        }]
+                    }]
+                });
+                $('#subaccount_set_com .tree_2').setTree({
+                    "title": {
+                        "text": "交易明细",
+                        "checkbox": {
+                            "name": ""
+                        },
+                    },
+                    "data": [{
+                        "text": "POS机交易明细",
+                        "checkbox": {
+                            "name": ""
+                        },
+                        "children": [{
+                            "text": "已清算交易流水"
+                        }, {
+                            "text": "未清算交易流水"
+                        }]
+                    }, {
+                        "text": "电子账单",
+                        "checkbox": {
+                            "name": "",
+                            "checked": true
+                        }
+                    }, {
+                        "text": "报表中心",
+                        "checkbox": {
+                            "name": ""
+                        },
+                        "children": [{
+                            "text": "导出每笔交易流水"
+                        }, {
+                            "text": "导出商户号汇总交易流水"
+                        }]
+                    }]
+                });
+                $('#subaccount_set_com .tree_3').setTree({
+                    "title": {
+                        "text": "服务中心",
+                        "checkbox": {
+                            "name": ""
+                        },
+                    },
+                    "data": [{
+                        "text": "POS机服务",
+                        "checkbox": {
+                            "name": ""
+                        },
+                        "children": [{
+                            "text": "POS机管理"
+                        }]
+                    }, {
+                        "text": "其他服务",
+                        "checkbox": {
+                            "name": ""
+                        },
+                        "children": [{
+                            "text": "消息中心"
+                        }, {
+                            "text": "投诉/提建议"
+                        }]
+                    }]
+                });
+                $.alignWin(win);*/
+
+                popupSuccessWin('恭喜您！子账号已设置成功，敬请获取短信密码进行登录！');
+                popupSuccessWin('恭喜你，修改子账号已成功！');
+            });
+        });
+    </script>
+</body>
+
+</html>
