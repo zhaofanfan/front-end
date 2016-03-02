@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/subaccount.css" />
+</head>
+<body>
+    <div id="subAccountBox" style="margin-top: 40px;">
+        <div class="ui_fm_item">    
+            <span class="ui_fm_label">姓名：</span>
+            <span class="display_ib data_label">张三</span>
+            <div class="alias_block display_ib">
+                <span class="alias_label extra_span" style="width: 50px;">别名：</span>
+                <span class="data_label">/</span>
+            </div>
+        </div>
+
+        <div class="ui_fm_item">    
+            <span class="ui_fm_label">账号：</span>
+            <span class="display_ib data_label">1345599903</span>
+            <div class="status_block display_ib">
+                <span class="alias_label extra_span" style="width: 50px;">状态：</span>
+                <span class="data_label">可用</span>
+            </div>
+        </div>
+        <div class="ui_fm_item">    
+            <span class="ui_fm_label">选择角色：</span>
+            <span class="display_ib data_label">财务</span>
+        </div>
+        <div class="ui_fm_item">    
+            <span class="ui_fm_label">选择终端：</span>
+            <div id="terminalBox">
+                <div class="table">
+                    <div class="thead">
+                        <ul class="row clearfix">
+                            <li class="one">
+                                <span id="selectAll" class="ui_checkbox_box">全选<input type="checkbox" /></span>
+                            </li>
+                            <li class="two">终端号</li>
+                            <li class="three">商户号</li>
+                            <li class="four">分店名称</li>
+                        </ul>
+                    </div>
+                    <div id="wrap" class="tbody wrap">
+                        <div class="section">
+                            <ul class="row clearfix">
+                                <li class="one">
+                                    <span class="ui_checkbox_box"><input type="checkbox" /></span>
+                                </li>
+                                <li class="two">80006365</li>
+                                <li class="three">849441357145001</li>
+                                <li class="four">深圳南山分店</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="holder"></div>
+                <div class="btn_block">
+                    <a href="javascript:;" class="btn btn_return">返回</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <script type='text/javascript' src="js/jPages.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/subaccount.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            SubAccountUtil.init();
+
+        
+        });
+    </script>
+</body>
+
+</html>
