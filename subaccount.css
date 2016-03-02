@@ -17,6 +17,11 @@
     line-height: 36px;
     color: #666;
 }
+#subAccountBox .data_label {
+    width: 230px;
+    font-size: 14px;
+    color: #666666;
+}
 #subAccountBox .extra_span {
     margin-left: 12px;
     font-size: 14px;
@@ -51,6 +56,8 @@
     border-bottom: 1px solid #e3e4e8;
 }
 #terminalBox .thead li {
+    font-size: 14px;
+    color: #666;
     height: 36px;
     line-height: 36px;
     padding-top: 12px;
@@ -61,7 +68,6 @@
 #terminalBox .row li ~ li {
     border-left: 1px solid #e3e4e8;
 }
-
 #terminalBox .row li.one {
     width: 56px;
 }
@@ -106,7 +112,6 @@
 #subBranchInput {
     width: 152px !important;
 }
-
 #terminalBox .btn_block {
     text-align: center;
 }
@@ -127,19 +132,16 @@
 #terminalBox .btn_block .btn_submit {
     margin-left: 10px;
 }
-
 #successBox p {
     font-size: 16px;
     font-weight: normal;
     color: #666666;
 }
-
 /** jPages分页样式 **/
 .holder {
     margin: 15px 0;
     text-align: center;
 }
-
 .holder a {
     font-size: 14px;
     cursor: pointer;
@@ -147,28 +149,28 @@
     padding: 4px 8px;
     color: #333;
 }
-
 .holder a:hover {
     background-color: #67b847;
     color: #fff;
 }
-
-/* .holder a.jp-previous { margin-right: 15px; }
-.holder a.jp-next { margin-left: 15px; } */
-
-.holder a.jp-current, a.jp-current:hover { 
+/* .holder a.jp-previous {
+    margin-right: 15px;
+}
+.holder a.jp-next {
+    margin-left: 15px;
+}*/
+.holder a.jp-current, a.jp-current:hover {
     color: #FF4242;
     font-weight: bold;
 }
-
 .holder a.jp-disabled, a.jp-disabled:hover {
     color: #bbb;
 }
-
 .holder a.jp-current, a.jp-current:hover,
 .holder a.jp-disabled, a.jp-disabled:hover {
-    cursor: default; 
+    cursor: default;
     background: none;
 }
-
-.holder span { margin: 0 5px; }
+.holder span {
+    margin: 0 5px;
+}
