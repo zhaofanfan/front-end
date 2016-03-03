@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2016 by tiger02 (http://jsbin.com/takiti/9/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+    <meta name="robots" content="noindex">
+    <title>JS Bin</title>
+    <style id="jsbin-css">
+        /** 实战版 **/
+        
+        .flex-item {
+            background: #f55;
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .wrap-box {
+            display: -webkit-box;
+            width: 500px;
+            border: 1px solid #abc;
+            margin-bottom: 10px;
+            margin-left: 10px;
+        }
+        
+        .flex-inner {
+            -webkit-box-flex: 1;
+            display: -webkit-box;
+        }
+        
+        .flex-item {
+            -webkit-box-flex: 1;
+            font-size: 0;
+            position: relative;
+        }
+        
+        .wrap-6 {
+            -webkit-box-orient: horizontal;
+        }
+        
+        .wrap-6 .flex-inner {
+            -webkit-box-flex: 0;
+            -webkit-box-orient: vertical;
+        }
+        
+        .wrap-6 .flex-inner:first-child {
+            width: 66.6%;
+        }
+        
+        .wrap-6 .flex-inner:last-child {
+            width: 33.3%;
+        }
+        
+        .wrap-6 .flex-item {
+            padding-top: 100%;
+        }
+        
+        .wrap-6 .flex-box2 .flex-item {
+            padding-top: 50%;
+        }
+        
+        .wrap-6 .flex-box2 {
+            display: -webkit-box;
+            -webkit-box-orient: horizontal;
+        }
+        
+        .wrap-6 .flex-inner:first-child,
+        .wrap-6 .flex-box2 .flex-item:first-child {
+            margin-right: 1px;
+        }
+        
+        .wrap-6 .flex-box1,
+        .wrap-6 .flex-inner:last-child .flex-item:first-child,
+        .wrap-6 .flex-inner:last-child .flex-item:nth-child(2) {
+            margin-bottom: 1px;
+        }
+        
+        
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+        
+        li {
+            list-style: none;
+        }
+        
+        .pub-wrap {
+            position: relative;
+            padding: 0 30px 10px;
+            margin-top: 28px;
+            border-radius: 6px;
+            background-color: #edf2f2;
+        }
+        
+        .pub-title {
+            padding-top: 14px;
+            margin-right: -20px;
+            margin-left: -20px;
+            font-size: 1.1875rem;
+            text-align: center;
+        }
+        
+        .pub-process {
+            position: relative;
+            height: 35px;
+            margin-top: 28px;
+            margin-left: 35px;
+            font-size: 0;
+            color: #fff;
+        }
+        
+        .pub-process:after {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            z-index: 1;
+            width: 99%;
+            height: 4px;
+            content: "";
+            -webkit-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+            background-color: #d9d9d9;
+        }
+        
+        .pub-process li {
+            position: relative;
+            z-index: 5;
+            display: inline-block;
+            width: 25%;
+            height: 35px;
+            font-size: .875rem;
+        }
+        
+        .pub-process li:first-child {
+            width: 35px;
+            margin-left: -35px;
+        }
+        
+        .pub-process .ball {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 7;
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            content: "";
+            text-align: center;
+            border-radius: 50%;
+            background-color: #d9d9d9;
+        }
+        
+        .pub-process .active .ball {
+            background-color: #11c2c2;
+        }
+        
+        .pub-process .active + .active:after {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            z-index: 6;
+            width: 100%;
+            height: 4px;
+            content: "";
+            -webkit-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+            background-color: #11c2c2;
+        }
+        
+        .process-3 li {
+            width: 50%;
+        }
+        
+        .process-5 li {
+            width: 25%;
+        }
+        /* flex ver */
+        
+        .pub-process-flex {
+            display: -webkit-box;
+        }
+        
+        .pub-process-flex li {
+            display: list-item;
+            -webkit-box-flex: 1;
+            width: auto;
+        }
+        
+        .pub-process-flex li:first-child {
+            width: 35px;
+            margin-left: -35px;
+            -webkit-box-flex: 0;
+        }
+    </style>
+</head>
+
+<body>
+<!-- WPA Button Begin -->
+<script charset="utf-8" type="text/javascript" src="http://wpa.b.qq.com/cgi/wpa.php?key=XzkzODE3MjM4Nl8zNjgxOThfNDAwODg2ODQwMF8"></script>
+
+
+<!-- WPA Button End -->
+    <p>左右划分版本</p>
+    <div class="wrap-box wrap-6">
+        <div class="flex-inner">
+            <div class="flex-box1 flex-item"></div>
+            <div class="flex-box2">
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+            </div>
+        </div>
+        <div class="flex-inner">
+            <div class="flex-item"></div>
+            <div class="flex-item"></div>
+            <div class="flex-item"></div>
+        </div>
+    </div>
+    <div class="pub-wrap">
+        <div class="pub-title" id="pubTitle">在群内累计布置3天作业，即可加入先锋教师！</div>
+        <ul class="pub-process process-5" id="pubProcess">
+            <li class="active"><span class="ball">1天</span></li>
+            <li class="active"><span class="ball">1天</span></li>
+            <li><span class="ball">1天</span></li>
+            <li><span class="ball">1天</span></li>
+            <li><span class="ball">1天</span></li>
+        </ul>
+    </div>
+    <!-- flex版本 -->
+    <div class="pub-wrap">
+        <div class="pub-title" id="pubTitle">在群内累计布置3天作业，即可加入先锋教师！</div>
+        <ul class="pub-process process-5 pub-process-flex" id="pubProcess">
+            <li class="active"><span class="ball">1天</span></li>
+            <li class="active"><span class="ball">1天</span></li>
+            <li><span class="ball">1天</span></li>
+            <li><span class="ball">1天</span></li>
+            <li><span class="ball">1天</span></li>
+        </ul>
+    </div>
+</body>
+
+</html>

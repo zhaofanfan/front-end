@@ -7,6 +7,7 @@ var CONF = {
             nullText: "格式错误，内容不能为空",
             accountNameText: "格式错误，姓名必须为字母或汉字的组合且不超过50个字符",
             phoneNumberText: "格式错误，请输入11位手机号",
+            phoneNumberDuplicateText: "此手机号已重复，请输入正确手机号",  
             terminalNoText: "终端号",
             merchantCodeText: "商户号",
             subBranchText: "分店名称"
@@ -37,6 +38,10 @@ var CONF = {
             }
             return data;
         })(),
+        API: {
+            NAME_UNIQUE_URL: '',
+            MOBILE_UNIQUE_URL: ''
+        },
         byteLength: function(str) {
             return (str || "").replace(/[^\x00-\xff]/g, "00").length;
         },
@@ -92,6 +97,18 @@ var CONF = {
                 });
             });
         },
+        checkUnique: function(url, checkData, callback) {
+            var oInput = this;
+            $.ajax({
+                type: 'post',
+                url: url,
+                dataType: 'json', 
+                data: checkData,
+                success: function(data) {
+                   callback && callback.apply(oInput, data);
+                }
+            });
+        },
         bindEvent: function() {
             var me = this;
             $('#accountName').blur(function() {
@@ -105,6 +122,13 @@ var CONF = {
                     return;
                 }
                 this.value = sValue;
+
+                me.checkUnique.call(this, me.API.NAME_UNIQUE_URL, {
+                    checkType: 'name',
+                    checkValue: sValue
+                }, function(ret) {
+
+                });
             });
 
             $('#phoneNumber').blur(function() {
@@ -118,13 +142,20 @@ var CONF = {
                     return;
                 }
                 this.value = sValue;
+
+                me.checkUnique.call(this, me.API.MOBILE_UNIQUE_URL, {
+                    checkType: 'mobile',
+                    checkValue: sValue
+                }, function(ret) {
+
+                });
             });
 
             $('#terminalBox .thead .btn').click(function() {
                 var filterVal = $(this).prev('input.box').attr('data-val');
                 var retData = me.filter(me.originalData, $(this).attr('data-filter-key'), filterVal);
                 me.render(retData);
-            })
+            });
         },
         bindCheckBox: function() {
             $('#terminalBox .tbody .ui_checkbox_box').uiCheckbox();
@@ -164,6 +195,10 @@ var CONF = {
             $("#" + this.terminalContainerId).html(html.join(""));
             this.initPagination();
             this.bindCheckBox();
+            $("#" + this.terminalContainerId).popupTipLayer({
+                once: !0,
+                content: '您可以使用鼠标滚轮翻页'
+            });
         },
         initPagination: function() {
             var me = this;
@@ -196,3 +231,24 @@ var CONF = {
             $.removeWin(successWin);
         });        
     };
+$.fn.popupTipLayer = function(opts) {
+    return this.each(function() {
+        if (opts.once && !!$(this).attr('data-showtiplayerbefore')) 
+            return;
+        var $layer = $('<div class="ui-tip-layer">' + opts.content + '</div>');
+        $('body').append($layer);
+        var offset = $(this).offset();
+        var left = offset.left + ($(this).width() - $layer.outerWidth()) / 2;
+        var top = offset.top + ($(this).height() - $layer.outerHeight()) / 2;
+        $layer.css({
+            left: left + 'px',
+            top: top + 'px'
+        }).fadeIn('slow');
+        setTimeout(function() {
+            $layer.fadeOut('slow', function() {
+                $layer.remove();
+            })
+        }, 5E3);
+        opts.once && $(this).attr('data-showtiplayerbefore', 1);
+    }), this;
+};

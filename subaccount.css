@@ -174,3 +174,13 @@
 .holder span {
     margin: 0 5px;
 }
+
+.ui-tip-layer {
+    position: absolute;
+    display: none;
+    padding: 12px 25px;
+    border-radius: 2px;
+    text-align: center;
+    background-color: rgba(0,0,0,0.6);
+    color: #fff;
+}
