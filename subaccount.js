@@ -118,6 +118,37 @@ var CONF = {
                 }
             });
         },
+        validate: function() {
+            if (!$.trim($('#accountName').val())) {
+                $('#accountName').trigger('blur');
+                return false;
+            }
+            if ($('#accountName').hasClass('ui_fm_error')) {
+                return false;
+            }
+
+            if (!$.trim($('#phoneNumber').val())) {
+                $('#phoneNumber').trigger('blur');
+                return false;
+            }
+            if ($('#phoneNumber').hasClass('ui_fm_error')) {
+                return false;
+            }
+
+            if (!$('#selectRole').val()) {
+                $.addAlert('请选择角色', function() {
+                    $('#selectRole').addClass("border-error");
+                });
+                return false;
+            }
+
+            var terminalId2Bind = [];
+            $('#terminalBox .tbody .ui_checkbox_box_checked').each(function() {
+                terminalId2Bind.push($(this).attr('data-sid'));
+            });
+
+            return !!terminalId2Bind.length ? terminalId2Bind : false;
+        },
         bindEvent: function() {
             var me = this;
             $('#accountName').blur(function() {
@@ -198,6 +229,26 @@ var CONF = {
 
                 bAllChecked ? $('#selectAll').addClass('ui_checkbox_box_checked') : $('#selectAll').removeClass('ui_checkbox_box_checked');
                 $('#selectAll').children('input').prop('checked', bAllChecked);
+            });
+
+            $('#terminalBox .btn_submit').click(function() {
+                var result = SubAccountUtil.validate();
+                if (result) {
+                    var postObj = {
+
+                    };
+                    $.ajax({
+                        type: 'post',
+                        url: CONF.API.addSubAccount_AJAX,
+                        dataType: 'json',
+                        data: postObj,
+                        success: function(data) {
+
+                        }
+                    });
+                } else {
+                    $.addAlert("请至少选择一个终端绑定！");
+                }
             });
         },
         initRoleSelectList: function() {
