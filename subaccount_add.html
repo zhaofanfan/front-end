@@ -37,7 +37,6 @@
         <div class="ui_fm_item">    
             <span class="ui_fm_label">选择角色：</span>
             <select name="selectRole" id="selectRole" data-w="176" class="ui_fm_select">
-                <option value="">请选择</option>
             </select>
             <span class="extra_span view_role_auth">查看角色权限</span>
         </div>
@@ -93,116 +92,8 @@
         $(function() {
             SubAccountUtil.init();
 
-            $('.view_role_auth').click(function() {
-               /* var win = $.addWin('<div id="subaccount_set_com"><div class="con clearfix"><div class="com_tree tree_1"></div><div class="com_tree tree_2 ml20"></div><div class="com_tree tree_3 ml20"></div></div></div>', {
-                    'title': '设置权限',
-                    'width': 760
-                });
-                $('#subaccount_set_com .tree_1').setTree({
-                    "title": {
-                        "text": "我的摇钱付",
-                        "checkbox": {
-                            "name": ""
-                        },
-                    },
-                    "data": [{
-                        "text": "账户通",
-                        "checkbox": {
-                            "name": ""
-                        },
-                        "children": [{
-                            "text": "银行卡"
-                        }]
-                    }, {
-                        "text": "子账户管理",
-                        "checkbox": {
-                            "name": "",
-                            "checked": true
-                        },
-                        "children": [{
-                            "text": "查看详情"
-                        }, {
-                            "text": "删除子账户"
-                        }, {
-                            "text": "新增子账户"
-                        }]
-                    }, {
-                        "text": "账户设置",
-                        "checkbox": {
-                            "name": ""
-                        },
-                        "children": [{
-                            "text": "修改密码"
-                        }]
-                    }]
-                });
-                $('#subaccount_set_com .tree_2').setTree({
-                    "title": {
-                        "text": "交易明细",
-                        "checkbox": {
-                            "name": ""
-                        },
-                    },
-                    "data": [{
-                        "text": "POS机交易明细",
-                        "checkbox": {
-                            "name": ""
-                        },
-                        "children": [{
-                            "text": "已清算交易流水"
-                        }, {
-                            "text": "未清算交易流水"
-                        }]
-                    }, {
-                        "text": "电子账单",
-                        "checkbox": {
-                            "name": "",
-                            "checked": true
-                        }
-                    }, {
-                        "text": "报表中心",
-                        "checkbox": {
-                            "name": ""
-                        },
-                        "children": [{
-                            "text": "导出每笔交易流水"
-                        }, {
-                            "text": "导出商户号汇总交易流水"
-                        }]
-                    }]
-                });
-                $('#subaccount_set_com .tree_3').setTree({
-                    "title": {
-                        "text": "服务中心",
-                        "checkbox": {
-                            "name": ""
-                        },
-                    },
-                    "data": [{
-                        "text": "POS机服务",
-                        "checkbox": {
-                            "name": ""
-                        },
-                        "children": [{
-                            "text": "POS机管理"
-                        }]
-                    }, {
-                        "text": "其他服务",
-                        "checkbox": {
-                            "name": ""
-                        },
-                        "children": [{
-                            "text": "消息中心"
-                        }, {
-                            "text": "投诉/提建议"
-                        }]
-                    }]
-                });
-                $.alignWin(win);*/
-
-                popupSuccessWin('恭喜您！子账号已设置成功，敬请获取短信密码进行登录！');
-                popupSuccessWin('恭喜你，修改子账号已成功！');
-            });
+            //popupSuccessWin('恭喜您！子账号已设置成功，敬请获取短信密码进行登录！');
+            //popupSuccessWin('恭喜你，修改子账号已成功！');
         });
     </script>
 </body>

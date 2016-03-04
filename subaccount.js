@@ -7,19 +7,28 @@ var CONF = {
             nullText: "格式错误，内容不能为空",
             accountNameText: "格式错误，姓名必须为字母或汉字的组合且不超过50个字符",
             phoneNumberText: "格式错误，请输入11位手机号",
-            phoneNumberDuplicateText: "此手机号已重复，请输入正确手机号",  
+            phoneNumberDuplicateText: "此手机号已重复，请输入正确手机号",
             terminalNoText: "终端号",
             merchantCodeText: "商户号",
             subBranchText: "分店名称"
         },
+        API: {
+            nameUnique_AJAX: "",
+            mobileUnique_AJAX: "",
+            roleList_AJAX: "${BasePath}/authRole/getAllRole.mt",
+            authRes_AJAX: "${BasePath}/authRole/getAllIsAuthRes.mt",
+            searchTerminal_AJAX: "${BasePath}/subAccount/searchTerminal.mt",
+            addSubAccount_AJAX: "${BasePath}/subAccount/add.mt",
+            editSubAccount_AJAX: "${BasePath}/subAccount/edit.mt?subAccountId="
+        },
         htmlTemplate: {
             sectionWrapperTpl: '<div class="section">{{rows}}</div>',
-            rowTpl: '<ul class="row clearfix">' + 
-                        '<li class="one"><span data-sid="{id}" class="ui_checkbox_box"><input type="checkbox" name=""></span></li>' + 
-                        '<li class="two">{terminalNo}</li>' + 
-                        '<li class="three">{merchantPrintNo}</li>' + 
-                        '<li class="four">{merchantPrintName}</li>' + 
-                    '</ul>'
+            rowTpl: '<ul class="row clearfix">' +
+                '<li class="one"><span data-sid="{id}" class="ui_checkbox_box"><input type="checkbox" name=""></span></li>' +
+                '<li class="two">{terminalNo}</li>' +
+                '<li class="three">{merchantPrintNo}</li>' +
+                '<li class="four">{merchantPrintName}</li>' +
+                '</ul>'
         }
     },
     SubAccountUtil = {
@@ -30,18 +39,18 @@ var CONF = {
             var data = [];
             while (i < 2500) {
                 data.push({
-                    terminalNo: '80006365', merchantPrintNo: '849441357145001', merchantPrintName: '深圳南山分店'
-                    }, {
-                    terminalNo: '44444', merchantPrintNo: '1357145001', merchantPrintName: '深圳分店'
+                    terminalNo: '80006365',
+                    merchantPrintNo: '849441357145001',
+                    merchantPrintName: '深圳南山分店'
+                }, {
+                    terminalNo: '44444',
+                    merchantPrintNo: '1357145001',
+                    merchantPrintName: '深圳分店'
                 });
                 i++;
             }
             return data;
         })(),
-        API: {
-            NAME_UNIQUE_URL: '',
-            MOBILE_UNIQUE_URL: ''
-        },
         byteLength: function(str) {
             return (str || "").replace(/[^\x00-\xff]/g, "00").length;
         },
@@ -102,10 +111,10 @@ var CONF = {
             $.ajax({
                 type: 'post',
                 url: url,
-                dataType: 'json', 
+                dataType: 'json',
                 data: checkData,
                 success: function(data) {
-                   callback && callback.apply(oInput, data);
+                    callback && callback.apply(oInput, data);
                 }
             });
         },
@@ -123,7 +132,7 @@ var CONF = {
                 }
                 this.value = sValue;
 
-                me.checkUnique.call(this, me.API.NAME_UNIQUE_URL, {
+                me.checkUnique.call(this, CONF.API.nameUnique_AJAX, {
                     checkType: 'name',
                     checkValue: sValue
                 }, function(ret) {
@@ -143,7 +152,7 @@ var CONF = {
                 }
                 this.value = sValue;
 
-                me.checkUnique.call(this, me.API.MOBILE_UNIQUE_URL, {
+                me.checkUnique.call(this, CONF.API.mobileUnique_AJAX, {
                     checkType: 'mobile',
                     checkValue: sValue
                 }, function(ret) {
@@ -151,21 +160,33 @@ var CONF = {
                 });
             });
 
+            $('.view_role_auth').click(function() {
+                var win = $.addWin('<div id="subaccount_set_com">' +
+                    '<div class="con clearfix">' +
+                    '<div class="com_tree tree_1"></div>' +
+                    '<div class="com_tree tree_2 ml20"></div>' +
+                    '<div class="com_tree tree_3 ml20"></div>' +
+                    '<div class="com_tree tree_4 ml20"></div>' +
+                    '</div></div>', {
+                        title: '设置权限',
+                        width: 760
+                    });
+
+                SubAccountUtil.getAllIsAuthResByRoleId($('#selectRole').val());
+            });
+
             $('#terminalBox .thead .btn').click(function() {
                 var filterVal = $(this).prev('input.box').attr('data-val');
                 var retData = me.filter(me.originalData, $(this).attr('data-filter-key'), filterVal);
                 me.render(retData);
             });
-        },
-        bindCheckBox: function() {
-            $('#terminalBox .tbody .ui_checkbox_box').uiCheckbox();
 
             $('#selectAll').click(function() {
                 var bChecked = $(this).children('input').is(':checked');
                 var hCheckbox = $('#terminalBox .tbody .ui_checkbox_box');
 
-                bChecked ?  hCheckbox.addClass('ui_checkbox_box_checked') : hCheckbox.removeClass('ui_checkbox_box_checked');
-                hCheckbox.children('input').prop('checked', bChecked);  
+                bChecked ? hCheckbox.addClass('ui_checkbox_box_checked') : hCheckbox.removeClass('ui_checkbox_box_checked');
+                hCheckbox.children('input').prop('checked', bChecked);
             });
 
             $('#terminalBox .tbody').delegate('.ui_checkbox_box', 'click', function() {
@@ -178,6 +199,82 @@ var CONF = {
                 bAllChecked ? $('#selectAll').addClass('ui_checkbox_box_checked') : $('#selectAll').removeClass('ui_checkbox_box_checked');
                 $('#selectAll').children('input').prop('checked', bAllChecked);
             });
+        },
+        initRoleSelectList: function() {
+            $.ajax({
+                type: "POST",
+                url: CONF.API.roleList_AJAX,
+                dataType: "json",
+                success: function(data) {
+                    var roleOptionsHtml = '<option value="">请选择</option>';
+                    if (data && data.length > 0) {
+                        $.each(data, function(index, item) {
+                            roleOptionsHtml += '<option value="' + item.id + '">' + item.roleName + '</option>';
+                        });
+                    }
+                    roleOptionsHtml += '<option value="">新增角色</option>';
+                    $('#selectRole').html(roleOptionsHtml);
+                }
+            });
+        },
+        getAllIsAuthResByRoleId: function(roleId) {
+            $.ajax({
+                type: "POST",
+                url: CONF.API.authRes_AJAX,
+                dataType: "json",
+                data: {
+                    roleId: roleId
+                },
+                success: function(data) {
+                    if (data && data.length > 0) {
+                        $.each(data, function(index, item) {
+                            $('#subaccount_set_com .tree_' + (index + 1), html).setTree({
+                                title: {
+                                    text: item.resName,
+                                    checkbox: {
+                                        name: item.id,
+                                        checked: item.isAuth
+                                    },
+                                },
+                                data: SubAccountUtil.buildAuthTreeData(item)
+                            });
+                        });
+                    }
+                }
+            });
+        },
+        buildAuthTreeData: function(authItem) {
+            var authTreeData = [];
+            if (authItem.subMenuList && authItem.subMenuList.length > 0) {
+                var obj,
+                    children;
+                $.each(authItem.subMenuList, function(subAuthIndex, subAuthItem) {
+                    obj = {
+                        text: subAuthItem.resName,
+                        checkbox: {
+                            name: subAuthItem.id,
+                            checked: subAuthItem.isAuth
+                        }
+                    };
+                    children = SubAccountUtil.buildAuthTreeData(subAuthItem);
+                    !!children.length && (obj['children'] = children);
+                    authTreeData.push(obj);
+                });
+            }
+            return authTreeData;
+        },
+        searchTerminal: function(subAccountId) {
+            $.ajax({
+                type: "POST",
+                url: CONF.API.searchTerminal_AJAX + (subAccountId ? "?subAccountId=" + subAccountId : ""),
+                dataType: "json",
+                success: function(data) {
+                    SubAccountUtil.render(data);
+                }
+            });
+        },
+        bindCheckBox: function() {
+            $('#terminalBox .tbody .ui_checkbox_box').uiCheckbox();
         },
         render: function(data) {
             var i,
@@ -216,44 +313,26 @@ var CONF = {
                 }
             });
         },
-        buildAuthTreeData: function(authItem) {
-            var authTreeData = [];
-            if (authItem.subMenuList && authItem.subMenuList.length > 0) {
-                var obj,
-                    children;
-                $.each(authItem.subMenuList, function(subAuthIndex, subAuthItem) {
-                    obj = {
-                        text: subAuthItem.resName,
-                        checkbox: {
-                            name: subAuthItem.id,
-                            checked: subAuthItem.isAuth
-                        }
-                    };
-                    children = buildAuthTreeData(subAuthItem);
-                    !!children.length && (obj['children'] = children);
-                    authTreeData.push(obj);
-                });
-            }
-            return authTreeData;
-        },
         init: function() {
             this.showOrHide();
+            this.initRoleSelectList()
             this.polyfillPlaceholder();
             this.render(this.originalData);
             this.bindEvent();
         }
-    }, popupSuccessWin = function(content) {
+    },
+    popupSuccessWin = function(content) {
         var successWin = $.addWin('<div id="successBox" class="success"><i class="success_img"></i><p>' + content + '</p><input type="button" value="确认" class="ui_submit ui_close"></div>', {
             title: '提示',
             width: 642
         });
         $('#successBox .ui_close').click(function() {
             $.removeWin(successWin);
-        });        
+        });
     };
 $.fn.popupTipLayer = function(opts) {
     return this.each(function() {
-        if (opts.once && !!$(this).attr('data-showtiplayerbefore')) 
+        if (opts.once && !!$(this).attr('data-showtiplayerbefore'))
             return;
         var $layer = $('<div class="ui-tip-layer">' + opts.content + '</div>');
         $('body').append($layer);
