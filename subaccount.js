@@ -141,13 +141,13 @@ var CONF = {
                 });
                 return false;
             }
-
+            
             var terminalId2Bind = [];
             $('#terminalBox .tbody .ui_checkbox_box_checked').each(function() {
                 terminalId2Bind.push($(this).attr('data-sid'));
             });
 
-            return !!terminalId2Bind.length ? terminalId2Bind : false;
+            return !!terminalId2Bind.length ? terminalId2Bind : ($.addAlert("请至少选择一个终端绑定！"), false);
         },
         bindEvent: function() {
             var me = this;
@@ -246,8 +246,6 @@ var CONF = {
 
                         }
                     });
-                } else {
-                    $.addAlert("请至少选择一个终端绑定！");
                 }
             });
         },
