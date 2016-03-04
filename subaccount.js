@@ -1,6 +1,6 @@
 var CONF = {
         reg: {
-            nameFormat: "^[a-zA-Z]|[\\u4e00-\\u9fa5]$",
+            nameFormat: "^([a-zA-Z]|[\\u4e00-\\u9fa5])+$",
             phoneFormat: "^1[34578]\\d{9}$"
         },
         validMsg: {
@@ -215,6 +215,26 @@ var CONF = {
                     //console.log(items);
                 }
             });
+        },
+        buildAuthTreeData: function(authItem) {
+            var authTreeData = [];
+            if (authItem.subMenuList && authItem.subMenuList.length > 0) {
+                var obj,
+                    children;
+                $.each(authItem.subMenuList, function(subAuthIndex, subAuthItem) {
+                    obj = {
+                        text: subAuthItem.resName,
+                        checkbox: {
+                            name: subAuthItem.id,
+                            checked: subAuthItem.isAuth
+                        }
+                    };
+                    children = buildAuthTreeData(subAuthItem);
+                    !!children.length && (obj['children'] = children);
+                    authTreeData.push(obj);
+                });
+            }
+            return authTreeData;
         },
         init: function() {
             this.showOrHide();
