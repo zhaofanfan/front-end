@@ -1,61 +1,70 @@
 var CONF = {
         reg: {
             nameFormat: "^([a-zA-Z]|[\\u4e00-\\u9fa5])+$",
+            aliasFormat: "^([0-9a-zA-Z]|[\\u4e00-\\u9fa5])+$",
             phoneFormat: "^1[34578]\\d{9}$"
         },
         validMsg: {
             nullText: "格式错误，内容不能为空",
-            accountNameText: "格式错误，姓名必须为字母或汉字的组合且不超过50个字符",
+            accountNameText: "格式错误，姓名为4-50位字符的汉字或字母组合",
+            aliasNameText: "格式错误，别名为4-50位字符的汉字、字母或数字组合",
             phoneNumberText: "格式错误，请输入11位手机号",
-            phoneNumberDuplicateText: "此手机号已重复，请输入正确手机号",
+            accountNameDuplicateText: "姓名在您的商户账号下重复，请输入别名信息以供子账号的识别",
+            phoneNumberDuplicateText: "此手机号已使用，请更换其他手机号",
             terminalNoText: "终端号",
             merchantCodeText: "商户号",
             subBranchText: "分店名称"
         },
         API: {
-            nameUnique_AJAX: "",
-            mobileUnique_AJAX: "",
-            roleList_AJAX: "${BasePath}/authRole/getAllRole.mt",
-            authRes_AJAX: "${BasePath}/authRole/getAllIsAuthRes.mt",
-            searchTerminal_AJAX: "${BasePath}/subAccount/searchTerminal.mt",
-            addSubAccount_AJAX: "${BasePath}/subAccount/add.mt",
-            editSubAccount_AJAX: "${BasePath}/subAccount/edit.mt?subAccountId="
+            roleList_AJAX: basePath + "/authRole/getAllRole.mt",
+            authRes_AJAX: basePath + "/authRole/getAllIsAuthRes.mt",
+            verifyUnique_AJAX: basePath + "/subAccount/verifyUnique.mt",
+            searchTerminal_AJAX: basePath + "/subAccount/searchTerminal.mt",
+            getSubAccount_AJAX: basePath + "/subAccount/getAccountInfo.mt",
+            addSubAccount_AJAX: basePath + "/subAccount/add.mt",
+            editSubAccount_AJAX: basePath + "/subAccount/edit.mt",
+            toSubAccountList_URL: basePath + "/subAccount/toSubAccount.mt",
+            toRoleAuth_URL: basePath + "/authRole/toRoleAuth.mt"
+        },
+        subAccountStatus: {
+            0: "未激活",
+            1: "可用",
+            2: "注销",
+            3: "删除",
+            4: "停用"
         },
         htmlTemplate: {
+            roleAuthTreeTpl: '<div id="subaccount_set_com">' +
+                '<div class="con clearfix">' +
+                '<div class="com_tree tree_1"></div>' +
+                '<div class="com_tree tree_2 ml20"></div>' +
+                '<div class="com_tree tree_3 ml20"></div>' +
+                '<div class="com_tree tree_4 ml20"></div>' +
+                '</div></div>',
             sectionWrapperTpl: '<div class="section">{{rows}}</div>',
             rowTpl: '<ul class="row clearfix">' +
-                '<li class="one"><span data-sid="{id}" class="ui_checkbox_box"><input type="checkbox" name=""></span></li>' +
+                '<li class="one"><span data-sid="{id}" data-bound="{bound}" class="ui_checkbox_box"><input type="checkbox" name=""></span></li>' +
                 '<li class="two">{terminalNo}</li>' +
                 '<li class="three">{merchantPrintNo}</li>' +
-                '<li class="four">{merchantPrintName}</li>' +
-                '</ul>'
+                '<li class="four" title="{merchantPrintName}">{merchantPrintName}</li>' +
+                '</ul>',
+            successWinTpl: '<div id="successBox" class="success"><i class="success_img"></i><p>{{content}}</p><input type="button" value="确认" class="ui_submit ui_close"></div>'
         }
     },
     SubAccountUtil = {
         terminalContainerId: 'wrap',
         pageSize: 10,
-        originalData: (function() {
-            var i = 0;
-            var data = [];
-            while (i < 2500) {
-                data.push({
-                    terminalNo: '80006365',
-                    merchantPrintNo: '849441357145001',
-                    merchantPrintName: '深圳南山分店'
-                }, {
-                    terminalNo: '44444',
-                    merchantPrintNo: '1357145001',
-                    merchantPrintName: '深圳分店'
-                });
-                i++;
-            }
-            return data;
-        })(),
+        originalData: null,
         byteLength: function(str) {
             return (str || "").replace(/[^\x00-\xff]/g, "00").length;
         },
         isValidName: function(name) {
-            return new RegExp(CONF.reg.nameFormat).test(name) && this.byteLength(name) <= 50
+            var nLength = this.byteLength(name);
+            return new RegExp(CONF.reg.nameFormat).test(name) && (nLength >= 4 && nLength <= 50)
+        },
+        isValidAlias: function(alias) {
+            var nLength = this.byteLength(alias);
+            return new RegExp(CONF.reg.aliasFormat).test(alias) && (nLength >= 4 && nLength <= 50)
         },
         isValidMobile: function(mobile) {
             return new RegExp(CONF.reg.phoneFormat).test(mobile)
@@ -79,19 +88,12 @@ var CONF = {
             return result;
         },
         showOrHide: function() {
-            $.getUrlParam = function(name) {
-                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-                var r = window.location.search.substr(1).match(reg);
-                if (r != null)
-                    return unescape(r[2]);
-                return null;
-            };
-            var sAction = $.getUrlParam('action');
-            if ('modify' === sAction) {
+            if ('modify' === $.getUrlParam('action')) {
                 $('.alias_block').removeClass('display_ib').addClass('hide');
                 $('.status_block').removeClass('hide').addClass('display_ib');
                 $('.modify_alias_block').removeClass('hide');
                 $('.phone_number_block').addClass('hide');
+                $('#opLabel').text('修改子账号');
             }
         },
         polyfillPlaceholder: function() {
@@ -99,22 +101,26 @@ var CONF = {
                 $(this).val(CONF.validMsg[$(this).attr('name') + 'Text']);
 
                 $(this).on('focus', function() {
-                    $(this).val() == CONF.validMsg[$(this).attr('name') + 'Text'] && ($(this).val(''))
+                    $(this).val() == CONF.validMsg[$(this).attr('name') + 'Text'] && ($(this).val(''));
+                    $(this).on('keydown', function(ev) {
+                        ev.which == 13 && ($(this).attr('data-val', $(this).val()), $(this).next('button').trigger('click'));
+                    });
                 }).on('blur', function() {
                     $(this).val().length <= 0 && ($(this).val(CONF.validMsg[$(this).attr('name') + 'Text']));
-                    CONF.validMsg[$(this).attr('name') + 'Text'] == $(this).val() ? $(this).removeAttr('data-val') : $(this).attr('data-val', $(this).val())
+                    CONF.validMsg[$(this).attr('name') + 'Text'] == $(this).val() ? $(this).removeAttr('data-val') : $(this).attr('data-val', $(this).val());
+                    $(this).off('keydown');
                 });
             });
         },
-        checkUnique: function(url, checkData, callback) {
+        verifyUnique: function(url, verifyData, callback) {
             var oInput = this;
             $.ajax({
                 type: 'post',
                 url: url,
                 dataType: 'json',
-                data: checkData,
+                data: verifyData,
                 success: function(data) {
-                    callback && callback.apply(oInput, data);
+                    callback && callback.call(oInput, data);
                 }
             });
         },
@@ -127,12 +133,21 @@ var CONF = {
                 return false;
             }
 
-            if (!$.trim($('#phoneNumber').val())) {
-                $('#phoneNumber').trigger('blur');
+            if (!$('.alias_block').hasClass('hide') && $('#aliasName').hasClass('ui_fm_error')) {
                 return false;
             }
-            if ($('#phoneNumber').hasClass('ui_fm_error')) {
+            if (!$('.modify_alias_block').hasClass('hide') && $('#modifyAliasInput').hasClass('ui_fm_error')) {
                 return false;
+            }
+
+            if (!$('.phone_number_block').hasClass('hide')) {
+                if (!$.trim($('#phoneNumber').val())) {
+                    $('#phoneNumber').trigger('blur');
+                    return false;
+                }
+                if ($('#phoneNumber').hasClass('ui_fm_error')) {
+                    return false;
+                }
             }
 
             if (!$('#selectRole').val()) {
@@ -141,7 +156,11 @@ var CONF = {
                 });
                 return false;
             }
-            
+
+            if (!$('#terminalBlock').is(':visible')) {
+                return true;
+            }
+
             var terminalId2Bind = [];
             $('#terminalBox .tbody .ui_checkbox_box_checked').each(function() {
                 terminalId2Bind.push($(this).attr('data-sid'));
@@ -151,6 +170,17 @@ var CONF = {
         },
         bindEvent: function() {
             var me = this;
+            $('#accountName,#aliasName,#modifyAliasInput').keyup(function() {
+                /["'<>《》~!@#￥%;\]\[\^\*\?\？&+=]/.test($(this).val()) && $(this).val($(this).val().replace(/["'<>《》~!@#￥%;\]\[\^\*\?\？&+=]/g, ""));
+            });
+            $('#aliasName,#modifyAliasInput').blur(function() {
+                var sValue = this.value.replace(/\s+/g, '');
+                if (!me.isValidAlias(sValue)) {
+                    $(this).addFmErrorTip(CONF.validMsg.aliasNameText);
+                    return;
+                }
+                this.value = sValue;
+            });
             $('#accountName').blur(function() {
                 var sValue = this.value.replace(/\s+/g, '');
                 if (!sValue) {
@@ -163,11 +193,23 @@ var CONF = {
                 }
                 this.value = sValue;
 
-                me.checkUnique.call(this, CONF.API.nameUnique_AJAX, {
-                    checkType: 'name',
-                    checkValue: sValue
-                }, function(ret) {
-
+                var verifyObj = {
+                    verifyType: 'name',
+                    verifyValue: sValue
+                };
+                'modify' === $.getUrlParam('action') && (verifyObj['subAccountId'] = $.getUrlParam('subAccountId'));
+                me.verifyUnique.call(this, CONF.API.verifyUnique_AJAX, verifyObj, function(ret) {
+                    var sAction = $.getUrlParam('action');
+                    if (!ret.success) {
+                        $(this).addFmErrorTip(CONF.validMsg.accountNameDuplicateText);
+                        var that = this;
+                        setTimeout(function() {
+                            $(that).removeClass('ui_fm_error').data('tip').remove();
+                        }, 5E3);
+                        'modify' === sAction ? !$.trim($('#modifyAliasInput').val()) && $('#modifyAliasInput').val(ret.msg) : !$.trim($('#aliasName').val()) && $('#aliasName').val(ret.msg);
+                    } else {
+                        'modify' === sAction ? !$.trim($('#modifyAliasInput').val()) && $('#modifyAliasInput').val(sValue) : !$.trim($('#aliasName').val()) && $('#aliasName').val(sValue);
+                    }
                 });
             });
 
@@ -183,27 +225,34 @@ var CONF = {
                 }
                 this.value = sValue;
 
-                me.checkUnique.call(this, CONF.API.mobileUnique_AJAX, {
-                    checkType: 'mobile',
-                    checkValue: sValue
-                }, function(ret) {
-
+                var verifyObj = {
+                    verifyType: 'mobile',
+                    verifyValue: sValue
+                };
+                'modify' === $.getUrlParam('action') && (verifyObj['subAccountId'] = $.getUrlParam('subAccountId'));
+                me.verifyUnique.call(this, CONF.API.verifyUnique_AJAX, verifyObj, function(ret) {
+                    if (!ret.success) {
+                        $(this).addFmErrorTip(CONF.validMsg.phoneNumberDuplicateText);
+                    }
                 });
             });
 
-            $('.view_role_auth').click(function() {
-                var win = $.addWin('<div id="subaccount_set_com">' +
-                    '<div class="con clearfix">' +
-                    '<div class="com_tree tree_1"></div>' +
-                    '<div class="com_tree tree_2 ml20"></div>' +
-                    '<div class="com_tree tree_3 ml20"></div>' +
-                    '<div class="com_tree tree_4 ml20"></div>' +
-                    '</div></div>', {
-                        title: '设置权限',
-                        width: 760
+            $('#selectRole').change(function() {
+                '0000' === $(this).val() ? (window.location.href = CONF.API.toRoleAuth_URL) : (SubAccountUtil.getAllIsAuthResByRoleId($(this).val(), function(data) {
+                    data && $.each(data, function(index, item) {
+                        if ("交易明细" == item.resName) {
+                            item.isAuth ? $('#terminalBlock').show() : $('#terminalBlock').hide();
+                        }
                     });
+                }));
+            });
 
-                SubAccountUtil.getAllIsAuthResByRoleId($('#selectRole').val());
+            $('.view_role_auth').click(function() {
+                roleAuthWin = $.addWin(CONF.htmlTemplate.roleAuthTreeTpl, {
+                    title: '角色权限',
+                    width: 760
+                });
+                SubAccountUtil.getAllIsAuthResByRoleId($('#selectRole').val(), SubAccountUtil.renderAuthTree);
             });
 
             $('#terminalBox .thead .btn').click(function() {
@@ -231,25 +280,35 @@ var CONF = {
                 $('#selectAll').children('input').prop('checked', bAllChecked);
             });
 
-            $('#terminalBox .btn_submit').click(function() {
-                var result = SubAccountUtil.validate();
-                if (result) {
-                    var postObj = {
-
-                    };
-                    $.ajax({
-                        type: 'post',
-                        url: CONF.API.addSubAccount_AJAX,
-                        dataType: 'json',
-                        data: postObj,
-                        success: function(data) {
-
-                        }
-                    });
-                }
+            $('#subAccountBox .btn_submit').click(function() {
+                SubAccountUtil.submitData();
             });
         },
-        initRoleSelectList: function() {
+        submitData: function() {
+            var result = this.validate();
+            if (result) {
+                var sAction = $.getUrlParam('action');
+                var postObj = {
+                    personName: $('#accountName').val(),
+                    roleId: $('#selectRole').val(),
+                    bindTerminalNo: jQuery.type(result) === 'array' ? result.join(',') : ''
+                };
+                sAction === 'modify' ? (postObj['id'] = $.getUrlParam('subAccountId'), postObj['subMerchantUserId'] = $.getUrlParam('subMerchantUserId'), postObj['aliasName'] = $('#modifyAliasInput').val(), postObj['status'] = $('#selectStatus').val()) : (postObj['mobilePhone'] = $('#phoneNumber').val(), postObj['aliasName'] = $('#aliasName').val());
+                $.ajax({
+                    type: 'post',
+                    url: sAction === 'modify' ? CONF.API.editSubAccount_AJAX : CONF.API.addSubAccount_AJAX,
+                    dataType: 'json',
+                    data: postObj,
+                    success: function(data) {
+                        !!data.success ? (sAction === 'modify' ? popupSuccessWin('恭喜你，修改子账号已成功！') : popupSuccessWin('恭喜您！子账号已设置成功，敬请获取短信密码进行登录！')) : $.addAlert(data.msg);
+                    }
+                });
+                /*              setTimeout(function() {
+                                    $('#terminalBox .btn_submit').css('cursor', 'not-allowed');
+                                }, 1E3);*/
+            }
+        },
+        initRoleSelectList: function(callback) {
             $.ajax({
                 type: "POST",
                 url: CONF.API.roleList_AJAX,
@@ -261,12 +320,13 @@ var CONF = {
                             roleOptionsHtml += '<option value="' + item.id + '">' + item.roleName + '</option>';
                         });
                     }
-                    roleOptionsHtml += '<option value="">新增角色</option>';
-                    $('#selectRole').html(roleOptionsHtml);
+                    roleOptionsHtml += '<option value="0000">新增角色</option>';
+                    $('#selectRole').html(roleOptionsHtml).uiSelectReg();
+                    callback && callback();
                 }
             });
         },
-        getAllIsAuthResByRoleId: function(roleId) {
+        getAllIsAuthResByRoleId: function(roleId, handler) {
             $.ajax({
                 type: "POST",
                 url: CONF.API.authRes_AJAX,
@@ -276,21 +336,27 @@ var CONF = {
                 },
                 success: function(data) {
                     if (data && data.length > 0) {
-                        $.each(data, function(index, item) {
-                            $('#subaccount_set_com .tree_' + (index + 1), html).setTree({
-                                title: {
-                                    text: item.resName,
-                                    checkbox: {
-                                        name: item.id,
-                                        checked: item.isAuth
-                                    },
-                                },
-                                data: SubAccountUtil.buildAuthTreeData(item)
-                            });
-                        });
+                        handler(data);
+                        $('#subAccountBox').removeAreaLoading();
                     }
                 }
             });
+        },
+        renderAuthTree: function(data) {
+            $.each(data, function(index, item) {
+                $('#subaccount_set_com .tree_' + (index + 1)).setTree({
+                    title: {
+                        text: item.resName,
+                        checkbox: {
+                            name: item.id,
+                            checked: item.isAuth
+                        },
+                    },
+                    data: SubAccountUtil.buildAuthTreeData(item)
+                });
+            });
+            $.alignWin(roleAuthWin);
+            $('#subaccount_set_com .ui_checkbox_box').addClass('ui_checkbox_box_disabled');
         },
         buildAuthTreeData: function(authItem) {
             var authTreeData = [];
@@ -312,18 +378,54 @@ var CONF = {
             }
             return authTreeData;
         },
-        searchTerminal: function(subAccountId) {
+        getSubAccountInfo: function(subAccountId, callback) {
+            $.ajax({
+                type: "POST",
+                url: CONF.API.getSubAccount_AJAX,
+                dataType: "json",
+                data: {
+                    subAccountId: subAccountId
+                },
+                success: function(data) {
+                    if (data.subAccountVo) {
+                        callback && callback(data.subAccountVo);
+                    } else {
+                        $.addAlert("获取帐号信息异常，请稍后重试！如果重试还是提示异常，请联系嘉联！");
+                    }
+                },
+                error: function() {
+                    $.addAlert("获取帐号信息异常，请稍后重试！如果重试还是提示异常，请联系嘉联！");
+                }
+            });
+        },
+        searchTerminal: function(subAccountId, boundOnly, callback) {
+            var me = this;
             $.ajax({
                 type: "POST",
                 url: CONF.API.searchTerminal_AJAX + (subAccountId ? "?subAccountId=" + subAccountId : ""),
                 dataType: "json",
                 success: function(data) {
-                    SubAccountUtil.render(data);
+                    if (!!data && '[object Array]' == Object.prototype.toString.call(data)) {
+                        var myData = [];
+                        if (boundOnly) {
+                            for (var i = 0, size = data.length; size > i; i++) {
+                                !!data[i]['bound'] && myData.push(data[i]);
+                            }
+                        } else {
+                            myData = data;
+                        }
+                        me.originalData = myData;
+                        SubAccountUtil.render(myData);
+                    }
+                    callback && callback();
+                    $('#subAccountBox').removeAreaLoading();
                 }
             });
         },
         bindCheckBox: function() {
-            $('#terminalBox .tbody .ui_checkbox_box').uiCheckbox();
+            $('#terminalBox .tbody .ui_checkbox_box').each(function() {
+                !!$(this).attr('data-bound') && $(this).children('input').prop('checked', true);
+            }).uiCheckbox();
         },
         render: function(data) {
             var i,
@@ -339,12 +441,13 @@ var CONF = {
                 html[j] = CONF.htmlTemplate.sectionWrapperTpl.replace("{{rows}}", sections.slice(this.pageSize * j, this.pageSize * (j + 1)).join(""));
             }
             $("#" + this.terminalContainerId).html(html.join(""));
-            this.initPagination();
             this.bindCheckBox();
-            $("#" + this.terminalContainerId).popupTipLayer({
+            $("div.holder").empty();
+            var bVisible = $('#terminalBlock').is(':visible');
+            pageCount > 1 ? (!bVisible && $('#terminalBlock').show(), this.initPagination(), !bVisible && $('#terminalBlock').hide(), bVisible && $("#" + this.terminalContainerId).popupTipLayer({
                 once: !0,
                 content: '您可以使用鼠标滚轮翻页'
-            });
+            })) : $("#" + this.terminalContainerId).css('min-height', 'auto');
         },
         initPagination: function() {
             var me = this;
@@ -364,20 +467,33 @@ var CONF = {
         },
         init: function() {
             this.showOrHide();
-            this.initRoleSelectList()
             this.polyfillPlaceholder();
-            this.render(this.originalData);
             this.bindEvent();
         }
     },
     popupSuccessWin = function(content) {
-        var successWin = $.addWin('<div id="successBox" class="success"><i class="success_img"></i><p>' + content + '</p><input type="button" value="确认" class="ui_submit ui_close"></div>', {
+        var successWin, timer = null;
+
+        function toSubAccountList() {
+            clearTimeout(timer);
+            $.removeWin(successWin);
+            window.location.href = CONF.API.toSubAccountList_URL;
+        }
+        successWin = $.addWin(CONF.htmlTemplate.successWinTpl.replace('{{content}}', content), {
             title: '提示',
-            width: 642
+            width: 642,
+            fn: function(win) {
+                $('.close', win).click(function() {
+                    toSubAccountList();
+                });
+            }
         });
         $('#successBox .ui_close').click(function() {
-            $.removeWin(successWin);
+            toSubAccountList();
         });
+        timer = setTimeout(function() {
+            $('#successBox .ui_close').trigger('click');
+        }, 5E3);
     };
 $.fn.popupTipLayer = function(opts) {
     return this.each(function() {
@@ -396,7 +512,13 @@ $.fn.popupTipLayer = function(opts) {
             $layer.fadeOut('slow', function() {
                 $layer.remove();
             })
-        }, 5E3);
+        }, 3E3);
         opts.once && $(this).attr('data-showtiplayerbefore', 1);
     }), this;
 };
+
+$(function() {
+	$.ajaxSetup({
+		beforeSend: $('#subAccountBox').addAreaLoading()
+	});	
+});
