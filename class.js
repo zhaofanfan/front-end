@@ -102,15 +102,15 @@
                 case "YY":
                     return (date.getFullYear() + "").slice(2);
                 case "MM":
-                    return date.getMonth() + 1;
+                    return ("0" + (date.getMonth() + 1)).slice(-2);
                 case "DD":
-                    return date.getDate();
+                    return ("0" + date.getDate()).slice(-2);
                 case "hh":
-                    return date.getHours();
+                    return ("0" + date.getHours()).slice(-2);
                 case "mm":
-                    return date.getMinutes();
+                    return ("0" + date.getMinutes()).slice(-2);
                 case "ss":
-                    return date.getSeconds();
+                    return ("0" + date.getSeconds()).slice(-2);
                 case "星期":
                     return "星期" + week[date.getDay() + 7];
                 case "周":
@@ -278,5 +278,61 @@
             }
         });
 
-    win.T = win.T || {}, win.T.Class = Class, win.T.ic = win.T.ic || {}, win.T.ic.InfoCenter = InfoCenter, win.T.EventPlugin = EventPlugin;
+    var evLists = {
+            domListeners: [], //待实现
+            customListeners: {}
+        },
+        customListeners = evLists.customListeners,
+        bind = function(a, b, c) {
+            b = b.replace(/^on/i, "");
+            var e = function(a) {
+                c(a)
+            };
+            return b = b.toLowerCase(), d[b] = d[b] || [], d[b].push({
+                type: b,
+                listener: c,
+                realListener: e
+            }), a
+        },
+        unbind = function(a, b, c) {
+            b = b.replace(/^on/i, "").toLowerCase();
+            var e = d[b];
+            if (e) {
+                var f = (e.length, !c);
+                return e && e.length > 0 && (1 == f ? d[b] = [] : e.forEach(function(a, b) {
+                    a.listener === c && e.splice(b, 1)
+                })), a
+            }
+        },
+        fire = function(a, b) {
+            var c = b.type.replace(/^on/i, "").toLowerCase();
+            if (a.filters && -1 == a.filters.indexOf(c)) return a;
+            var e = b.data,
+                f = d[c];
+            return f && f.length > 0 && f.forEach(function(a) {
+                try {
+                    a.listener({
+                        type: c,
+                        data: e
+                    })
+                } catch (b) {}
+            }), a
+        },
+        CustomEvent = Class("CustomEvent", {
+            methods: {
+                filter: function(a) {
+                    this.filters = a
+                },
+                on: function(a, b) {
+                    bind(this, a, b)
+                },
+                un: function(a, b) {
+                    unbind(this, a, b)
+                },
+                fire: function(a) {
+                    fire(this, a)
+                }
+            }
+        });
+    win.MT = win.MT || {}, win.MT.Class = Class, win.MT.ic = win.MT.ic || {}, win.MT.ic.InfoCenter = InfoCenter, win.MT.EventPlugin = EventPlugin;
 }(window, document);
