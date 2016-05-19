@@ -1,3 +1,9 @@
+/**
+ * 子账号管理
+ * @authors zhaofan@xinguodu.com
+ * @date    2016-03-04 10:12:47
+ * @version $V1.0$
+ */
 var CONF = {
         reg: {
             nameFormat: "^([a-zA-Z]|[\\u4e00-\\u9fa5])+$",
@@ -55,6 +61,7 @@ var CONF = {
         terminalContainerId: 'wrap',
         pageSize: 10,
         originalData: null,
+        terminalId2Bind: [],
         byteLength: function(str) {
             return (str || "").replace(/[^\x00-\xff]/g, "00").length;
         },
@@ -161,12 +168,12 @@ var CONF = {
                 return true;
             }
 
-            var terminalId2Bind = [];
-            $('#terminalBox .tbody .ui_checkbox_box_checked').each(function() {
-                terminalId2Bind.push($(this).attr('data-sid'));
-            });
+            /*          var terminalId2Bind = [];
+                        $('#terminalBox .tbody .ui_checkbox_box_checked').each(function() {
+                            terminalId2Bind.push($(this).attr('data-sid'));
+                        });*/
 
-            return !!terminalId2Bind.length ? terminalId2Bind : ($.addAlert("请至少选择一个终端绑定！"), false);
+            return !!this.terminalId2Bind.length ? this.terminalId2Bind : ($.addAlert("请至少选择一个终端绑定！"), false);
         },
         bindEvent: function() {
             var me = this;
@@ -267,6 +274,13 @@ var CONF = {
 
                 bChecked ? hCheckbox.addClass('ui_checkbox_box_checked') : hCheckbox.removeClass('ui_checkbox_box_checked');
                 hCheckbox.children('input').prop('checked', bChecked);
+
+                hCheckbox.each(function() {
+                    var terminalId = $(this).attr('data-sid');
+                    var nIndex = jQuery.inArray(terminalId, SubAccountUtil.terminalId2Bind);
+
+                    bChecked ? nIndex > -1 ? void 0 : SubAccountUtil.terminalId2Bind.push(terminalId) : (nIndex > -1 && SubAccountUtil.terminalId2Bind.splice(nIndex, 1));
+                });
             });
 
             $('#terminalBox .tbody').delegate('.ui_checkbox_box', 'click', function() {
@@ -278,6 +292,10 @@ var CONF = {
 
                 bAllChecked ? $('#selectAll').addClass('ui_checkbox_box_checked') : $('#selectAll').removeClass('ui_checkbox_box_checked');
                 $('#selectAll').children('input').prop('checked', bAllChecked);
+
+                var terminalId = $(this).attr('data-sid');
+                var nIndex = jQuery.inArray(terminalId, SubAccountUtil.terminalId2Bind);
+                nIndex > -1 ? SubAccountUtil.terminalId2Bind.splice(nIndex, 1) : SubAccountUtil.terminalId2Bind.push(terminalId);
             });
 
             $('#subAccountBox .btn_submit').click(function() {
@@ -407,15 +425,12 @@ var CONF = {
                 success: function(data) {
                     if (!!data && '[object Array]' == Object.prototype.toString.call(data)) {
                         var myData = [];
-                        if (boundOnly) {
-                            for (var i = 0, size = data.length; size > i; i++) {
-                                !!data[i]['bound'] && myData.push(data[i]);
-                            }
-                        } else {
-                            myData = data;
+                        for (var i = 0, size = data.length; size > i; i++) {
+                            !!data[i]['bound'] && me.terminalId2Bind.push(data[i]['id']);
+                            boundOnly && !!data[i]['bound'] ? myData.push(data[i]) : void 0;
                         }
-                        me.originalData = myData;
-                        SubAccountUtil.render(myData);
+                        me.originalData = boundOnly ? myData : data;
+                        SubAccountUtil.render(me.originalData);
                     }
                     callback && callback();
                     $('#subAccountBox').removeAreaLoading();
@@ -423,8 +438,10 @@ var CONF = {
             });
         },
         bindCheckBox: function() {
+            var _this = this;
             $('#terminalBox .tbody .ui_checkbox_box').each(function() {
-                !!$(this).attr('data-bound') && $(this).children('input').prop('checked', true);
+                //!!$(this).attr('data-bound') && $(this).children('input').prop('checked', true);
+                jQuery.inArray($(this).attr('data-sid'), _this.terminalId2Bind) > -1 && $(this).children('input').prop('checked', true);
             }).uiCheckbox();
         },
         render: function(data) {
@@ -518,7 +535,7 @@ $.fn.popupTipLayer = function(opts) {
 };
 
 $(function() {
-	$.ajaxSetup({
-		beforeSend: $('#subAccountBox').addAreaLoading()
-	});	
+    $.ajaxSetup({
+        beforeSend: $('#subAccountBox').addAreaLoading()
+    });
 });
