@@ -1,65 +1,66 @@
 ~ function(win, doc) {
+    var f = win;
     var DefSuperClass = function() {},
         d = new Object;
     d.superclass = Object, d.__NAME__ = "Object", d.superinstance = new Object;
     d.callsuper = function(a) {
         var b = this;
         if (this._realsuper = this._realsuper ? this._realsuper.prototype.superclass : this.superclass, "string" == typeof a) {
-            var c = Array.prototype.slice.call(arguments, 1);
-            b._realsuper.prototype[a].apply(b, c)
+            var args = Array.prototype.slice.call(arguments, 1);
+            b._realsuper.prototype[a].apply(b, args)
         } else {
-            var c = Array.prototype.slice.call(arguments, 0);
-            b._realsuper.apply(b, c)
+            var args = Array.prototype.slice.call(arguments, 0);
+            b._realsuper.apply(b, args)
         }
         this._realsuper = null
     }, DefSuperClass.prototype = d;
 
     var Namespace = function(ns, obj2Mount, rootNs) {
-        var e, f = ns.split("."),
-            g = f.length - 1,
-            h = 0;
+        var nsName, nsNames = ns.split("."),
+            max = nsNames.length - 1,
+            index = 0;
         if (!rootNs) try {
-            if (!new RegExp("^[a-zA-Z_$][a-zA-Z0-9_$]*$").test(f[0])) throw "";
-            rootNs = new Function("return " + f[0])(), h = 1
+            if (!new RegExp("^[a-zA-Z_$][a-zA-Z0-9_$]*$").test(nsNames[0])) throw "";
+            rootNs = new Function("return " + nsNames[0])(), index = 1
         } catch (i) {
             rootNs = win
         }
-        for (; g > h; h++) e = f[h], rootNs[e] || (rootNs[e] = {}), rootNs = rootNs[e];
-        rootNs[f[g]] || (rootNs[f[g]] = obj2Mount)
+        for (; max > index; index++) nsName = nsNames[index], rootNs[nsName] || (rootNs[nsName] = {}), rootNs = rootNs[nsName];
+        rootNs[nsNames[max]] || (rootNs[nsNames[max]] = obj2Mount)
     };
 
     var Class = function(clsName, oArg) {
-        var e = oArg.ns && oArg.ns + "." + clsName;
-        if (e) try {
-            var f = new Function("return " + e)();
-            if (f) return f
+        var ns = oArg.ns && oArg.ns + "." + clsName;
+        if (ns) try {
+            var cls = new Function("return " + ns)();
+            if (cls) return cls
         } catch (g) {}
         var superClass = oArg.extend || DefSuperClass,
-            i = function() {},
+            fn = function() {},
             plugins = oArg.plugins || [];
-        i.prototype = superClass.prototype;
+        fn.prototype = superClass.prototype;
         var construct = oArg.construct || function() {},
             properties = oArg.properties || {},
             methods = oArg.methods || {},
             statics = oArg.statics || {},
-            o = new i;
-        for (var p in o) o.hasOwnProperty(p) && delete o[p];
-        for (var p in properties) o[p] = properties[p];
-        for (var p in methods) o[p] = methods[p];
-        for (var q = 0; q < plugins.length; q++) {
-            var r = plugins[q];
-            for (var p in r) o[p] = r[p]
+            _proto_ = new fn;
+        for (var property in _proto_) _proto_.hasOwnProperty(property) && delete _proto_[property];
+        for (var property in properties) _proto_[property] = properties[property];
+        for (var methodName in methods) _proto_[methodName] = methods[methodName];
+        for (var index = 0; index < plugins.length; index++) {
+            var plugin = plugins[index];
+            for (var p in plugin) _proto_[p] = plugin[p]
         }
-        o.constructor = construct, o.superclass = superClass, o.superinstance = new i, o.__NAME__ = clsName, construct.prototype = o;
+        _proto_.constructor = construct, _proto_.superclass = superClass, _proto_.superinstance = new fn, _proto_.__NAME__ = clsName, construct.prototype = _proto_;
         for (var p in statics) construct[p] = statics[p];
-        return e && Namespace(e, construct), construct
+        return ns && Namespace(ns, construct), construct
     };
 
     function extend(dest, src, callback) {
         callback = callback || function() {
             return !0
         };
-        for (var d in src) src.hasOwnProperty(d) && callback(dest[d], src[d]) && (dest[d] = src[d]);
+        for (var property in src) src.hasOwnProperty(property) && callback(dest[property], src[property]) && (dest[property] = src[property]);
         return dest
     }
 
@@ -123,8 +124,26 @@
         });
     }
 
-    var f = win,
-        storage = {},
+    function jsonToQuery(json) {
+        var key, value, ret = [];
+        for (key in json) {
+            key = encodeURIComponent(key);
+            value = json[key];
+            if (value && value.constructor == Array) {
+                var queryValues = [];
+                for (var i = 0, len = value.length, val; i < len; i++) {
+                    val = value[i];
+                    queryValues.push(key + '=' + encodeURIComponent(!val ? '' : String(val)));
+                }
+                ret = ret.concat(queryValues);
+            } else {
+                ret.push(key + '=' + encodeURIComponent(!value ? '' : String(value)));
+            }
+        }
+        return ret.join('&');
+    }
+
+    var storage = {},
         StorageUtil = {
             remove: function(key) {
                 delete storage[key]
@@ -139,7 +158,7 @@
         globalKey = "QInfo",
         buffer = [],
         capacity = 300,
-        n = {
+        opts = {
             moduleName: "",
             date: "",
             message: "",
@@ -147,72 +166,71 @@
             level: ""
         },
         format = function() {
-            var d = 1,
+            var pivot = 1,
                 args = arguments;
             return args[0].replace(/%[sdj%]/g, function() {
-                return String(args[d++]);
+                return String(args[pivot++]);
             });
         },
-        formatMessage = function(a) {
-            for (var b = [a.tpl, a.level, a.moduleName, formatDate(new Date(1 * a.date), "YYYY-MM-DD hh:mm:ss")], c = 0; c < a.message.length; c++) b.push(a.message[c]);
-            var e = format.apply(null, b);
-            return e
+        formatMessage = function(msgObj) {
+            for (var vArgs = [msgObj.tpl, msgObj.level, msgObj.moduleName, formatDate(new Date(1 * msgObj.date), "YYYY-MM-DD hh:mm:ss")], index = 0; index < msgObj.message.length; index++) vArgs.push(msgObj.message[index]);
+            return format.apply(null, vArgs);
         },
         output = {
-            log: function(a) {
-                f.console && console.log && console.log(formatMessage(a))
+            log: function(msgObj) {
+                f.console && console.log && console.log(formatMessage(msgObj))
             },
-            info: function(a) {
-                f.console && console.info && console.info(formatMessage(a))
+            info: function(msgObj) {
+                f.console && console.info && console.info(formatMessage(msgObj))
             },
-            debug: function(a) {
-                f.console && console.debug && console.debug(formatMessage(a))
+            debug: function(msgObj) {
+                f.console && console.debug && console.debug(formatMessage(msgObj))
             },
-            warn: function(a) {
-                f.console && console.warn && console.warn(formatMessage(a))
+            warn: function(msgObj) {
+                f.console && console.warn && console.warn(formatMessage(msgObj))
             },
-            error: function(a) {
-                f.console && console.error && console.error(formatMessage(a))
+            error: function(msgObj) {
+                f.console && console.error && console.error(formatMessage(msgObj))
             },
-            flush: function(a) {
-                this.log(formatMessage(a))
+            flush: function(msgObj) {
+                this.log(formatMessage(msgObj))
             }
         },
         InfoCenter = Class("InfoCenter", {
-            construct: function(a) {
-                a = a || {}, this._moduleName = a.moduleName || "Unknown", this._tmpl = a.tmpl || "[%s][%s][%s] >>> %s";
-                var b = {};
-                extend(b, output), extend(b, a.output || {}), this._output = b
+            construct: function(opt) {
+                opt = opt || {}, this._moduleName = opt.moduleName || "Unknown", this._tmpl = opt.tmpl || "[%s][%s][%s] >>> %s";
+                var _output = {};
+                extend(_output, output), extend(_output, opt.output || {}), this._output = _output
             },
             methods: {
                 _formatInfo: function(args, level) {
                     args = Array.prototype.slice.call(args);
-                    var c = {};
-                    for (var d in n) c[d] = n[d];
-                    return c.moduleName = this._moduleName, c.date = (new Date).getTime(), c.message = args, c.tpl = this._tmpl, c.level = level, c
+                    var msgObj = {};
+                    for (var key in opts) msgObj[key] = opts[key];
+                    return msgObj.moduleName = this._moduleName, msgObj.date = (new Date).getTime(), msgObj.message = args, msgObj.tpl = this._tmpl, msgObj.level = level, msgObj
                 },
                 log: function() {
-                    var a = this._formatInfo(arguments, "LOG");
-                    this._writeLog(a), this._check() && this._output.log(a)
+                    var msgObj = this._formatInfo(arguments, "LOG");
+                    this._writeLog(msgObj), this._check() && this._output.log(msgObj)
                 },
                 debug: function() {
-                    var a = this._formatInfo(arguments, "DEBUG");
-                    this._writeLog(a), this._check() && this._output.debug(a)
+                    var msgObj = this._formatInfo(arguments, "DEBUG");
+                    this._writeLog(msgObj), this._check() && this._output.debug(msgObj)
                 },
                 info: function() {
-                    var a = this._formatInfo(arguments, "INFO");
-                    this._writeLog(a), this._check() && this._output.info(a)
+                    var msgObj = this._formatInfo(arguments, "INFO");
+                    this._writeLog(msgObj), this._check() && this._output.info(msgObj)
                 },
                 warn: function() {
-                    var a = this._formatInfo(arguments, "WARN");
-                    this._writeLog(a), this._check() && this._output.warn(a)
+                    var msgObj = this._formatInfo(arguments, "WARN");
+                    this._writeLog(msgObj), this._check() && this._output.warn(msgObj)
                 },
                 error: function() {
-                    var a = this._formatInfo(arguments, "ERROR");
-                    this._writeLog(a), this._check() && this._output.error(a)
+                    var msgObj = this._formatInfo(arguments, "ERROR");
+                    this._writeLog(msgObj), this._check() && this._output.error(msgObj)
                 },
-                _writeLog: function(a) {
-                    a && (buffer.length >= capacity && buffer.splice(0, 1), buffer.push(a), this._save())
+                _writeLog: function(msgObj) {
+                    msgObj && (buffer.length >= capacity && buffer.splice(0, 1), buffer.push(msgObj), this._save())
                 },
                 _save: function() {
                     StorageUtil.remove(globalKey), StorageUtil.write(globalKey, JSON.stringify(buffer))
@@ -229,43 +247,43 @@
         EventPlugin = Class("EventPlugin", {
             construct: function() {},
             methods: {
-                on: function(evType, listener) {
+                on: function(type, listener) {
                     this._ep_createList();
-                    var realListener = function(e) {
-                        listener(e)
+                    var realListener = function(ev) {
+                        listener(ev)
                     };
-                    return evType = evType.toLowerCase(), this._ep_lists[evType] = this._ep_lists[evType] || [], this._ep_lists[evType].push({
-                        type: evType,
+                    return type = type.toLowerCase(), this._ep_lists[type] = this._ep_lists[type] || [], this._ep_lists[type].push({
+                        type: type,
                         listener: listener,
                         realListener: realListener
-                    }), LOG.debug("on | " + this.__NAME__ + " | " + evType + " | list length : " + this._ep_lists[evType].length), this
+                    }), LOG.debug("on | " + this.__NAME__ + " | " + type + " | list length : " + this._ep_lists[type].length), this
                 },
-                un: function(evType, listener) {
-                    if (this._ep_createList(), evType) {
-                        evType = evType.toLowerCase();
-                        var n = this._ep_lists[evType];
-                        if (n) {
-                            var a = (n.length, !listener);
-                            n && n.length > 0 && (a ? this._ep_lists[evType] = [] : n.forEach(function(e, a) {
-                                e && e.listener === listener && (n[a] = null)
+                un: function(type, listener) {
+                    if (this._ep_createList(), type) {
+                        type = type.toLowerCase();
+                        var evLists = this._ep_lists[type];
+                        if (evLists) {
+                            var isRemoveAll = (evLists.length, !listener);
+                            evLists && evLists.length > 0 && (isRemoveAll ? this._ep_lists[type] = [] : evLists.forEach(function(obj, index) {
+                                obj && obj.listener === listener && (evLists[index] = null)
                             }))
                         }
                     } else this._ep_clearList();
                     return this
                 },
-                fire: function(e) {
+                fire: function(ev) {
                     this._ep_createList();
-                    var evType = e.type.toLowerCase(),
-                        data = e.data,
-                        i = this._ep_lists[evType];
-                    return i && i.length > 0 && i.forEach(function(e) {
+                    var type = ev.type.toLowerCase(),
+                        data = ev.data,
+                        evLists = this._ep_lists[type];
+                    return evLists && evLists.length > 0 && evLists.forEach(function(obj) {
                         try {
-                            e && e.listener && e.listener({
-                                type: evType,
+                            obj && obj.listener && obj.listener({
+                                type: type,
                                 data: data
                             })
                         } catch (i) {
-                            LOG.log("eventPluginFireError---eventType is :" + evType + " ;error message: " + i.message)
+                            LOG.log("eventPluginFireError---eventType is :" + type + " ;error message: " + i.message)
                         }
                     }), this
                 },
@@ -283,56 +301,83 @@
             customListeners: {}
         },
         customListeners = evLists.customListeners,
-        bind = function(a, b, c) {
-            b = b.replace(/^on/i, "");
-            var e = function(a) {
-                c(a)
+        bind = function(customEvtInstance, type, listener) {
+            type = type.replace(/^on/i, "");
+            var realListener = function(ev) {
+                listener(ev)
             };
-            return b = b.toLowerCase(), d[b] = d[b] || [], d[b].push({
-                type: b,
-                listener: c,
-                realListener: e
-            }), a
+            return type = type.toLowerCase(), customListeners[type] = customListeners[type] || [], customListeners[type].push({
+                type: type,
+                listener: listener,
+                realListener: realListener
+            }), customEvtInstance
         },
-        unbind = function(a, b, c) {
-            b = b.replace(/^on/i, "").toLowerCase();
-            var e = d[b];
-            if (e) {
-                var f = (e.length, !c);
-                return e && e.length > 0 && (1 == f ? d[b] = [] : e.forEach(function(a, b) {
-                    a.listener === c && e.splice(b, 1)
-                })), a
+        unbind = function(customEvtInstance, type, listener) {
+            type = type.replace(/^on/i, "").toLowerCase();
+            var evLists = customListeners[type];
+            if (evLists) {
+                var isRemoveAll = (evLists.length, !listener);
+                return evLists && evLists.length > 0 && (1 == isRemoveAll ? customListeners[type] = [] : evLists.forEach(function(customEvt, index) {
+                    customEvt.listener === listener && evLists.splice(index, 1)
+                })), customEvtInstance
             }
         },
-        fire = function(a, b) {
-            var c = b.type.replace(/^on/i, "").toLowerCase();
-            if (a.filters && -1 == a.filters.indexOf(c)) return a;
-            var e = b.data,
-                f = d[c];
-            return f && f.length > 0 && f.forEach(function(a) {
+        fire = function(customEvtInstance, ev) {
+            var type = ev.type.replace(/^on/i, "").toLowerCase();
+            if (customEvtInstance.filters && -1 == customEvtInstance.filters.indexOf(type)) return customEvtInstance;
+            var data = ev.data,
+                evLists = customListeners[type];
+            return evLists && evLists.length > 0 && evLists.forEach(function(customEvt) {
                 try {
-                    a.listener({
-                        type: c,
-                        data: e
+                    customEvt.listener({
+                        type: type,
+                        data: data
                     })
                 } catch (b) {}
-            }), a
+            }), customEvtInstance
         },
         CustomEvent = Class("CustomEvent", {
             methods: {
-                filter: function(a) {
-                    this.filters = a
+                filter: function(type) {
+                    return this.filters = type, this
                 },
-                on: function(a, b) {
-                    bind(this, a, b)
+                on: function(type, listener) {
+                    return bind(this, type, listener)
                 },
-                un: function(a, b) {
-                    unbind(this, a, b)
+                un: function(type, listener) {
+                    return unbind(this, type, listener)
                 },
-                fire: function(a) {
-                    fire(this, a)
+                fire: function(ev) {
+                    return fire(this, ev)
                 }
             }
         });
-    win.MT = win.MT || {}, win.MT.Class = Class, win.MT.ic = win.MT.ic || {}, win.MT.ic.InfoCenter = InfoCenter, win.MT.EventPlugin = EventPlugin;
+
+    var prefix = "window.MT.__callbacks__.",
+        preprocess = function(url) {
+            return RegExp("\\?").test(url) ? "&" : "?"
+        },
+        createScript = function(url, charset) {
+            var script = document.createElement("SCRIPT");
+            return script.setAttribute("type", "text/javascript"), charset && script.setAttribute("charset", charset), script.setAttribute("src", url), document.getElementsByTagName("head")[0].appendChild(script), script
+        },
+        removeScript = function(script) {
+            script.clearAttributes && script.clearAttributes(), script && script.parentNode && script.parentNode.removeChild(script), script = null
+        },
+        jsonp = function(url, opt) {
+            var timer, script, realUrl, rootNs, data = extend({}, opt.data),
+                timeout = opt.timeout || 1e4,
+                onsuccess = opt.onsuccess || function() {},
+                onfailure = opt.onfailure || function() {},
+                callbackName = opt.jsonpCallback || "cb" + Math.floor(2147483648 * Math.random()).toString(36),
+                callback = opt.jsonp || "callback",
+                namespace = opt.jsonp ? "" : prefix;
+            rootNs = opt.jsonp ? f : MT.__callbacks__ = MT.__callbacks__ || {}, onsuccess && (data[callback] = namespace + callbackName, rootNs[callbackName] = function(data) {
+                timer && clearTimeout(timer), onsuccess(data), delete rootNs[callbackName], removeScript(script)
+            }, realUrl = url + preprocess(url) + jsonToQuery(data)), script = createScript(realUrl, opt.charset), timer = setTimeout(function() {
+                removeScript(script), onfailure()
+            }, timeout)
+        };
+
+    f.MT = f.MT || {}, f.MT.Class = Class, f.MT.ic = f.MT.ic || {}, f.MT.ic.InfoCenter = InfoCenter, f.MT.EventPlugin = EventPlugin, f.MT.customEvent = new CustomEvent, f.jsonp = jsonp;
 }(window, document);
