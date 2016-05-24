@@ -1,4 +1,30 @@
 ~ function(win, doc) {
+    //Array.forEach implementation for IE support..
+    //https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/forEach
+    Array.prototype.forEach || (Array.prototype.forEach = function(callback, thisArg) {
+        var T, k;
+        if (this == null) {
+            throw new TypeError(" this is null or not defined");
+        }
+        var O = Object(this);
+        var len = O.length >>> 0; // Hack to convert O.length to a UInt32
+        if ({}.toString.call(callback) != "[object Function]") {
+            throw new TypeError(callback + " is not a function");
+        }
+        if (thisArg) {
+            T = thisArg;
+        }
+        k = 0;
+        while (k < len) {
+            var kValue;
+            if (k in O) {
+                kValue = O[k];
+                callback.call(T, kValue, k, O);
+            }
+            k++;
+        }
+    });
+
     var f = win;
     var DefSuperClass = function() {},
         d = new Object;
@@ -168,8 +194,19 @@
         format = function() {
             var pivot = 1,
                 args = arguments;
-            return args[0].replace(/%[sdj%]/g, function() {
-                return String(args[pivot++]);
+            return args[0].replace(/%[sdj%]/g, function(a) {
+                switch (a) {
+                    case "%s":
+                        return String(args[pivot++]);
+                    case "%d":
+                        return Number(args[pivot++]);
+                    case "%j":
+                        return JSON.stringify(args[pivot++]);
+                    case "%%":
+                        return "%";
+                    default:
+                        return a
+                }
             });
         },
         formatMessage = function(msgObj) {
@@ -228,6 +265,9 @@
                 error: function() {
                     var msgObj = this._formatInfo(arguments, "ERROR");
                     this._writeLog(msgObj), this._check() && this._output.error(msgObj)
+                },
+                setTmpl: function(tmpl) {
+                    return this._tmpl = tmpl, this
                 },
                 _writeLog: function(msgObj) {
                     msgObj && (buffer.length >= capacity && buffer.splice(0, 1), buffer.push(msgObj), this._save())
@@ -381,3 +421,119 @@
 
     f.MT = f.MT || {}, f.MT.Class = Class, f.MT.ic = f.MT.ic || {}, f.MT.ic.InfoCenter = InfoCenter, f.MT.EventPlugin = EventPlugin, f.MT.customEvent = new CustomEvent, f.jsonp = jsonp;
 }(window, document);
+
+(function(e) {
+    var UUID = function() {
+            var uuid = 1;
+            return function() {
+                return uuid++
+            }
+        }(),
+        ieStore = function() {
+            var __NAME__ = "local_storage";
+            return {
+                _store: null,
+                _getStore: function() {
+                    if (!this._store) {
+                        try {
+                            this._store = document.createElement("input");
+                            this._store.type = "hidden";
+                            this._store.addBehavior("#default#userData");
+                            document.body.appendChild(this._store)
+                        } catch (e) {
+                            var t = [];
+                            for (var n in e) {
+                                t.push(n + ": " + e[n])
+                            }
+                            document.title = t.join("\n");
+                            return false
+                        }
+                    }
+                    return this._store
+                },
+                get: function(name) {
+                    var _store = this._getStore();
+                    if (!_store) return false;
+                    _store.load(__NAME__);
+                    return _store.getAttribute(name)
+                },
+                add: function(obj) {
+                    var _store = this._getStore();
+                    if (!_store) return false;
+                    _store.load(__NAME__);
+                    _store.setAttribute(obj.name, obj.value);
+                    _store.save(__NAME__)
+                },
+                remove: function(name) {
+                    var _store = this._getStore();
+                    if (!_store) return false;
+                    _store.load(__NAME__);
+                    _store.removeAttribute(name);
+                    _store.save(__NAME__)
+                },
+                clear: function() {
+                    var _store = this._getStore();
+                    if (!_store) return false;
+                    var doc = _store.XMLDocument;
+                    var node = doc.selectSingleNode("ROOTSTUB");
+                    for (var i = 0; i < node.attributes.length; ++i) {
+                        var attribute = node.attributes[i];
+                        _store.removeAttribute(attribute.baseName)
+                    }
+                    _store.save(__NAME__)
+                }
+            }
+        }(),
+        cookie = {
+            add: function(obj) {
+                if (obj.name) {
+                    var str = obj.name + "=" + obj.value;
+                    if (obj.expire) {
+                        str += ";expires=" + (new Date((new Date).getTime() + obj.expire)).toGMTString()
+                    }
+                    if (obj.domain) {
+                        str += ";domain=" + obj.domain
+                    }
+                    if (obj.path) {
+                        str += ";path=" + obj.path
+                    }
+                    document.cookie = str
+                }
+            },
+            remove: function(name, obj) {
+                if (name) {
+                    var str = name + "=1;expires=" + (new Date((new Date).getTime() - 864e5)).toGMTString();
+                    obj = obj || {};
+                    str += ";path=" + (obj.path || "/");
+                    document.cookie = str;
+                    return true
+                }
+                return false
+            },
+            get: function(name) {
+                var t = document.cookie.split(/;\s*/),
+                    index, map;
+                for (index = 0; index < t.length; index++) {
+                    map = t[index].split("=");
+                    if (map[0] == name) {
+                        return map[1]
+                    }
+                }
+                return undefined
+            }
+        },
+        store = {
+            add: function(obj) {
+                localStorage[obj.name] = obj.value
+            },
+            get: function(name) {
+                return localStorage[name]
+            },
+            remove: function(name) {
+                localStorage.removeItem(name)
+            }
+        },
+        storage = e.localStorage ? store : ieStore;
+    e.CookieUtil = cookie;
+    e.StorageUtil = storage
+})(window);
