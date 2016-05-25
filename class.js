@@ -209,28 +209,28 @@
                 }
             });
         },
-        formatMessage = function(msgObj) {
-            for (var vArgs = [msgObj.tpl, msgObj.level, msgObj.moduleName, formatDate(new Date(1 * msgObj.date), "YYYY-MM-DD hh:mm:ss")], index = 0; index < msgObj.message.length; index++) vArgs.push(msgObj.message[index]);
+        formatMessage = function(msg) {
+            for (var vArgs = [msg.tpl, msg.level, msg.moduleName, formatDate(new Date(1 * msg.date), "YYYY-MM-DD hh:mm:ss")], index = 0; index < msg.message.length; index++) vArgs.push(msg.message[index]);
             return format.apply(null, vArgs);
         },
         output = {
-            log: function(msgObj) {
-                f.console && console.log && console.log(formatMessage(msgObj))
+            log: function(msg) {
+                f.console && console.log && console.log(formatMessage(msg))
             },
-            info: function(msgObj) {
-                f.console && console.info && console.info(formatMessage(msgObj))
+            info: function(msg) {
+                f.console && console.info && console.info(formatMessage(msg))
             },
-            debug: function(msgObj) {
-                f.console && console.debug && console.debug(formatMessage(msgObj))
+            debug: function(msg) {
+                f.console && console.debug && console.debug(formatMessage(msg))
             },
-            warn: function(msgObj) {
-                f.console && console.warn && console.warn(formatMessage(msgObj))
+            warn: function(msg) {
+                f.console && console.warn && console.warn(formatMessage(msg))
             },
-            error: function(msgObj) {
-                f.console && console.error && console.error(formatMessage(msgObj))
+            error: function(msg) {
+                f.console && console.error && console.error(formatMessage(msg))
             },
-            flush: function(msgObj) {
-                this.log(formatMessage(msgObj))
+            flush: function(msg) {
+                this.log(formatMessage(msg))
             }
         },
         InfoCenter = Class("InfoCenter", {
@@ -242,35 +242,35 @@
             methods: {
                 _formatInfo: function(args, level) {
                     args = Array.prototype.slice.call(args);
-                    var msgObj = {};
-                    for (var key in opts) msgObj[key] = opts[key];
-                    return msgObj.moduleName = this._moduleName, msgObj.date = (new Date).getTime(), msgObj.message = args, msgObj.tpl = this._tmpl, msgObj.level = level, msgObj
+                    var msg = {};
+                    for (var key in opts) msg[key] = opts[key];
+                    return msg.moduleName = this._moduleName, msg.date = (new Date).getTime(), msg.message = args, msg.tpl = this._tmpl, msg.level = level, msg
                 },
                 log: function() {
-                    var msgObj = this._formatInfo(arguments, "LOG");
-                    this._writeLog(msgObj), this._check() && this._output.log(msgObj)
+                    var msg = this._formatInfo(arguments, "LOG");
+                    this._writeLog(msg), this._check() && this._output.log(msg)
                 },
                 debug: function() {
-                    var msgObj = this._formatInfo(arguments, "DEBUG");
-                    this._writeLog(msgObj), this._check() && this._output.debug(msgObj)
+                    var msg = this._formatInfo(arguments, "DEBUG");
+                    this._writeLog(msg), this._check() && this._output.debug(msg)
                 },
                 info: function() {
-                    var msgObj = this._formatInfo(arguments, "INFO");
-                    this._writeLog(msgObj), this._check() && this._output.info(msgObj)
+                    var msg = this._formatInfo(arguments, "INFO");
+                    this._writeLog(msg), this._check() && this._output.info(msg)
                 },
                 warn: function() {
-                    var msgObj = this._formatInfo(arguments, "WARN");
-                    this._writeLog(msgObj), this._check() && this._output.warn(msgObj)
+                    var msg = this._formatInfo(arguments, "WARN");
+                    this._writeLog(msg), this._check() && this._output.warn(msg)
                 },
                 error: function() {
-                    var msgObj = this._formatInfo(arguments, "ERROR");
-                    this._writeLog(msgObj), this._check() && this._output.error(msgObj)
+                    var msg = this._formatInfo(arguments, "ERROR");
+                    this._writeLog(msg), this._check() && this._output.error(msg)
                 },
                 setTmpl: function(tmpl) {
                     return this._tmpl = tmpl, this
                 },
-                _writeLog: function(msgObj) {
-                    msgObj && (buffer.length >= capacity && buffer.splice(0, 1), buffer.push(msgObj), this._save())
+                _writeLog: function(msg) {
+                    msg && (buffer.length >= capacity && buffer.splice(0, 1), buffer.push(msg), this._save())
                 },
                 _save: function() {
                     StorageUtil.remove(globalKey), StorageUtil.write(globalKey, JSON.stringify(buffer))
