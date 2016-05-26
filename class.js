@@ -150,6 +150,47 @@
         });
     }
 
+    var encodeHtml = function(html) {
+        return String(html).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;")
+    };
+
+    var decodeHtml = function(html) {
+        return String(html).replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&").replace(/&#39;/g, "'")
+    };
+
+    var isArray = Array.isArray || function(a) {
+        return "[object Array]" == Object.prototype.toString.call(a)
+    };
+
+    function queryToJson(url) {
+        var query = url.substr(url.lastIndexOf('?') + 1),
+            params = query.split('&'),
+            len = params.length,
+            result = {},
+            i = 0,
+            key, value, item, param;
+
+        for (; i < len; i++) {
+            if (!params[i]) {
+                continue;
+            }
+            param = params[i].split('=');
+            key = param[0];
+            value = param[1];
+
+            item = result[key];
+            if ('undefined' == typeof item) {
+                result[key] = value;
+            } else if (isArray(item)) {
+                item.push(value);
+            } else { // 这里只可能是string了  
+                result[key] = [item, value];
+            }
+        }
+
+        return result;
+    };
+
     function jsonToQuery(json) {
         var key, value, ret = [];
         for (key in json) {
