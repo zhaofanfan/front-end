@@ -1,65 +1,92 @@
 ~ function(win, doc) {
+    //Array.forEach implementation for IE support..
+    //https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/forEach
+    Array.prototype.forEach || (Array.prototype.forEach = function(callback, thisArg) {
+        var T, k;
+        if (this == null) {
+            throw new TypeError(" this is null or not defined");
+        }
+        var O = Object(this);
+        var len = O.length >>> 0; // Hack to convert O.length to a UInt32
+        if ({}.toString.call(callback) != "[object Function]") {
+            throw new TypeError(callback + " is not a function");
+        }
+        if (thisArg) {
+            T = thisArg;
+        }
+        k = 0;
+        while (k < len) {
+            var kValue;
+            if (k in O) {
+                kValue = O[k];
+                callback.call(T, kValue, k, O);
+            }
+            k++;
+        }
+    });
+
+    var f = win;
     var DefSuperClass = function() {},
         d = new Object;
     d.superclass = Object, d.__NAME__ = "Object", d.superinstance = new Object;
     d.callsuper = function(a) {
         var b = this;
         if (this._realsuper = this._realsuper ? this._realsuper.prototype.superclass : this.superclass, "string" == typeof a) {
-            var c = Array.prototype.slice.call(arguments, 1);
-            b._realsuper.prototype[a].apply(b, c)
+            var args = Array.prototype.slice.call(arguments, 1);
+            b._realsuper.prototype[a].apply(b, args)
         } else {
-            var c = Array.prototype.slice.call(arguments, 0);
-            b._realsuper.apply(b, c)
+            var args = Array.prototype.slice.call(arguments, 0);
+            b._realsuper.apply(b, args)
         }
         this._realsuper = null
     }, DefSuperClass.prototype = d;
 
     var Namespace = function(ns, obj2Mount, rootNs) {
-        var e, f = ns.split("."),
-            g = f.length - 1,
-            h = 0;
+        var nsName, nsNames = ns.split("."),
+            max = nsNames.length - 1,
+            index = 0;
         if (!rootNs) try {
-            if (!new RegExp("^[a-zA-Z_$][a-zA-Z0-9_$]*$").test(f[0])) throw "";
-            rootNs = new Function("return " + f[0])(), h = 1
+            if (!new RegExp("^[a-zA-Z_$][a-zA-Z0-9_$]*$").test(nsNames[0])) throw "";
+            rootNs = new Function("return " + nsNames[0])(), index = 1
         } catch (i) {
             rootNs = win
         }
-        for (; g > h; h++) e = f[h], rootNs[e] || (rootNs[e] = {}), rootNs = rootNs[e];
-        rootNs[f[g]] || (rootNs[f[g]] = obj2Mount)
+        for (; max > index; index++) nsName = nsNames[index], rootNs[nsName] || (rootNs[nsName] = {}), rootNs = rootNs[nsName];
+        rootNs[nsNames[max]] || (rootNs[nsNames[max]] = obj2Mount)
     };
 
     var Class = function(clsName, oArg) {
-        var e = oArg.ns && oArg.ns + "." + clsName;
-        if (e) try {
-            var f = new Function("return " + e)();
-            if (f) return f
+        var ns = oArg.ns && oArg.ns + "." + clsName;
+        if (ns) try {
+            var cls = new Function("return " + ns)();
+            if (cls) return cls
         } catch (g) {}
         var superClass = oArg.extend || DefSuperClass,
-            i = function() {},
+            fn = function() {},
             plugins = oArg.plugins || [];
-        i.prototype = superClass.prototype;
+        fn.prototype = superClass.prototype;
         var construct = oArg.construct || function() {},
             properties = oArg.properties || {},
             methods = oArg.methods || {},
             statics = oArg.statics || {},
-            o = new i;
-        for (var p in o) o.hasOwnProperty(p) && delete o[p];
-        for (var p in properties) o[p] = properties[p];
-        for (var p in methods) o[p] = methods[p];
-        for (var q = 0; q < plugins.length; q++) {
-            var r = plugins[q];
-            for (var p in r) o[p] = r[p]
+            _proto_ = new fn;
+        for (var property in _proto_) _proto_.hasOwnProperty(property) && delete _proto_[property];
+        for (var property in properties) _proto_[property] = properties[property];
+        for (var methodName in methods) _proto_[methodName] = methods[methodName];
+        for (var index = 0; index < plugins.length; index++) {
+            var plugin = plugins[index];
+            for (var p in plugin) _proto_[p] = plugin[p]
         }
-        o.constructor = construct, o.superclass = superClass, o.superinstance = new i, o.__NAME__ = clsName, construct.prototype = o;
+        _proto_.constructor = construct, _proto_.superclass = superClass, _proto_.superinstance = new fn, _proto_.__NAME__ = clsName, construct.prototype = _proto_;
         for (var p in statics) construct[p] = statics[p];
-        return e && Namespace(e, construct), construct
+        return ns && Namespace(ns, construct), construct
     };
 
     function extend(dest, src, callback) {
         callback = callback || function() {
             return !0
         };
-        for (var d in src) src.hasOwnProperty(d) && callback(dest[d], src[d]) && (dest[d] = src[d]);
+        for (var property in src) src.hasOwnProperty(property) && callback(dest[property], src[property]) && (dest[property] = src[property]);
         return dest
     }
 
@@ -123,8 +150,67 @@
         });
     }
 
-    var f = win,
-        storage = {},
+    var encodeHtml = function(html) {
+        return String(html).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;")
+    };
+
+    var decodeHtml = function(html) {
+        return String(html).replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&").replace(/&#39;/g, "'")
+    };
+
+    var isArray = Array.isArray || function(a) {
+        return "[object Array]" == Object.prototype.toString.call(a)
+    };
+
+    function queryToJson(url) {
+        var query = url.substr(url.lastIndexOf('?') + 1),
+            params = query.split('&'),
+            len = params.length,
+            result = {},
+            i = 0,
+            key, value, item, param;
+
+        for (; i < len; i++) {
+            if (!params[i]) {
+                continue;
+            }
+            param = params[i].split('=');
+            key = param[0];
+            value = param[1];
+
+            item = result[key];
+            if ('undefined' == typeof item) {
+                result[key] = value;
+            } else if (isArray(item)) {
+                item.push(value);
+            } else { // 这里只可能是string了  
+                result[key] = [item, value];
+            }
+        }
+
+        return result;
+    };
+
+    function jsonToQuery(json) {
+        var key, value, ret = [];
+        for (key in json) {
+            key = encodeURIComponent(key);
+            value = json[key];
+            if (value && value.constructor == Array) {
+                var queryValues = [];
+                for (var i = 0, len = value.length, val; i < len; i++) {
+                    val = value[i];
+                    queryValues.push(key + '=' + encodeURIComponent(!val ? '' : String(val)));
+                }
+                ret = ret.concat(queryValues);
+            } else {
+                ret.push(key + '=' + encodeURIComponent(!value ? '' : String(value)));
+            }
+        }
+        return ret.join('&');
+    }
+
+    var storage = {},
         StorageUtil = {
             remove: function(key) {
                 delete storage[key]
@@ -139,7 +225,7 @@
         globalKey = "QInfo",
         buffer = [],
         capacity = 300,
-        n = {
+        opts = {
             moduleName: "",
             date: "",
             message: "",
@@ -147,72 +233,85 @@
             level: ""
         },
         format = function() {
-            var d = 1,
+            var pivot = 1,
                 args = arguments;
-            return args[0].replace(/%[sdj%]/g, function() {
-                return String(args[d++]);
+            return args[0].replace(/%[sdj%]/g, function(a) {
+                switch (a) {
+                    case "%s":
+                        return String(args[pivot++]);
+                    case "%d":
+                        return Number(args[pivot++]);
+                    case "%j":
+                        return JSON.stringify(args[pivot++]);
+                    case "%%":
+                        return "%";
+                    default:
+                        return a
+                }
             });
         },
-        formatMessage = function(a) {
-            for (var b = [a.tpl, a.level, a.moduleName, formatDate(new Date(1 * a.date), "YYYY-MM-DD hh:mm:ss")], c = 0; c < a.message.length; c++) b.push(a.message[c]);
-            var e = format.apply(null, b);
-            return e
+        formatMessage = function(msg) {
+            for (var vArgs = [msg.tpl, msg.level, msg.moduleName, formatDate(new Date(1 * msg.date), "YYYY-MM-DD hh:mm:ss")], index = 0; index < msg.message.length; index++) vArgs.push(msg.message[index]);
+            return format.apply(null, vArgs);
         },
         output = {
-            log: function(a) {
-                f.console && console.log && console.log(formatMessage(a))
+            log: function(msg) {
+                f.console && console.log && console.log(formatMessage(msg))
             },
-            info: function(a) {
-                f.console && console.info && console.info(formatMessage(a))
+            info: function(msg) {
+                f.console && console.info && console.info(formatMessage(msg))
             },
-            debug: function(a) {
-                f.console && console.debug && console.debug(formatMessage(a))
+            debug: function(msg) {
+                f.console && console.debug && console.debug(formatMessage(msg))
             },
-            warn: function(a) {
-                f.console && console.warn && console.warn(formatMessage(a))
+            warn: function(msg) {
+                f.console && console.warn && console.warn(formatMessage(msg))
             },
-            error: function(a) {
-                f.console && console.error && console.error(formatMessage(a))
+            error: function(msg) {
+                f.console && console.error && console.error(formatMessage(msg))
             },
-            flush: function(a) {
-                this.log(formatMessage(a))
+            flush: function(msg) {
+                this.log(formatMessage(msg))
             }
         },
         InfoCenter = Class("InfoCenter", {
-            construct: function(a) {
-                a = a || {}, this._moduleName = a.moduleName || "Unknown", this._tmpl = a.tmpl || "[%s][%s][%s] >>> %s";
-                var b = {};
-                extend(b, output), extend(b, a.output || {}), this._output = b
+            construct: function(opt) {
+                opt = opt || {}, this._moduleName = opt.moduleName || "Unknown", this._tmpl = opt.tmpl || "[%s][%s][%s] >>> %s";
+                var _output = {};
+                extend(_output, output), extend(_output, opt.output || {}), this._output = _output
             },
             methods: {
                 _formatInfo: function(args, level) {
                     args = Array.prototype.slice.call(args);
-                    var c = {};
-                    for (var d in n) c[d] = n[d];
-                    return c.moduleName = this._moduleName, c.date = (new Date).getTime(), c.message = args, c.tpl = this._tmpl, c.level = level, c
+                    var msg = {};
+                    for (var key in opts) msg[key] = opts[key];
+                    return msg.moduleName = this._moduleName, msg.date = (new Date).getTime(), msg.message = args, msg.tpl = this._tmpl, msg.level = level, msg
                 },
                 log: function() {
-                    var a = this._formatInfo(arguments, "LOG");
-                    this._writeLog(a), this._check() && this._output.log(a)
+                    var msg = this._formatInfo(arguments, "LOG");
+                    this._writeLog(msg), this._check() && this._output.log(msg)
                 },
                 debug: function() {
-                    var a = this._formatInfo(arguments, "DEBUG");
-                    this._writeLog(a), this._check() && this._output.debug(a)
+                    var msg = this._formatInfo(arguments, "DEBUG");
+                    this._writeLog(msg), this._check() && this._output.debug(msg)
                 },
                 info: function() {
-                    var a = this._formatInfo(arguments, "INFO");
-                    this._writeLog(a), this._check() && this._output.info(a)
+                    var msg = this._formatInfo(arguments, "INFO");
+                    this._writeLog(msg), this._check() && this._output.info(msg)
                 },
                 warn: function() {
-                    var a = this._formatInfo(arguments, "WARN");
-                    this._writeLog(a), this._check() && this._output.warn(a)
+                    var msg = this._formatInfo(arguments, "WARN");
+                    this._writeLog(msg), this._check() && this._output.warn(msg)
                 },
                 error: function() {
-                    var a = this._formatInfo(arguments, "ERROR");
-                    this._writeLog(a), this._check() && this._output.error(a)
+                    var msg = this._formatInfo(arguments, "ERROR");
+                    this._writeLog(msg), this._check() && this._output.error(msg)
                 },
-                _writeLog: function(a) {
-                    a && (buffer.length >= capacity && buffer.splice(0, 1), buffer.push(a), this._save())
+                setTmpl: function(tmpl) {
+                    return this._tmpl = tmpl, this
+                },
+                _writeLog: function(msg) {
+                    msg && (buffer.length >= capacity && buffer.splice(0, 1), buffer.push(msg), this._save())
                 },
                 _save: function() {
                     StorageUtil.remove(globalKey), StorageUtil.write(globalKey, JSON.stringify(buffer))
@@ -229,43 +328,43 @@
         EventPlugin = Class("EventPlugin", {
             construct: function() {},
             methods: {
-                on: function(evType, listener) {
+                on: function(type, listener) {
                     this._ep_createList();
-                    var realListener = function(e) {
-                        listener(e)
+                    var realListener = function(ev) {
+                        listener(ev)
                     };
-                    return evType = evType.toLowerCase(), this._ep_lists[evType] = this._ep_lists[evType] || [], this._ep_lists[evType].push({
-                        type: evType,
+                    return type = type.toLowerCase(), this._ep_lists[type] = this._ep_lists[type] || [], this._ep_lists[type].push({
+                        type: type,
                         listener: listener,
                         realListener: realListener
-                    }), LOG.debug("on | " + this.__NAME__ + " | " + evType + " | list length : " + this._ep_lists[evType].length), this
+                    }), LOG.debug("on | " + this.__NAME__ + " | " + type + " | list length : " + this._ep_lists[type].length), this
                 },
-                un: function(evType, listener) {
-                    if (this._ep_createList(), evType) {
-                        evType = evType.toLowerCase();
-                        var n = this._ep_lists[evType];
-                        if (n) {
-                            var a = (n.length, !listener);
-                            n && n.length > 0 && (a ? this._ep_lists[evType] = [] : n.forEach(function(e, a) {
-                                e && e.listener === listener && (n[a] = null)
+                un: function(type, listener) {
+                    if (this._ep_createList(), type) {
+                        type = type.toLowerCase();
+                        var evLists = this._ep_lists[type];
+                        if (evLists) {
+                            var isRemoveAll = (evLists.length, !listener);
+                            evLists && evLists.length > 0 && (isRemoveAll ? this._ep_lists[type] = [] : evLists.forEach(function(obj, index) {
+                                obj && obj.listener === listener && (evLists[index] = null)
                             }))
                         }
                     } else this._ep_clearList();
                     return this
                 },
-                fire: function(e) {
+                fire: function(ev) {
                     this._ep_createList();
-                    var evType = e.type.toLowerCase(),
-                        data = e.data,
-                        i = this._ep_lists[evType];
-                    return i && i.length > 0 && i.forEach(function(e) {
+                    var type = ev.type.toLowerCase(),
+                        data = ev.data,
+                        evLists = this._ep_lists[type];
+                    return evLists && evLists.length > 0 && evLists.forEach(function(obj) {
                         try {
-                            e && e.listener && e.listener({
-                                type: evType,
+                            obj && obj.listener && obj.listener({
+                                type: type,
                                 data: data
                             })
                         } catch (i) {
-                            LOG.log("eventPluginFireError---eventType is :" + evType + " ;error message: " + i.message)
+                            LOG.log("eventPluginFireError---eventType is :" + type + " ;error message: " + i.message)
                         }
                     }), this
                 },
@@ -283,56 +382,199 @@
             customListeners: {}
         },
         customListeners = evLists.customListeners,
-        bind = function(a, b, c) {
-            b = b.replace(/^on/i, "");
-            var e = function(a) {
-                c(a)
+        bind = function(customEvtInstance, type, listener) {
+            type = type.replace(/^on/i, "");
+            var realListener = function(ev) {
+                listener(ev)
             };
-            return b = b.toLowerCase(), d[b] = d[b] || [], d[b].push({
-                type: b,
-                listener: c,
-                realListener: e
-            }), a
+            return type = type.toLowerCase(), customListeners[type] = customListeners[type] || [], customListeners[type].push({
+                type: type,
+                listener: listener,
+                realListener: realListener
+            }), customEvtInstance
         },
-        unbind = function(a, b, c) {
-            b = b.replace(/^on/i, "").toLowerCase();
-            var e = d[b];
-            if (e) {
-                var f = (e.length, !c);
-                return e && e.length > 0 && (1 == f ? d[b] = [] : e.forEach(function(a, b) {
-                    a.listener === c && e.splice(b, 1)
-                })), a
+        unbind = function(customEvtInstance, type, listener) {
+            type = type.replace(/^on/i, "").toLowerCase();
+            var evLists = customListeners[type];
+            if (evLists) {
+                var isRemoveAll = (evLists.length, !listener);
+                return evLists && evLists.length > 0 && (1 == isRemoveAll ? customListeners[type] = [] : evLists.forEach(function(customEvt, index) {
+                    customEvt.listener === listener && evLists.splice(index, 1)
+                })), customEvtInstance
             }
         },
-        fire = function(a, b) {
-            var c = b.type.replace(/^on/i, "").toLowerCase();
-            if (a.filters && -1 == a.filters.indexOf(c)) return a;
-            var e = b.data,
-                f = d[c];
-            return f && f.length > 0 && f.forEach(function(a) {
+        fire = function(customEvtInstance, ev) {
+            var type = ev.type.replace(/^on/i, "").toLowerCase();
+            if (customEvtInstance.filters && -1 == customEvtInstance.filters.indexOf(type)) return customEvtInstance;
+            var data = ev.data,
+                evLists = customListeners[type];
+            return evLists && evLists.length > 0 && evLists.forEach(function(customEvt) {
                 try {
-                    a.listener({
-                        type: c,
-                        data: e
+                    customEvt.listener({
+                        type: type,
+                        data: data
                     })
                 } catch (b) {}
-            }), a
+            }), customEvtInstance
         },
         CustomEvent = Class("CustomEvent", {
             methods: {
-                filter: function(a) {
-                    this.filters = a
+                filter: function(type) {
+                    return this.filters = type, this
                 },
-                on: function(a, b) {
-                    bind(this, a, b)
+                on: function(type, listener) {
+                    return bind(this, type, listener)
                 },
-                un: function(a, b) {
-                    unbind(this, a, b)
+                un: function(type, listener) {
+                    return unbind(this, type, listener)
                 },
-                fire: function(a) {
-                    fire(this, a)
+                fire: function(ev) {
+                    return fire(this, ev)
                 }
             }
         });
-    win.MT = win.MT || {}, win.MT.Class = Class, win.MT.ic = win.MT.ic || {}, win.MT.ic.InfoCenter = InfoCenter, win.MT.EventPlugin = EventPlugin;
+
+    var prefix = "window.MT.__callbacks__.",
+        preprocess = function(url) {
+            return RegExp("\\?").test(url) ? "&" : "?"
+        },
+        createScript = function(url, charset) {
+            var script = document.createElement("SCRIPT");
+            return script.setAttribute("type", "text/javascript"), charset && script.setAttribute("charset", charset), script.setAttribute("src", url), document.getElementsByTagName("head")[0].appendChild(script), script
+        },
+        removeScript = function(script) {
+            script.clearAttributes && script.clearAttributes(), script && script.parentNode && script.parentNode.removeChild(script), script = null
+        },
+        jsonp = function(url, opt) {
+            var timer, script, realUrl, rootNs, data = extend({}, opt.data),
+                timeout = opt.timeout || 1e4,
+                onsuccess = opt.onsuccess || function() {},
+                onfailure = opt.onfailure || function() {},
+                callbackName = opt.jsonpCallback || "cb" + Math.floor(2147483648 * Math.random()).toString(36),
+                callback = opt.jsonp || "callback",
+                namespace = opt.jsonp ? "" : prefix;
+            rootNs = opt.jsonp ? f : MT.__callbacks__ = MT.__callbacks__ || {}, onsuccess && (data[callback] = namespace + callbackName, rootNs[callbackName] = function(data) {
+                timer && clearTimeout(timer), onsuccess(data), delete rootNs[callbackName], removeScript(script)
+            }, realUrl = url + preprocess(url) + jsonToQuery(data)), script = createScript(realUrl, opt.charset), timer = setTimeout(function() {
+                removeScript(script), onfailure()
+            }, timeout)
+        };
+
+    f.MT = f.MT || {}, f.MT.Class = Class, f.MT.ic = f.MT.ic || {}, f.MT.ic.InfoCenter = InfoCenter, f.MT.EventPlugin = EventPlugin, f.MT.customEvent = new CustomEvent, f.jsonp = jsonp;
 }(window, document);
+
+(function(e) {
+    var UUID = function() {
+            var uuid = 1;
+            return function() {
+                return uuid++
+            }
+        }(),
+        ieStore = function() {
+            var __NAME__ = "local_storage";
+            return {
+                _store: null,
+                _getStore: function() {
+                    if (!this._store) {
+                        try {
+                            this._store = document.createElement("input");
+                            this._store.type = "hidden";
+                            this._store.addBehavior("#default#userData");
+                            document.body.appendChild(this._store)
+                        } catch (e) {
+                            var t = [];
+                            for (var n in e) {
+                                t.push(n + ": " + e[n])
+                            }
+                            document.title = t.join("\n");
+                            return false
+                        }
+                    }
+                    return this._store
+                },
+                get: function(name) {
+                    var _store = this._getStore();
+                    if (!_store) return false;
+                    _store.load(__NAME__);
+                    return _store.getAttribute(name)
+                },
+                add: function(obj) {
+                    var _store = this._getStore();
+                    if (!_store) return false;
+                    _store.load(__NAME__);
+                    _store.setAttribute(obj.name, obj.value);
+                    _store.save(__NAME__)
+                },
+                remove: function(name) {
+                    var _store = this._getStore();
+                    if (!_store) return false;
+                    _store.load(__NAME__);
+                    _store.removeAttribute(name);
+                    _store.save(__NAME__)
+                },
+                clear: function() {
+                    var _store = this._getStore();
+                    if (!_store) return false;
+                    var doc = _store.XMLDocument;
+                    var node = doc.selectSingleNode("ROOTSTUB");
+                    for (var i = 0; i < node.attributes.length; ++i) {
+                        var attribute = node.attributes[i];
+                        _store.removeAttribute(attribute.baseName)
+                    }
+                    _store.save(__NAME__)
+                }
+            }
+        }(),
+        cookie = {
+            add: function(obj) {
+                if (obj.name) {
+                    var str = obj.name + "=" + obj.value;
+                    if (obj.expire) {
+                        str += ";expires=" + (new Date((new Date).getTime() + obj.expire)).toGMTString()
+                    }
+                    if (obj.domain) {
+                        str += ";domain=" + obj.domain
+                    }
+                    if (obj.path) {
+                        str += ";path=" + obj.path
+                    }
+                    document.cookie = str
+                }
+            },
+            remove: function(name, obj) {
+                if (name) {
+                    var str = name + "=1;expires=" + (new Date((new Date).getTime() - 864e5)).toGMTString();
+                    obj = obj || {};
+                    str += ";path=" + (obj.path || "/");
+                    document.cookie = str;
+                    return true
+                }
+                return false
+            },
+            get: function(name) {
+                var t = document.cookie.split(/;\s*/),
+                    index, map;
+                for (index = 0; index < t.length; index++) {
+                    map = t[index].split("=");
+                    if (map[0] == name) {
+                        return map[1]
+                    }
+                }
+                return undefined
+            }
+        },
+        store = {
+            add: function(obj) {
+                localStorage[obj.name] = obj.value
+            },
+            get: function(name) {
+                return localStorage[name]
+            },
+            remove: function(name) {
+                localStorage.removeItem(name)
+            }
+        },
+        storage = e.localStorage ? store : ieStore;
+    e.CookieUtil = cookie;
+    e.StorageUtil = storage
+})(window);
