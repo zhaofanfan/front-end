@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <title>通知公告</title>
+    <link rel="stylesheet" type="text/css" href="css/weui.min.css">
+    <link rel="stylesheet" type="text/css" href="css/wxbase.css">
+    <style type="text/css">
+.slider{display:none;}
+.focus span{width:10px;height:10px;margin-right:10px;border-radius:50%;background:#666;font-size:0;}
+.focus span.current{background:#fff;}
+    </style>
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="js/yxMobileSlider.min.js"></script>
+</head>
+
+<body>
+    <div class="slider">
+        <ul>
+            <li>
+                <a href="#" target="_blank"><img src="images/img_main_1.jpg" alt="科e互联网站建设团队"></a>
+            </li>
+            <li>
+                <a href="#" target="_blank"><img src="images/img_main_2.jpg" alt="网页特效集锦"></a>
+            </li>
+            <li>
+                <a href="#" target="_blank"><img src="images/img_main_3.jpg" alt="JS代码素材库"></a>
+            </li>
+            <li>
+                <a href="#" target="_blank"><img src="images/img_main_4.jpg" alt="用心建站用心服务"></a>
+            </li>
+            <li>
+                <a href="#" target="_blank"><img src="images/img_main_5.jpg" alt="学会用才能学会写"></a>
+            </li>
+        </ul>
+    </div>
+    <div class="weui_panel weui_panel_access">
+        <div class="weui_panel_bd">
+            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+                <div class="weui_media_hd">
+                    <img class="weui_media_appmsg_thumb" src="images/tt.jpg" alt="">
+                </div>
+                <div class="weui_media_bd">
+                    <p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+                </div>
+            </a>
+            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+                <div class="weui_media_hd">
+                    <img class="weui_media_appmsg_thumb" src="images/tt.jpg" alt="">
+                </div>
+                <div class="weui_media_bd">
+                    <p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+                </div>
+            </a>
+            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+                <div class="weui_media_hd">
+                    <img class="weui_media_appmsg_thumb" src="images/tt.jpg" alt="">
+                </div>
+                <div class="weui_media_bd">
+                    <p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+                </div>
+            </a>
+        </div>
+        <a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
+    </div>
+    <script type="text/javascript">
+    $(function() {
+        $(".slider").yxMobileSlider({
+            width: 640,
+            height: 320,
+            during: 3000
+        });
+    });
+    </script>
+</body>
+
+</html>

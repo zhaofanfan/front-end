@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>H5地理位置Demo</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <script type="text/javascript">
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(locationSuccess, locationError, {
+            // 指示浏览器获取高精度的位置，默认为false
+            enableHighAccuracy: true,
+            // 指定获取地理位置的超时时间，默认不限时，单位为毫秒
+            //timeout: 5000,
+            // 最长有效期，在重复获取地理位置时，此参数指定多久再次获取位置。
+            maximumAge: 3000
+        });
+    } else {
+        alert("Your browser does not support Geolocation!");
+    }
+
+    function locationSuccess(position) {
+        // 获取到当前位置经纬度  本例中是chrome浏览器取到的是google地图中的经纬度
+        var lng = position.coords.longitude;
+        var lat = position.coords.latitude;
+        alert(lng + "," + lat);
+    }
+
+    //Permission denied - 用户不允许地理定位
+	//Position unavailable - 无法获取当前位置
+	//Timeout - 操作超时
+    function locationError(error) {
+        switch (error.code) {
+            case error.TIMEOUT:
+                alert("A timeout occured! Please try again!");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                alert('We can\'t detect your location. Sorry!');
+                break;
+            case error.PERMISSION_DENIED:
+                alert('Please allow geolocation access for this to work.');
+                break;
+            case error.UNKNOWN_ERROR:
+                alert('An unknown error occured!');
+                break;
+        }
+    }
+    </script>
+</body>
+
+</html>

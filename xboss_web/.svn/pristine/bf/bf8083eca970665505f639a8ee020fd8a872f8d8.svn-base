@@ -1,0 +1,243 @@
+@charset "UTF-8";
+
+/**
+ * 交易结算流水
+ */
+
+//@import '_base';
+.x_header {
+    margin-top: 0;
+    line-height: 1.5;
+    background: #f0eff4;
+    font-size: 17px !important;
+}
+
+#dataWrap {
+    padding-left: 15px;
+    .weui_grids {
+        border-bottom: 1px solid #d9d9d9;
+    }
+}
+
+.month_flw_wrap {
+    .weui_grid {
+        width: 25%;
+    }
+}
+
+#filterRangeDate {
+    width: 24px;
+    height: 25px;
+    background: url(../images/date_filter.png) no-repeat;
+    background-size: cover;
+}
+
+#consumptionTypeWrap {
+    padding-top: 10px;
+}
+
+#consumptionTypeWrap,
+#settleTypeWrap {
+    border-bottom: 1px solid #d9d9d9;
+    .weui_grid {
+        width: 25%;
+        padding: 10px !important;
+    }
+}
+
+#storeWrap {
+    border-bottom: none;
+    .weui_grid {
+        width: 50%;
+        padding: 10px !important;
+    }
+}
+
+.filter_wrap {
+    .weui_grid:before {
+        height: 50%;
+        top: 10px;
+        border-right: 1px solid #d3d3d3 !important;
+    }
+    .weui_grid_label {
+        font-size: 16px;
+        line-height: 1.8;
+    }
+    .weui_grid_label.active {
+        background-color: #0068b7;
+        color: #ffffff;
+        border-radius: 5px;
+    }
+}
+
+.btnWrapAbs {
+    position: absolute;
+    width: 80%;
+    left: 10%;
+    bottom: 10%;
+}
+
+.sttlmnt_wrap {
+    .weui_grids {
+        padding: 10px 0;
+        div:nth-of-type(2) {
+            width: 60%;
+        }
+    }
+    .payType {
+        width: 44px;
+        margin-right: 10px;
+    }
+}
+
+
+/** 结算汇总*/
+
+#prevDay:after,
+#nextDay:after {
+    width: 10px;
+    height: 10px;
+}
+
+#prevDay:after {
+    -webkit-transform: rotate(-135deg);
+    transform: rotate(-135deg);
+}
+
+#sttlDate {
+    width: 60%;
+    margin: 0 auto;
+}
+
+#sttlDataWrap {
+    padding: 1em;
+    .settle_wrap {
+        border: 2px solid #d3d3d3;
+        border-radius: 8px;
+        overflow: hidden;
+        .settle_header {
+            padding: 5px 15px;
+            background: -webkit-linear-gradient(to right, #6bb3c6, #0169b7);
+            background: linear-gradient(to right, #6bb3c6, #0169b7);
+            color: #fff;
+            .card_icon {
+                display: inline-block;
+                width: 24px;
+                height: 15px;
+                background: url(../images/card.png) left center no-repeat;
+                background-size: contain;
+            }
+            .weui_label {
+                display: inline-block;
+                vertical-align: middle;
+                color: #fff;
+            }
+        }
+        .weui_grids:before {
+            border-top: 1px solid #d9d9d9;
+        }
+        .weui_grid {
+            width: 25%;
+        }
+        .dot {
+            background: #0068b7;
+        }
+        .row_header .weui_grid:before {
+            height: 50%;
+            top: 10px;
+            border-right: 1px solid #d3d3d3 !important;
+        }
+        .total_wrap {
+            padding: 5px 15px;
+            .currency {
+                font-weight: normal;
+            }
+            .weui_cells {
+                margin-top: 0;
+                &:before {
+                    border-top: 0;
+                }
+            }
+            .weui_cell {
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+            .detail_link {
+                padding-bottom: 5px;
+                &:before {
+                    border-top: 0;
+                }
+            }
+            p {
+                font-size: 24px;
+                color: #0068b7;
+            }
+        }
+    }
+    .settle_wrap:nth-child(even) {
+        .settle_header {
+            background: -webkit-linear-gradient(to right, #e65b64, #e9507d);
+            background: linear-gradient(to right, #e65b64, #e9507d);
+        }
+        .total_wrap p {
+            color: #e63359;
+        }
+        .dot {
+            background: #e63359;
+        }
+    }
+    .settle_wrap ~ .settle_wrap {
+        margin-top: 1em;
+    }
+}
+
+
+/** 明细*/
+
+#dtlHeader {
+    background: #167bcd;
+    color: #ffffff;
+    padding: 1em 0 0;
+    .page_desc {
+        text-align: center;
+        font-size: 16px;
+    }
+    .weui_grid {
+        width: 50%;
+        text-align: center;
+    }
+    .weui_grid_label {
+        font-size: 17px;
+        color: #fff;
+    }
+    .dtl_sum {
+        width: 80%;
+        margin: 0 auto;
+        padding: 10px 0 0;
+        border-bottom: 0;
+        .weui_grid_label {
+            display: inline;
+        }
+    }
+}
+
+#dtlWrap {
+    .weui_cell_hd {
+        margin-right: 5px;
+    }
+    .weui_label {
+        display: inline-block;
+        width: 64px;
+        text-align: justify;
+        text-align-last: justify;
+    }
+    .weui_cells:first-child:before {
+        border-top: 0;
+    }
+    .weui_cells:after {
+        border-bottom: 0;
+    }
+    .weui_cell:before {
+        border-top: 0;
+    }
+}

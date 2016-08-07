@@ -1,0 +1,44 @@
+body{overflow-x: hidden;background-color: #f0eff4;font-family: "微软雅黑";}
+ul{list-style: none;}
+.main{width: 80%;margin:2rem auto;}
+.auth-content{margin:3rem auto;}
+.must{color:#FF0000;padding-right:0.2rem;}
+.ft-submit-button{margin:7rem auto;width: 60%;}
+.ft-submit-button a{font-size: 14px;}
+.ft-des-pad{padding-top:2rem;}
+.ft-des-color{color:#FF0000;}
+.ft-des-size{font-size: 12px;}
+.ft-notice-left{text-align: left;}
+.pcenter{display: block;height: 59px;position: relative;}
+ul.pcenter li{float: left;line-height: 59px;}
+.pcenter-pad-3rem{padding-left: 1rem;}
+.pcenter-profile{background: #3494e3;padding: 5px 15px;}
+.pcenter-profile p{font-size: 12px;color: #ffffff;}
+.ptitle{margin-left: 2rem;}
+.weui_cell_ft .pcenter-profile-align-left{text-align: left!important;display: block;}
+.pcenter-title-des{}
+.pcenter-ul-item{display: block;}
+.pcenter-ul-item li{float: left;padding-left: 2rem;font-size: 12px;}
+.pcenter-ul-item-nickname{display: block;}
+.pcenter-ul-item-nickname li{float: left;font-size: 12px;}
+.nickname-pad-4rem{padding-top: 4rem;}
+.nickname-pad-6rem{padding-top: 6rem;}
+.changeNickName{}
+.addition-pad-1rem{padding: 1rem;}
+.addition-margin-1rem{padding: 1rem;}
+.addition-notice{background: #d7d7d7;height: 2rem;line-height: 2rem;text-align: center;color: #369a08;}
+.addtion-title{font-size: 14px;font-weight: bold;color:#449cff;}
+.changePwdAffirm{padding:2rem;}
+.addAt{display: none;}
+.memberCenter .weui_cells{margin-top: 0;font-size: 15px;}
+.memberCenter input{font-family: "微软雅黑";}
+.weui_cells_access .weui_cell_ft:after{height: 12px;width: 12px;border-color: #ffffff;}
+#companyWrap:after{border-bottom: none;}
+#companyWrap .weui_cell{background-color: #167bcd;padding-top: 0;padding-bottom: 0;}
+#companyWrap .weui_media_box{padding-left: 0;}
+#companyWrap .weui_media_hd{background: url(../images/avatar_bg.png) center center no-repeat;background-size: cover;border-radius: 50%;overflow: hidden;}
+#companyWrap .weui_cell_ft{width: 45px;height: 90px;line-height: 90px;margin-right: -15px;padding-right: 15px;}
+.white_btn{background-color: #3494e3 !important;border: 1px solid #fff;}
+#basicInfoWrap{margin-top: 0.5em;}
+.addAccount .weui_media_box.active .weui_media_bd{position: relative;}
+.addAccount .weui_media_box.active .weui_media_bd:after{content: " ";background: url(../images/active.png) right center no-repeat;background-size: contain;position: absolute;right: 0;top: 5px;width: 18px;height: 15px;}

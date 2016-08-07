@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Examples</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="css/weui.min.css">
+    <link rel="stylesheet" type="text/css" href="css/wxbase.css">
+    <link rel="stylesheet" type="text/css" href="css/dateRange.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="js/dateRange.js"></script>
+</head>
+
+<body>
+    <span class="date_title" id="date">2012-06-14 至 2012-07-10</span>
+    <script type="text/javascript">
+    var dateRange = new pickerDateRange('date', {
+        isTodayValid: true,
+        startDate: '2012-06-14',
+        endDate: '2012-06-20',
+        autoSubmit: true,
+        theme: 'ta',
+        defaultText: ' 至 ',
+        success: function(obj) {
+            //设置回调句柄 
+        }
+    });
+    </script>
+</body>
+
+</html>

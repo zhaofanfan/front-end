@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/weui.min.css">
+    <link rel="stylesheet" type="text/css" href="css/wxbase.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+    <script type="text/javascript">
+    (function(doc, win) {
+        var docEl = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function() {
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) return;
+                var fontSize = 20 * (clientWidth / 320);
+                fontSize = (fontSize > 54) ? 54 : fontSize;
+
+                //如果是pc访问
+                if (!/windows phone|iphone|android/ig.test(window.navigator.userAgent)) {
+                    fontSize = 20;
+                }
+
+                docEl.style.fontSize = fontSize + 'px';
+
+                var dpi = window.devicePixelRatio;
+                var viewport = document.querySelector('meta[name="viewport"]');
+
+                docEl.setAttribute('data-dpi', dpi);
+                var scale = 1 / dpi;
+                // viewport.setAttribute('content', 'initial-scale='+scale+', maximum-scale='+scale+', minimum-scale='+scale+', user-scalable=no')
+            };
+
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+    </script>
+</head>
+
+<body id="rfPage">
+    <header class="rf-header clearfix">
+        <div class="rf-header-icon fl">
+            <img src="images/logo.png" alt="" height="100%" />
+        </div>
+        <span id="gpsGuide" class="rf-header-icon icon-forward">
+            GPS定位指南
+        </span>
+    </header>
+    <div class="hd">
+        <p class="page_title">您的交易地址与装机地址不一致，请上传营业执照和机器背面的照片（含GPS定位信息），若在7个工作日内没有上传资料将冻结结算。</p>
+    </div>
+    <section class="rf-wrap">
+        <div class="baseinfo-wrap">
+            <div class="item">
+                <label class="item-label">商户名称：</label>
+                <span>嘉联支付有限公司</span>
+            </div>
+            <div class="item">
+                <label class="item-label">终端号：</label>
+                <span>333333333</span>
+            </div>
+        </div>
+        <div class="upload-wrap clearfix">
+            <div class="upload-item-wrap fl">
+                <div class="upload-item">
+                    <a class="upload-btn"></a>
+                </div>
+                <p class="upload-topic">营业执照相片</p>
+            </div>
+            <div class="upload-item-wrap fr">
+                <div class="upload-item">
+                    <a class="upload-btn"></a>
+                </div>
+                <p class="upload-topic">POS机背面照片</p>
+            </div>
+        </div>
+        <a id="uploadBtn" href="javascript:;" class="weui_btn weui_btn_primary">提交</a>
+    </section>
+    <div id="alertDialog" class="dn">
+        <div class="weui_mask"></div>
+        <div class="weui_dialog">
+            <div class="dialog_hd">
+                <span class="dialog_icon"></span>
+                <em class="dialog_title">提示</em>
+                <div class="dialog_close_outer">
+                    <a class="dialog_close"></a>
+                </div>
+            </div>
+            <div class="dialog_bd">
+                <p class="warning_title">无GPS定位信息！</p>
+                <p class="warning_info">请启用GPS定位后再拍摄图片</p>
+            </div>
+            <div class="dialog_ft">
+                <a href="javascript:;" class="weui_btn primary">查看指南</a>
+            </div>
+        </div>
+    </div>
+    <div id="actionSheet_wrap">
+        <div class="weui_mask_transition weui_fade_toggle" id="mask"></div>
+        <div class="weui_actionsheet weui_actionsheet_rtl" id="weui_actionsheet" style="top: 0;">
+<!--             <div class="cm-header">
+    <span class="cm-header-icon fl js_back">
+        <i class="icon-back"></i>
+    </span>
+    <span class="cm-header-icon fr js_home">
+        <i class="icon-home"></i>
+    </span>
+    <h1 class="cm-page-title js_title">
+        GPS开启操作指南
+    </h1>
+</div> -->
+            <div class="qrcode-wrap">
+                <img src="images/jl_qrcode.png" alt="" />
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#gpsGuide').on(EV, function() {
+            util.showActionSheet();
+        });
+    });
+    </script>
+</body>
+
+</html>

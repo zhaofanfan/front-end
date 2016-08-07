@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="css/flexible.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/flexible.min.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="cm-header">
+        <span class="cm-header-icon fl js_back">
+            <i class="icon-back"></i>
+        </span>
+        <h1 class="cm-page-title js_title">
+            消费
+        </h1>
+    </div>
+    <div class="print-wrap">
+        <img src="images/print.png" alt="" width="100%" />
+        <p class="print-title">请妥善保管您的发票凭条</p>
+    </div>
+    <div id="progressWrap">
+        <div class="mask"></div>
+        <div class="rad-cntnt page5-rad">
+            <div class="spinner">
+                <div class="spinner-container container1">
+                    <div class="circle1"></div>
+                    <div class="circle2"></div>
+                    <div class="circle3"></div>
+                    <div class="circle4"></div>
+                </div>
+                <div class="spinner-container container2">
+                    <div class="circle1"></div>
+                    <div class="circle2"></div>
+                    <div class="circle3"></div>
+                    <div class="circle4"></div>
+                </div>
+                <div class="spinner-container container3">
+                    <div class="circle1"></div>
+                    <div class="circle2"></div>
+                    <div class="circle3"></div>
+                    <div class="circle4"></div>
+                </div>
+            </div>
+            <p>正在打印凭条，请稍等...</p>
+        </div>
+    </div>
+    <div id="alertDialog" class="dn">
+        <div class="mask"></div>
+        <div class="dialog">
+            <div class="dialog_hd">
+                <em class="dialog_title">提示</em>
+                <div class="dialog_icon_outer">
+                    <span class="dialog_icon">5</span>
+                </div>
+            </div>
+            <div class="dialog_bd">
+                <p class="warning_title">请撕下第一联，或点“确定”继续打印下一联</p>
+            </div>
+            <div class="dialog_ft">
+                <a href="javascript:;" class="cm-btn">确定</a>
+            </div>
+        </div>
+    </div>
+    <div class="success-wrap dn">
+        <em class="info-icon">请取走您的卡片！</em>
+        <div class="btn-area">
+            <a href="javascript:;" class="cm-btn">确定</a>
+        </div>
+    </div>
+    <script type="text/javascript">
+    $(function() {
+        setTimeout(function() {
+            $("#progressWrap").addClass("dn");
+            $("#alertDialog").removeClass("dn");
+            $(".success-wrap").removeClass("dn");
+        }, 1000);
+    });
+    </script>
+</body>
+
+</html>

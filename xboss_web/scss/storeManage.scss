@@ -1,0 +1,81 @@
+@charset "UTF-8";
+
+/**
+ * 门店管理
+ */
+
+//@import '_base';
+#storeManageWrap {
+    .thead {
+        margin-top: 0;
+        padding: 4px 0 !important;
+    }
+    .weui_grids .weui_grid {
+        width: 25%;
+    }
+    .terminal_dtl {
+        padding: 0 3em;
+        background: $white;
+        .weui_grid {
+            width: 33.33333333%;
+        }
+    }
+    .weui_actionsheet_action {
+        background-color: #efeff4;
+    }
+}
+
+#selectTerminal {
+    padding: 0;
+    padding-left: 15px;
+    padding-right: 10px;
+    height: 44px;
+    line-height: 44px;
+    border-bottom: 1px solid $borderColor;
+}
+
+#search_bar {
+    top: 0;
+    width: 100%;
+    transition: top .5s ease;
+    -webkit-transition: top .5s ease;
+}
+
+.searchBar_fadeOut {
+    position: absolute;
+    top: -44px !important;
+}
+
+.weui_search {
+    margin-left: 10px;
+    line-height: 28px;
+    color: #3498db;
+}
+
+#merchantInfoWrap {
+    margin-top: 2em;
+    padding: 0 10px;
+    background-color: #efeff4;
+    color: #666666;
+    font-size: 17px;
+    &:before,
+    &:after {
+        border: 0;
+    }
+    .weui_cell:before {
+        border: 0;
+    }
+    .weui_label {
+        text-align: right;
+    }
+}
+
+#merchantNameOuter {
+    margin-top: 10px;
+    background-color: $white;
+    color: $black;
+    border: 1px solid $borderColor;
+    .weui_cell_hd {
+        color: $black;
+    }
+}

@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="css/flexible.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/flexible.min.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="js/radialindicator.js"></script>
+</head>
+
+<body>
+    <div class="cm-header">
+        <span class="cm-header-icon fl js_back">
+            <i class="icon-back"></i>
+        </span>
+        <h1 class="cm-page-title js_title">
+            消费
+        </h1>
+    </div>
+    <div class="page2-main-wrap">
+        <div class="row">
+            <label>交易金额</label>
+            <span class="trans-amount hwxh">168.00</span>
+        </div>
+        <div class="row">
+            <label>交易卡号</label>
+            <span>请插卡或刷卡或挥卡</span>
+        </div>
+    </div>
+    <div id="actionWrap">
+        <div class="action-box">
+            <div class="action-box-top">
+                <em class="action-icon">芯片卡请插卡</em>
+            </div>
+            <div class="action-box-bottom">
+            </div>
+        </div>
+        <div class="action-box">
+            <div class="action-box-top">
+                <em class="action-icon">磁条卡请刷卡</em>
+            </div>
+            <div class="action-box-bottom">
+            </div>
+        </div>
+        <div class="action-box">
+            <div class="action-box-top">
+                <em class="action-icon">请挥卡</em>
+            </div>
+            <div class="action-box-bottom">
+            </div>
+        </div>
+    </div>
+    <div id="progressWrap" class="">
+        <div class="mask"></div>
+        <div id="indicatorContainer"></div>
+        <div class="rad-cntnt">读取中...</div>
+    </div>
+    <script type="text/javascript">
+    $('#indicatorContainer').radialIndicator({
+        radius: 100,
+        barWidth: 8,
+        displayNumber: false,
+        barColor: '#35de81'
+    });
+
+    var radialObj = $('#indicatorContainer').data('radialIndicator');
+    radialObj.value(80);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,236 @@
+@charset "UTF-8";
+
+/**
+ * 补充资料
+ */
+
+//@import '_base';
+.sup-wrap {
+    position: relative;
+    padding: 0 20px 10px 80px;
+    margin-top: 20px;
+    border-radius: 6px;
+}
+
+.sup-title {
+    padding: 10px 0;
+    margin-top: 20px;
+    margin-right: -20px;
+    margin-left: -80px;
+    font-size: .875rem;
+    text-align: center;
+    background-color: #3494e3;
+    color: #fff;
+}
+
+.sup-process {
+    position: relative;
+    height: 40px;
+    font-size: 0;
+    color: #fff;
+    li {
+        position: relative;
+        z-index: 5;
+        font-size: .875rem;
+    }
+    .ring {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 7;
+        width: 60px;
+        height: 40px;
+        content: "";
+        text-align: center;
+        background-color: #c9c9c9;
+    }
+    .ball {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 48px;
+        height: 48px;
+        line-height: 48px;
+        text-align: center;
+        border-radius: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        /* background-color: #fff;color: #000;*/
+        color: #fff;
+    }
+    .active .ring {
+        background-color: #167bcd;
+    }
+    .active + .active:after {
+        background-image: url(../images/active_arrow.png);
+    }
+    .failure.active .ring {
+        background-color: #ff0000;
+    }
+}
+
+.sup-process-flex {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    li {
+        display: list-item;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        width: auto;
+    }
+    li:first-child {
+        width: 60px;
+        -webkit-box-flex: 0;
+        -webkit-flex: 0;
+        -ms-flex: 0;
+        flex: 0;
+    }
+    li ~ li:after {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        z-index: 6;
+        width: calc(100% - 60px);
+        height: 31px;
+        content: "";
+        -webkit-transform: translate(0, -50%) scale(0.7);
+        transform: translate(0, -50%) scale(0.7);
+        background: url(../images/grey_arrow.png) center center no-repeat;
+        background-size: contain;
+    }
+}
+
+#basicInfoForm {
+    margin-top: 0;
+    .weui_label {
+        width: 85px;
+        text-align: right;
+    }
+}
+
+#updateWrap {
+    margin-top: 0;
+    .weui_cell {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+#protocolWrap {
+    padding: 0 0 10px 15px !important;
+    color: #167bcd;
+    border-bottom: 3px solid #ececec;
+    &:after {
+        content: " ";
+        display: inline-block;
+        -webkit-transform-origin: left bottom;
+        transform-origin: left bottom;
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        height: 7px;
+        width: 7px;
+        border-width: 2px 2px 0 0;
+        border-color: #167bcd;
+        border-style: solid;
+        position: absolute;
+        right: 50px;
+    }
+}
+
+#toSign {
+    color: #167bcd;
+}
+
+#uploaderHd,
+.weui_uploader_bd {
+    padding-left: 15px !important;
+}
+
+#signatureWrap {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #363c3c;
+    padding: 2em 0 .5em;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    overflow: hidden;
+    .weui_icon_cancel {
+        position: absolute;
+        left: 2px;
+        top: 2px;
+        font-size: 15px;
+        font-style: normal;
+        color: #fff;
+        &:before {
+            margin: -2px 5px 0 5px;
+            color: #fff;
+        }
+    }
+    .js-signature {
+        width: 85%;
+        margin: 0 auto;
+        border: 4px dashed #464a4d;
+        overflow: hidden;
+    }
+    .weui_btn+.weui_btn {
+        margin-top: 0;
+    }
+}
+
+#uploaderHd:before {
+    border-top: none;
+}
+
+.weui_uploader_file {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.uploader_access {
+    position: absolute;
+    bottom: -22px;
+    width: 100%;
+    font-size: 13px;
+}
+
+.uploader_remove {
+    width: 1.1em;
+    height: 1.2em;
+    background-image: url(../images/trash.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.my_fade_toggle {
+    background: rgba(0, 0, 0, .8);
+}
+
+#zoomMask img {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    -webkit-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    display: none;
+}
+
+.agreement {
+    padding-bottom: 60px;
+    img {
+        vertical-align: top;
+    }
+}
+
+.signature_btn_wrap {
+    position: fixed;
+    bottom: 0;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+}

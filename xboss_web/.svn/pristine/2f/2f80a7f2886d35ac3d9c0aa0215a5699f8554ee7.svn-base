@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <title>验证身份</title>
+    <link rel="stylesheet" type="text/css" href="css/weui.min.css">
+    <link rel="stylesheet" type="text/css" href="css/wxbase.css">
+    <script type="text/html" id="tpl_verification">
+        <div class="hd">
+            <h1 class="page_title">为了保证您的账号安全，必须使用您的结算账号进行身份验证！</h1>
+        </div>
+        <div class="bd">
+            <p class="page_head">请输入您的结算卡号</p>
+            <div class="weui_cells">
+                <div class="weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input id="accNo" onkeyup="formatAccNo.call(this);" onfocus="accNoOnFocus.call(this);" onblur="accNoOnBlur.call(this);" class="weui_input sttlmntNo" type="text" pattern="[0-9]*" placeholder="请输入结算卡号">
+                    </div>
+                </div>
+            </div>
+            <div class="verifySuccess dn">
+                <h1 class="page_title tc" style="background: none;">请选择下面一种方式进行身份验证</h1>
+                <div class="button_sp_area">
+                    <a href="#/realnameAuth" class="weui_btn weui_btn_mini weui_btn_primary">实名认证</a>
+                    <a href="#/payVerify" class="weui_btn weui_btn_mini weui_btn_primary">打款验证</a>
+                </div>
+            </div>
+            <a id="submitBtn" href="#/verifyFailure" class="weui_btn weui_btn_primary">提交</a>
+        </div>
+    </script>
+    <script type="text/html" id="tpl_verifyFailure">
+        <div class="msg">
+            <div class="weui_msg">
+                <div class="weui_icon_area"><i class="weui_icon_warn weui_icon_msg"></i></div>
+                <p class="cred" style="margin-bottom: 1em;">验证银行卡信息失败！</p>
+                <div class="weui_text_area">
+                    <p class="weui_msg_desc">您可能不是嘉联支付的商户，若有异议请及时联系客服人员，热线电话：400-8868-400</p>
+                </div>
+                <div class="weui_opr_area">
+                    <div class="button_sp_area">
+                        <a href="#/" class="weui_btn weui_btn_mini weui_btn_primary">&nbsp;&nbsp;&nbsp;&nbsp;返回&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary">加入嘉联</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script type="text/html" id="tpl_verifyOk">
+        <div class="weui_msg">
+            <div class="weui_icon_area"><i class="weui_icon_success weui_icon_msg"></i></div>
+            <div class="weui_text_area">
+                <p class="weui_msg_desc count_down" style="padding: 10px 60px;">3s</p>
+                <h2 class="weui_msg_title cred">验证成功！</h2>
+                <p class="weui_msg_desc" style="padding: 10px 60px;">您的身份已验证成功，可以开始做其他更多操作咯~~</p>
+            </div>
+        </div>
+    </script>
+    <script type="text/html" id="tpl_realnameAuth">
+        <p class="weui_btn_area">
+            <a href="javascript:;" class="weui_btn weui_btn_primary">实名认证</a>
+        </p>
+        <form class="authForm" action="">
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">微信昵称</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" type="text" placeholder="微信昵称" value="张晓明" readonly="true" />
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label"><strong class="require">*</strong>姓名</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input id="yourName" class="weui_input" type="text" placeholder="请输入姓名" />
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label"><strong class="require">*</strong>证件号码</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input id="idCardNo" class="weui_input" type="number" pattern="[0-9]*" placeholder="请输入证件号" />
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label"><strong class="require">*</strong>手机号码</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input id="cellphoneNo" class="weui_input" type="number" pattern="[0-9]{11}" placeholder="请输入手机号" />
+                    </div>
+                </div>
+            </div>
+            <div class="ft-des-pad">
+                <div class="weui_cells_tips ft-des-color ft-des-size dn">实名认证验证失败！！</div>
+                <div data-tip="wrong-input" class="weui_cells_tips ft-des-color ft-des-size dn">您好！请输入正确的手机号码或身份证！</div>
+            </div>
+            <div class="button_sp_area" style="margin: 5rem auto;text-align: center;">
+                <a id="toVerify" href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary">提交验证（校验必填项）</a>
+            </div>
+        </form>
+    </script>
+    <script type="text/html" id="tpl_payVerify">
+        <!--         <div class="hd">
+    <h1 class="page_title">商户打款验证</h1>
+</div> -->
+        <div class="bd">
+            <div class="uneditableWrap weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">商户名：</label>
+                    </div>
+                    <div id="payVerifyDivAccName" class="weui_cell_bd weui_cell_primary">
+                        嘉联支付有限公司
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">结算卡号：</label>
+                    </div>
+                    <div id="payVerifyDivAccNo" class="weui_cell_bd weui_cell_primary">
+                        5656464******34543
+                    </div>
+                </div>
+                <div class="editableWrap weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">验证金额：</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input id="payMoneyTxt" class="weui_input" type="number" pattern="^[1-9]\d*\.\d*|0\.\d*[1-9]\d*$" placeholder="输入收到的金额（元）">
+                        <span class="unitSpan">元</span>
+                    </div>
+                </div>
+                <p class="fs14">为确保此结算卡为您所有。嘉联支付会向此卡汇入一笔1元以下的金额作为验证码，两天内有效。您可查看手机短信或登录网银查看此笔汇款。</p>
+            </div>
+            <div class="payVerifyFailure dn">
+                <p class="cred">打款验证失败！！</p>
+                <p class="cred">请稍候重试</p>
+            </div>
+            <a id="submitBtn" href="javascript:;" class="weui_btn weui_btn_primary">提交</a>
+        </div>
+    </script>
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="js/zepto.min.js"></script>
+    <script type="text/javascript" src="js/router.min.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+</head>
+
+<body>
+    <div class="container" id="container">
+    </div>
+    <script type="text/javascript">
+    function formatAccNo(ev) {
+        ev = ev || window.event;
+        alert(ev.keyCode)
+        if (ev.keyCode != 8) {
+            this.value = util.formatBankCard(this.value);
+        }
+    }
+
+    function accNoOnFocus() {
+        $(this).val($(this).data('value'));
+    }
+
+    function accNoOnBlur() {
+        $(this).data("value", this.value);
+        if (this.value.length > 10)
+            this.value = util.formatBankCard(this.value, !0);
+    }
+
+    var router = new Router({
+        container: '#container',
+        enterTimeout: 250,
+        leaveTimeout: 250
+    });
+
+    var verification = {
+        url: '/',
+        className: 'verification',
+        render: function() {
+            return $('#tpl_verification').html();
+        },
+        bind: function() {
+            /*            $("#accNo").on("keyup", function(event) {
+                            this.value = util.formatBankCard(this.value);
+                        }).on("focus", function() {
+                            $(this).val($(this).data('value'));
+                        }).on("blur", function() {
+                            $(this).data("value", this.value);
+                            if (this.value.length > 10)
+                                this.value = util.formatBankCard(this.value, !0);
+                        });*/
+        }
+    };
+
+    var verifyFailure = {
+        url: '/verifyFailure',
+        className: 'verifyFailure',
+        render: function() {
+            return $('#tpl_verifyFailure').html();
+        }
+    };
+
+    var verifyOk = {
+        url: '/verifyOk',
+        className: 'verifyOk',
+        render: function() {
+            return $('#tpl_verifyOk').html();
+        },
+        bind: function() {
+            var sec = 3;
+            var timer = setInterval(function() {
+                sec--;
+                if (sec == 0) {
+                    clearInterval(timer);
+                    //wx.closeWindow();
+                    window.open(location, '_self').close();
+                } else {
+                    $(".count_down").html(sec + "s");
+                }
+            }, 1E3);
+        }
+    };
+
+    var realnameAuth = {
+        url: '/realnameAuth',
+        className: 'realnameAuth',
+        render: function() {
+            return $('#tpl_realnameAuth').html();
+        },
+        bind: function() {
+            $("#toVerify").on(EV, function() {
+                var name = jQuery.trim($("#yourName").val()),
+                    idCardNo = jQuery.trim($("#idCardNo").val()),
+                    cellphoneNo = jQuery.trim($("#cellphoneNo").val());
+                if (!util.isValidId(idCardNo) || !util.isValidMobile(cellphoneNo)) {
+                    $("[data-tip=wrong-input").removeClass("dn");
+                } else {
+                    $("[data-tip=wrong-input").addClass("dn");
+                }
+            });
+        }
+    };
+
+    var payVerify = {
+        url: '/payVerify',
+        className: 'payVerify',
+        render: function() {
+            return $('#tpl_payVerify').html();
+        },
+        bind: function() {
+            $('#container').on('click', '#submitBtn', function() {
+                location.hash = "/verifyOk";
+            });
+        }
+    };
+
+    router.push(verification)
+        .push(verifyFailure)
+        .push(verifyOk)
+        .push(realnameAuth)
+        .push(payVerify)
+        .setDefault('/')
+        .init();
+    </script>
+</body>
+
+</html>

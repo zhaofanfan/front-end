@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <title>交易明细</title>
+    <link rel="stylesheet" type="text/css" href="css/weui.min.css">
+    <link rel="stylesheet" type="text/css" href="css/mobiscroll.custom-2.17.1.min.css">
+    <link rel="stylesheet" type="text/css" href="css/wxbase.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+</head>
+
+<body>
+    <div class="weui_cells weui_cells_access x_header dn">
+        <a class="dib weui_cell" href="javascript:window.history.back();">
+            <div class="back">返回</div>
+        </a>
+    </div>
+    <div id="dtlHeader" class="hd">
+        <p class="page_desc">南山店</p>
+        <div class="weui_grids dtl_sum">
+            <div class="weui_grid">
+                <p class="weui_grid_label tl">金额：</p>
+                <p class="weui_grid_label tl fw-b">200.00</p>
+            </div>
+            <div class="weui_grid">
+                <p class="weui_grid_label tl">手续费：</p>
+                <p class="weui_grid_label tl fw-b">0.12</p>
+            </div>
+        </div>
+    </div>
+    <div id="dtlWrap" class="bd">
+        <div class="weui_cells weui_cells_form">
+            <div data-for="settle" class="weui_cell dn">
+                <div class="weui_cell_hd">
+                    <label class="weui_label">结算日期：</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    2016-06-12
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_hd">
+                    <label class="weui_label">交易时间：</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    2016-06-12 15:30
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_hd">
+                    <label class="weui_label">消费类型：</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    卡消费
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_hd">
+                    <label class="weui_label">结算账号：</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    11243543*****343434
+                </div>
+            </div>
+            <div data-for="trade" class="weui_cell">
+                <div class="weui_cell_hd">
+                    <label class="weui_label">结算状态：</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    未结算
+                </div>
+            </div>
+        </div>
+        <div class="weui_cells weui_cells_form">
+            <div class="weui_cell">
+                <div class="weui_cell_hd">
+                    <label class="weui_label">订单号：</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    234343243434
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_hd">
+                    <label class="weui_label">终端号：</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    2343343111
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_hd">
+                    <label class="weui_label">批次号：</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    111122323
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_hd">
+                    <label class="weui_label">操作员：</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    123232
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var oQuery = util.queryToJson(window.location.search);
+        if (oQuery["dType"] == "trade") {
+            $(".weui_cell[data-for=trade]").removeClass("dn");
+            $(".weui_cell[data-for=settle]").addClass("dn");
+        } else {
+            $(".weui_cell[data-for=trade]").addClass("dn");
+            $(".weui_cell[data-for=settle]").removeClass("dn");
+        }
+
+        util.browser.android && $(".x_header").removeClass("dn");
+    });
+    </script>
+</body>
+
+</html>

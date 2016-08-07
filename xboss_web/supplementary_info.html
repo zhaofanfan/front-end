@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <title>补充资料</title>
+    <link rel="stylesheet" type="text/css" href="css/weui.min.css">
+    <link rel="stylesheet" type="text/css" href="css/wxbase.css">
+    <script type="text/html" id="tpl_weui_uploader_file">
+        <li class="weui_uploader_file" style="background-image:url({{localId}})">
+            <div class="uploader_access">
+                <p class="uploader_filename fl">{{fileName}}</p>
+                <a class="uploader_remove fr"></a>
+            </div>
+        </li>
+    </script>
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="js/jq-signature.js"></script>
+    <script type="text/javascript" src="js/zepto.min.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+</head>
+
+<body>
+    <div class="sup-wrap">
+        <ul class="sup-process sup-process-flex" id="supProcess">
+            <li class="active">
+                <div class="ring">
+                    <span class="ball">待完善</span>
+                </div>
+            </li>
+            <li class="active">
+                <div class="ring">
+                    <span class="ball">审核中</span>
+                </div>
+            </li>
+            <li>
+                <div class="ring">
+                    <span class="ball">已完成</span>
+                </div>
+            </li>
+        </ul>
+        <div class="sup-title" id="supTitle">您还未完善资料，请及时完善！</div>
+    </div>
+    <div id="basicInfoForm" class="weui_cells weui_cells_form">
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">商户名称：</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">法人名称：</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">法人证件号码：</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">营业执照地址：</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">营业执照号码：</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_hd">
+                <label class="weui_label">经营范围：</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+            </div>
+        </div>
+    </div>
+    <div id="updateWrap" class="weui_cells weui_cells_form">
+        <div class="weui_cell">
+            <div class="weui_cell_bd weui_cell_primary">
+                <div class="weui_uploader weui_panel_access">
+                    <div id="protocolWrap" class="weui_cell">
+                        <span>*</span>&nbsp;
+                        <a id="toSign" style="text-decoration: underline;" href="javascript:void(0);">签订电子协议</a>
+                    </div>
+                    <div id="uploaderHd" class="weui_uploader_hd weui_cell">
+                        <span>*</span>
+                        <div class="weui_cell_bd weui_cell_primary">上传图片>></div>
+                    </div>
+                    <div class="weui_uploader_bd">
+                        <ul class="weui_uploader_files">
+                            <li class="weui_uploader_file" style="background-image:url(http://shp.qpic.cn/weixinsrc_pic/pScBR7sbqjOBJomcuvVJ6iacVrbMJaoJZkFUIq4nzQZUIqzTKziam7ibg/)">
+                                <div class="uploader_access">
+                                    <p class="uploader_filename fl">门头照片</p>
+                                    <a class="uploader_remove fr"></a>
+                                </div>
+                            </li>
+                            <li class="weui_uploader_file weui_uploader_status" style="background-image:url(http://shp.qpic.cn/weixinsrc_pic/pScBR7sbqjOBJomcuvVJ6iacVrbMJaoJZkFUIq4nzQZUIqzTKziam7ibg/)">
+                                <div class="weui_uploader_status_content">
+                                    <i class="weui_icon_warn"></i>
+                                </div>
+                            </li>
+                            <li class="weui_uploader_file weui_uploader_status" style="background-image:url(http://shp.qpic.cn/weixinsrc_pic/pScBR7sbqjOBJomcuvVJ6iacVrbMJaoJZkFUIq4nzQZUIqzTKziam7ibg/)">
+                                <div class="weui_uploader_status_content">50%</div>
+                            </li>
+                        </ul>
+                        <div class="weui_uploader_input_wrp">
+                            <input id="chooseImage" class="weui_uploader_input" type="button" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="button_sp_area">
+            <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary">&nbsp;&nbsp;&nbsp;&nbsp;暂存&nbsp;&nbsp;&nbsp;&nbsp;</a>
+            <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary dn">重新提交</a>
+            <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary">提交资料</a>
+        </div>
+    </div>
+    <div id="actionSheet_wrap">
+        <div class="weui_mask_transition weui_fade_toggle" id="mask"></div>
+        <div class="weui_actionsheet" id="weui_actionsheet">
+            <div class="agreement">
+                <img src="images/agreement.jpg" alt="" width="100%" />
+            </div>
+            <div id="signatureWrap">
+                <i id="cancelBtn" class="weui_icon_cancel">请在下方手写您的姓名</i>
+                <div class="js-signature" data-height="200" data-border="none" data-background="#363c3c" data-line-color="#bc0000" data-auto-fit="true">
+                </div>
+                <div class="button_sp_area">
+                    <a id="cancelBtn" href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary">取消</a>
+                    <a id="clearBtn" href="javascript:;" onclick="clearCanvas();" class="weui_btn weui_btn_mini weui_btn_primary">清除</a>
+                    <a id="saveBtn" href="javascript:;" onclick="saveSignature();" class="weui_btn weui_btn_mini weui_btn_primary" disabled>确定</a>
+                </div>
+            </div>
+            <div id="sourceTypeMenu" class="weui_actionsheet_menu">
+                <div data-source-type="camera" class="weui_actionsheet_cell">拍照</div>
+                <div data-source-type="album" class="weui_actionsheet_cell">从手机相册选择</div>
+            </div>
+            <div class="weui_actionsheet_action">
+                <div class="weui_actionsheet_cell" id="eSign">电子签名</div>
+                <div class="weui_actionsheet_cell" id="actionsheet_cancel">取消</div>
+            </div>
+        </div>
+    </div>
+    <div class="weui_mask_transition" id="zoomMask"><img alt="" /></div>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript">
+    var url = location.href.split('#')[0];
+    $.ajax({
+        url: '/weixin/wxapi/jsTicket',
+        type: 'POST',
+        data: {
+            url: url
+        },
+        success: function(sign) {
+            if (sign) { //没有错误
+                wx.config({
+                    debug: false, //true的时候可以alert信息 
+                    appId: sign.appId,
+                    timestamp: sign.timestamp,
+                    nonceStr: sign.nonceStr,
+                    signature: sign.signature,
+                    jsApiList: [
+                            'chooseImage',
+                            'previewImage',
+                            'uploadImage',
+                            'closeWindow'
+                        ] //使用接口时，这里必须先声明 
+                });
+            }
+        },
+        dataType: 'json'
+    });
+
+    wx.ready(function() {
+        wx.checkJsApi({
+            jsApiList: ['chooseImage', 'uploadImage'],
+            success: function(res) {
+                // 以键值对的形式返回，可用的api值true，不可用为false
+                // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+            }
+        });
+
+        // 图片接口
+        // 拍照、本地选图
+        $("#sourceTypeMenu").on(EV, ".weui_actionsheet_cell", function() {
+            $("#actionsheet_cancel").trigger(EV);
+            var sourceType = $(this).data("sourceType");
+            util.wxUploadImage(wx, {
+                sourceType: [sourceType]
+            }, function(localId, serverId) {
+                var html = $("#tpl_weui_uploader_file").html().format({
+                    localId: localId,
+                    //fileName: fileName
+                });
+                $('.weui_uploader_files').append(html);
+            });
+        });
+    });
+
+    $(document).on('ready', function() {
+        var nHght = $(".weui_actionsheet_action").outerHeight();
+        $(".agreement").css({
+            height: $(window).height() - nHght,
+            "overflow-y": "auto"
+        });
+
+        var wWidth = $(window).width(),
+            nWidth = Math.floor((wWidth + 9 - 15 - 36 - 10) / 4),
+            nHeight = Math.ceil(nWidth * 135 / 179);
+
+        $('<style type="text/css">').text(".weui_uploader_file{width:" + nWidth + "px;height:" + nHeight + "px;}.weui_uploader_input{width:" + nWidth + "px;height:" + nHeight + "px;}").appendTo("head");
+
+        $('#chooseImage').on(EV, function(ev) {
+            $("#sourceTypeMenu").removeClass("dn");
+            $(".agreement").addClass("dn");
+            $('#signatureWrap').addClass('dn');
+            $("#eSign").addClass("dn");
+            util.showActionSheet();
+        });
+
+        $('.js-signature').jqSignature();
+        $('#signatureWrap').addClass('dn');
+
+        $('.js-signature').on('jq.signature.changed', function() {
+            $('#saveBtn').attr('disabled', false);
+        });
+
+        $("#toSign").on(EV, function() {
+            $("#sourceTypeMenu").addClass("dn");
+            $(".agreement").removeClass("dn");
+            $("#eSign").removeClass("dn");
+            util.showActionSheet();
+        });
+
+        $("#eSign").on(EV, function() {
+            $(this).parent().addClass("dn");
+            $("#signatureWrap").removeClass("dn");
+        });
+
+        $("#cancelBtn").on(EV, function() {
+            $("#eSign").parent().removeClass("dn");
+            $("#signatureWrap").addClass("dn");
+        });
+
+        $(".weui_uploader_bd").on(EV, ".uploader_remove", function() {
+            $(this).parents(".weui_uploader_file").remove();
+        }).on(EV, ".weui_uploader_file", function(ev) {
+            var oTarget = ev.target;
+            if (!$(oTarget).hasClass("weui_uploader_file")) {
+                return;
+            }
+            var imgSrc = $(this).css('background-image'),
+                hasQuotes = imgSrc.indexOf("url(\"") != -1,
+                start = hasQuotes ? 5 : 4,
+                end = hasQuotes ? imgSrc.length - 2 : imgSrc.length - 1;
+            imgSrc = imgSrc.substring(start, end);
+            $("#zoomMask img").attr("src", imgSrc).fadeIn();
+            $("#zoomMask").show().addClass('my_fade_toggle').one('click', function() {
+                $("#zoomMask img").fadeOut();
+                $(this).removeClass('my_fade_toggle').on('transitionend', function() {
+                    $(this).hide();
+                }).on('webkitTransitionEnd', function() {
+                    $(this).hide();
+                });
+            });
+        });
+    });
+
+    function clearCanvas() {
+        $('.js-signature').jqSignature('clearCanvas');
+        $('#saveBtn').attr('disabled', true);
+    }
+
+    var data = [{
+            url: 'images/agreement.jpg',
+            offsetX: 0,
+            offsetY: 0
+        }, {
+            url: '../images/logo.jpg',
+            offsetX: 450,
+            offsetY: 1000
+        }],
+        base64;
+
+    function saveSignature() {
+        var dataUrl = $('.js-signature').jqSignature('getDataURL');
+        data[1].url = dataUrl;
+        compose(850, 1169, function() {
+            $(".agreement img").attr("src", base64);
+        });
+        $("#cancelBtn").trigger(EV);
+        setTimeout(function() {
+            $("#actionsheet_cancel").trigger(EV);
+        }, 5E3);
+    }
+
+    function compose(width, height, fn) {
+        var c = document.createElement('canvas'),
+            ctx = c.getContext('2d'),
+            len = data.length;
+        c.width = width;
+        c.height = height;
+        ctx.rect(0, 0, c.width, c.height);
+        ctx.fillStyle = '#fff';
+        ctx.fill();
+
+        function draw(n) {
+            if (n < len) {
+                var img = new Image;
+                //img.crossOrigin = 'Anonymous'; //解决跨域
+                img.src = data[n].url;
+                img.onload = function() {
+                    ctx.drawImage(img, data[n].offsetX, data[n].offsetY, img.width, img.height);
+                    img = null;
+                    draw(n + 1); //递归
+                }
+            } else {
+                //保存生成图片
+                base64 = c.toDataURL("image/jpeg", 0.8);
+                c = null;
+                fn();
+            }
+        }
+        draw(0);
+    }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,217 @@
+@charset "UTF-8";
+
+/**
+ * 二合一实名验证
+ */
+
+//@import '_base';
+body,
+html {
+    height: 100%;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.container {
+    height: 100%;
+    background-color: #f0eff4;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.page_title {
+    padding: 10px 5px 10px 20px;
+    background-color: #fdf7ab;
+    color: #ff0000;
+    line-height: 1.2;
+}
+
+.verification,
+.payVerify {
+    .bd {
+        padding: 3em 1em;
+    }
+}
+
+.page_head {
+    display: inline-block;
+    background-color: $buttonBgColor;
+    color: #ffffff;
+    padding: 2px 20px 2px 7px;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+}
+
+#accNo {
+    height: 1.6em;
+    line-height: 1.6em;
+    font-size: 18px;
+    color: #000;
+}
+
+#submitBtn {
+    margin-top: 15px;
+}
+
+.verifySuccess {
+    margin-top: 30px;
+    .page_title {
+        font-size: 14px;
+        color: red;
+    }
+}
+
+.require {
+    color: #FF0000;
+    padding-right: 0.2rem;
+}
+
+.authForm .weui_label {
+    width: 85px;
+    padding-right: 20px;
+    text-align: right;
+}
+
+.cred {
+    margin-top: 1em;
+    padding-left: 15px;
+    line-height: 1.41176471;
+    color: #ff0000;
+}
+
+.ft-des-pad {
+    padding-top: 2rem;
+}
+
+.ft-des-color {
+    color: #FF0000;
+}
+
+.ft-des-size {
+    font-size: 16px;
+}
+
+.unitSpan {
+    position: absolute;
+    right: 2px;
+    top: 50%;
+    -webkit-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+}
+
+.editableWrap {
+    margin-top: 10px;
+    background-color: #fff;
+    color: #000000;
+    border: 1px solid #d9d9d9;
+    .weui_cell_hd {
+        color: #000000;
+    }
+}
+
+.uneditableWrap {
+    background-color: #efeff4;
+    color: #666666;
+    font-size: 17px;
+    &:before,
+    &:after {
+        border: 0;
+    }
+    p {
+        padding: 5px 10px;
+    }
+    .weui_cell:before {
+        border: 0;
+    }
+    .weui_label {
+        text-align: right;
+    }
+}
+
+#payMoneyTxt::-webkit-input-placeholder {
+    line-height: 24px;
+    font-size: 14px;
+}
+
+.index_page {
+    width: 100%;
+    min-height: 100%;
+    height: auto;
+/*         margin: 0 auto;
+    min-width: 320px;
+    max-width: 540px; */
+    position: relative;
+    padding-bottom: 3.2rem;
+    box-sizing: border-box;
+    background: #00adef;
+    color: #fff;
+}
+
+.index_page .lgnheader {
+    padding-top: 2em;
+    padding-bottom: 4em;
+}
+
+.header_tit_txt {
+    font-size: 14px;
+}
+
+.W_login_tit {
+    padding-left: 15px;
+    font-size: 18px;
+}
+
+.o_body {
+    margin: 0 10px;
+    padding-bottom: 5px;
+}
+
+.o_body .weui_cells {
+    margin-top: 0;
+}
+
+.jllogo {
+    width: 107px;
+    height: 127px;
+    margin: 0 auto 10px;
+    display: block;
+    background-image: url(../images/jllogo.png);
+    background-size: cover;
+}
+
+.W_login {
+    position: relative;
+}
+
+.W_login .clear_btn {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    width: 45px;
+    height: 29px;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.W_login .clear_btn:after {
+    content: ' ';
+    display: block;
+    width: 100%;
+    height: 100%;
+    -webkit-transform: scale(.6);
+    transform: scale(.6);
+    background: url(../images/clear.png) center center no-repeat;
+    background-size: cover;
+}
+
+.index_page .footer {
+    position: absolute;
+    bottom: 0;
+    height: 3.2rem;
+    width: 100%;
+    text-align: center;
+}
+
+.index_page .weui_btn {
+    background-color: #59bdf9;
+    line-height: 2.7 !important;
+}

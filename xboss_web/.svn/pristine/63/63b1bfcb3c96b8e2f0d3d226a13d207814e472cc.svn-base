@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <title>交易流水</title>
+    <link rel="stylesheet" type="text/css" href="css/mobiscroll.css" />
+    <link rel="stylesheet" type="text/css" href="css/mobiscroll_date.css" />
+    <link rel="stylesheet" type="text/css" href="css/weui.min.css">
+    <link rel="stylesheet" type="text/css" href="css/wxbase.css">
+    <script type="text/html" id="tpl_transaction_flw">
+        <div class="weui_grids">
+            <div class="weui_grid">
+                <p class="weui_grid_label">{{sttlDate}}</p>
+            </div>
+            <div class="weui_grid">
+                <p class="weui_grid_label">{{terminalNo}}</p>
+            </div>
+            <div class="weui_grid">
+                <p class="weui_grid_label">{{sttlDate}}</p>
+            </div>
+            <div class="weui_grid">
+                <p class="weui_grid_label">{{amount}}</p>
+            </div>
+            <div class="weui_grid">
+                <p class="weui_grid_label">{{exp}}</p>
+            </div>
+        </div>
+    </script>
+    <script type="text/html" id="tpl_terminal_checkbox">
+        <li class="fl">
+            <label class="weui_cell weui_check_label" for="{{terminalNo}}">
+                <div class="weui_cell_hd">
+                    <input type="checkbox" class="weui_check" id="{{terminalNo}}">
+                    <i class="weui_icon_checked"></i>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>{{terminalNo}}</p>
+                </div>
+            </label>
+        </li>
+    </script>
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="js/mobiscroll_date.js"></script>
+    <script type="text/javascript" src="js/mobiscroll.js"></script>
+    <script type="text/javascript" src="js/zepto.min.js"></script>
+    <script type="text/javascript" src="js/iscroll.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+</head>
+
+<body>
+    <div class="weui_cells_title">交易日期</div>
+    <div class="weui_cells weui_cells_form">
+        <div class="weui_cell">
+            <div class="weui_cell_bd weui_cell_primary">
+                <input type="text" class="weui_input" data-role="datebox" />
+            </div>
+            <div class="weui_cell_hd">
+                <label class="weui_label tc">—</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input type="text" class="weui_input" data-role="datebox" />
+            </div>
+        </div>
+        <div id="selectTerminal" class="weui_cell">
+            <div class="weui_cell_hd">
+                <label for="" class="weui_label">终端号</label>
+            </div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <a id="allTerminal" href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary">全部</a>
+                <a id="firstTerminal" href="javascript:;" class="weui_btn weui_btn_mini weui_btn_default">47494933</a>
+                <a id="moreTerminal" href="javascript:;" class="weui_btn weui_btn_mini weui_btn_default fr">更多</a>
+            </div>
+        </div>
+        <!--         <div class="weui_cells weui_cells_access" style="margin-top: 0;">
+    <a id="filter" class="weui_cell" href="javascript:;">
+        <div class="weui_cell_bd weui_cell_primary">
+            <p>筛选</p>
+        </div>
+        <div class="weui_cell_ft">
+        </div>
+    </a>
+</div> -->
+        <div class="weui_btn_area">
+            <a id="queryBtn" href="javascript:;" class="weui_btn weui_btn_primary">查询</a>
+        </div>
+    </div>
+    <div class="weui_cells_title thead">
+        <div class="weui_grids">
+            <div class="weui_grid">
+                <p class="weui_grid_label">
+                    交易时间
+                </p>
+            </div>
+            <div class="weui_grid">
+                <p class="weui_grid_label">
+                    终端号
+                </p>
+            </div>
+            <div class="weui_grid">
+                <p class="weui_grid_label">
+                    交易类型
+                </p>
+            </div>
+            <div class="weui_grid">
+                <p class="weui_grid_label">
+                    交易金额
+                </p>
+            </div>
+            <div class="weui_grid">
+                <p class="weui_grid_label">
+                    手续费
+                </p>
+            </div>
+        </div>
+    </div>
+    <div id="wrapper">
+        <div id="scroller">
+            <div id="pullDown" class="pullDown">
+                <span class="pullDownIcon"></span><span class="pullDownLabel">下拉刷新...</span>
+            </div>
+            <div id="dataWrapper" class="data_wrap">
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">
+                            2016/6/3
+                        </p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">
+                            333333
+                        </p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">
+                            5笔
+                        </p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">
+                            238.0
+                        </p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">
+                            238.0
+                        </p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">
+                            2016/6/3
+                        </p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">
+                            333333
+                        </p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">
+                            5笔
+                        </p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">
+                            238.0
+                        </p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">
+                            238.0
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div id="pullUp" class="pullUp">
+                <span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span>
+            </div>
+        </div>
+    </div>
+    <div id="actionSheet_wrap">
+        <div class="weui_mask_transition weui_fade_toggle" id="mask"></div>
+        <div class="weui_actionsheet weui_actionsheet_rtl" id="weui_actionsheet">
+            <div class="weui_search_bar" id="search_bar">
+                <form class="weui_search_outer">
+                    <div class="weui_search_inner">
+                        <i class="weui_icon_search"></i>
+                        <input type="search" class="weui_search_input" id="search_input" placeholder="搜索终端" required="">
+                        <a href="javascript:" class="weui_icon_clear" id="search_clear"></a>
+                    </div>
+                    <label for="search_input" class="weui_search_text" id="search_text">
+                        <i class="weui_icon_search"></i>
+                        <span>搜索终端</span>
+                    </label>
+                </form>
+                <a href="javascript:" class="weui_search_cancel" id="search_cancel">取消</a>
+            </div>
+            <ul id="terminalsWrap" class="weui_cells_checkbox clearfix">
+                <li class="fl">
+                    <label class="weui_cell weui_check_label" for="47494933">
+                        <div class="weui_cell_hd">
+                            <input type="checkbox" class="weui_check" name="checkbox1" id="47494933" checked="checked">
+                            <i class="weui_icon_checked"></i>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>47494933</p>
+                        </div>
+                    </label>
+                </li>
+                <li class="fl">
+                    <label class="weui_cell weui_check_label" for="47400623">
+                        <div class="weui_cell_hd">
+                            <input type="checkbox" name="checkbox1" class="weui_check" id="47400623">
+                            <i class="weui_icon_checked"></i>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>47400623</p>
+                        </div>
+                    </label>
+                </li>
+            </ul>
+            <!-- <div class="button_sp_area" style="width: 80%;">
+                <a href="javascript:;" data-interval="0" class="weui_btn weui_btn_mini weui_btn_default">今日</a>
+                <a href="javascript:;" data-interval="1" class="weui_btn weui_btn_mini weui_btn_default">昨日</a>
+                <a href="javascript:;" data-interval="7" class="weui_btn weui_btn_mini weui_btn_default">本周</a>
+                <a href="javascript:;" data-interval="30" class="weui_btn weui_btn_mini weui_btn_default">本月</a>
+            </div>
+            <div class="weui_cells">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">开始日期：</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input id="filterStartDate" type="text" class="weui_input" data-role="datebox" />
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">结束日期：</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input id="filterEndDate" type="text" class="weui_input" data-role="datebox" />
+                    </div>
+                </div>
+                <div class="weui_cell weui_cell_select weui_select_after">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">交易类型：</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <select id="" class="weui_select">
+                            <option value="">全部</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="weui_cell weui_cell_select weui_select_after">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">终端号：</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <select id="" class="weui_select">
+                            <option value="">全部</option>
+                            <option value="11111111">11111111</option>
+                            <option value="22222222">22222222</option>
+                            <option value="33333333">33333333</option>
+                        </select>
+                    </div>
+                </div>
+            </div> -->
+            <div class="weui_actionsheet_action">
+                <div class="weui_actionsheet_cell" id="actionsheet_cancel">确定</div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var reqMap, iScroll, srchTimer;
+
+        function query(pageIndex) {
+            var params = {
+                pageIndex: pageIndex,
+                pageSize: PAGE_SIZE
+            };
+            params = $.extend(params, reqMap);
+            util.query(params);
+        }
+
+        function searchTerminal(terminalNo) {
+            $.ajax({
+                url: "js/test.json",
+                type: "POST",
+                data: {
+                    ltlTerminal: terminalNo
+                },
+                dataType: "json",
+                success: function(data) {
+                    if (data && data.code == 200) {
+                        var html = "",
+                            tpl = $("#tpl_terminal_checkbox").html();
+                        data.data && data.data.forEach(function(item) {
+                            html += tpl.format(item);
+                        });
+                        $("#terminalsWrap").html(html);
+                    }
+                },
+                error: function() {}
+            });
+        }
+
+        $("#queryBtn").on(EV, function() {
+            query(1);
+        });
+
+        $("#allTerminal, #firstTerminal").on(EV, function() {
+            if ($(this).hasClass("weui_btn_default")) {
+                $(this).removeClass("weui_btn_default").addClass("weui_btn_primary");
+
+                var fn, terminal;
+                this.id == "allTerminal" ? (fn = "next", terminal = "all") : (fn = "prev", terminal = $(this).text());
+                $(this)[fn]().addClass("weui_btn_default").removeClass("weui_btn_primary");
+                $("#queryBtn").data("terminal", terminal);
+            } else {
+                $(this).addClass("weui_btn_default").removeClass("weui_btn_primary");
+            }
+        });
+
+        var nHeight = $(window).height();
+        $('#weui_actionsheet').height(nHeight);
+
+        reqMap = {
+            url: "js/test.json",
+            tplId: "tpl_transaction_flw"
+        };
+        iScroll = util.initIScroll({
+            pullDownAction: function() {
+                query(1)
+            },
+            pullUpAction: function(pageIndex) {
+                query(pageIndex)
+            }
+        });
+        reqMap.iScroll = iScroll;
+
+        $("#moreTerminal").on(EV, function() {
+            util.showActionSheet(function() {
+                var terminalNos = [];
+                jQuery.each($("#terminalsWrap input:checked"), function() {
+                    terminalNos.push(this.id);
+                });
+                $("#queryBtn").data("terminal", terminalNos);
+            });
+        });
+
+        var CANDIDATE_DATES = (function() {
+            var obj = {},
+                now = new Date,
+                today = now.format("yyyy-MM-dd"),
+                firstDay;
+            now.setDate(1);
+            firstDay = now.format("yyyy-MM-dd");
+            obj[today + "|" + today] = 0;
+            obj[getTargetDate(1).format("yyyy-MM-dd") + "|" + today] = 1;
+            obj[getTargetDate(7).format("yyyy-MM-dd") + "|" + today] = 7;
+            obj[firstDay + "|" + today] = 30;
+            return obj;
+        })();
+
+        $("#filterStartDate").on("change", function() {
+            var hittedInterval = CANDIDATE_DATES[$("#filterStartDate").val() + "|" + $("#filterEndDate").val()];
+            $('a[data-interval]').removeClass("weui_btn_primary");
+            hittedInterval && $('a[data-interval="' + hittedInterval + '"]').addClass("weui_btn_primary");
+        });
+
+        $("#weui_actionsheet").on(EV, "a[data-interval]", function() {
+            $(this).siblings().removeClass("weui_btn_primary");
+            $(this).addClass("weui_btn_primary");
+
+            if ($(this).data("interval") == 30) {
+                var now = new Date;
+                now.setDate(1);
+                $("#filterStartDate").val(now.format("yyyy-MM-dd"));
+            } else {
+                $("#filterStartDate").val(getTargetDate($(this).data("interval")).format("yyyy-MM-dd"));
+            }
+            $("#filterEndDate").val((new Date).format("yyyy-MM-dd"));
+        });
+
+        $("#weui_actionsheet").on('focus', '#search_input', function() {
+            var $weuiSearchBar = $('#search_bar');
+            $weuiSearchBar.addClass('weui_search_focusing');
+        }).on('blur', '#search_input', function() {
+            var $weuiSearchBar = $('#search_bar');
+            $weuiSearchBar.removeClass('weui_search_focusing');
+            if ($(this).val()) {
+                $('#search_text').hide();
+            } else {
+                $('#search_text').show();
+            }
+        }).on('input', '#search_input', function() {
+            var MIN_CHARS = 3,
+                terminalNo = $(this).val();
+            if (terminalNo.length > MIN_CHARS) {
+                srchTimer && clearTimeout(srchTimer);
+                srchTimer = setTimeout(function() {
+                    searchTerminal(terminalNo);
+                }, 100);
+            }
+        }).on('touchend', '#search_cancel', function() {
+            $('#search_input').val('');
+        }).on('touchend', '#search_clear', function() {
+            $('#search_input').val('');
+        });
+    });
+    </script>
+</body>
+
+</html>

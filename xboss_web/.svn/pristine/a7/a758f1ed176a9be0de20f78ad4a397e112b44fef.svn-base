@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <title>交易流水</title>
+    <link rel="stylesheet" type="text/css" href="css/weui.min.css">
+    <link rel="stylesheet" type="text/css" href="css/mobiscroll.custom-2.17.1.min.css">
+    <link rel="stylesheet" type="text/css" href="css/wxbase.css">
+    <script type="text/html" id="tpl_month_flw">
+        <div class="month_flw_wrap">
+            <div class="weui_cells weui_cells_access x_header">
+                <a class="weui_cell" href="javascript:;">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p class="month_label"></p>
+                    </div>
+                    <div class="toFilter weui_cell_ft dn">筛选</div>
+                </a>
+            </div>
+            <div class="data_wrap">
+            </div>
+        </div>
+    </script>
+    <script type="text/html" id="tpl_transaction_flw">
+        <div class="weui_grids" data-rowkey="{{rowkey}}">
+            <div class="weui_grid">
+                <p class="weui_grid_label">{{F_L_TRADE_TIME_MD}}</p>
+                <p class="weui_grid_label">{{F_L_TRADE_TIME_HM}}</p>
+            </div>
+            <div class="weui_grid">
+                <p class="weui_grid_label">{{F_L_TRADE_TYPE}}</p>
+                <p class="weui_grid_label">{{F_T_PRINT_MERCH_NAME}}</p>
+            </div>
+            <div class="weui_grid">
+                <p class="weui_grid_label">{{F_L_TRADE_AMT}}</p>
+                <p class="weui_grid_label">-{{F_L_MERCH_PDG}}</p>
+            </div>
+            <div class="weui_grid">
+                <p class="weui_grid_label">{{F_C_SETT_STATUS}}</p>
+                <p class="weui_grid_label">{{F_C_SETT_DATE}}</p>
+            </div>
+        </div>
+    </script>
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="js/zepto.min.js"></script>
+    <script type="text/javascript" src="js/mobiscroll.custom-2.17.1.min.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+</head>
+
+<body>
+    <div id="container">
+        <div class="weui_cells weui_cells_access x_header">
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p class="month_label">本月</p>
+                </div>
+                <div class="toFilter weui_cell_ft">筛选</div>
+            </a>
+        </div>
+        <div class="month_flw_wrap">
+            <div class="weui_cells weui_cells_access x_header">
+                <a class="weui_cell" href="javascript:;">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p class="month_label">本月</p>
+                    </div>
+                    <div class="toFilter weui_cell_ft">筛选</div>
+                </a>
+            </div>
+            <div class="data_wrap">
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="month_flw_wrap">
+            <div class="weui_cells weui_cells_access x_header">
+                <a class="weui_cell" href="javascript:;">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p class="month_label">6月</p>
+                    </div>
+                    <div class="toFilter weui_cell_ft dn">筛选</div>
+                </a>
+            </div>
+            <div class="data_wrap">
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="month_flw_wrap">
+            <div class="weui_cells weui_cells_access x_header">
+                <a class="weui_cell" href="javascript:;">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p class="month_label">5月</p>
+                    </div>
+                    <div class="toFilter weui_cell_ft dn">筛选</div>
+                </a>
+            </div>
+            <div class="data_wrap">
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">06-12</p>
+                        <p class="weui_grid_label">13:20</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label">南山店</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">400.00</p>
+                        <p class="weui_grid_label">-0.12</p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">结算</p>
+                        <p class="weui_grid_label">05-13</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="pullUp" class="pullUp">
+        <span class="pullUpIcon"></span><span class="pullUpLabel">加载更多...</span>
+    </div>
+    <div class="no_data">
+        <div class="none_img"></div>
+        <p class="tc">暂无交易流水记录</p>
+    </div>
+    <div id="actionSheet_wrap">
+        <div class="weui_mask_transition weui_fade_toggle" id="mask"></div>
+        <div class="filter_wrap weui_actionsheet weui_actionsheet_rtl" id="weui_actionsheet" style="top: 0;">
+            <div class="weui_cells weui_cells_access x_header">
+                <a class="weui_cell" href="javascript:;">
+                    <div class="back filter_back"></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p class="filter_date tc">6-12</p>
+                    </div>
+                    <div id="filterRangeDate"></div>
+                </a>
+            </div>
+            <div id="consumptionTypeWrap" class="weui_grids">
+                <a href="javascript:;" class="weui_grid check_all">
+                    <p class="weui_grid_label">
+                        全部
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label active">
+                        卡消费
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label">
+                        支付宝
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label">
+                        微信
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label">
+                        撤销
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label">
+                        退款
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label">
+                        预授权
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label">
+                        预授权完成
+                    </p>
+                </a>
+            </div>
+            <div id="settleTypeWrap" class="weui_grids">
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label active">
+                        已结算
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label">
+                        未结算
+                    </p>
+                </a>
+            </div>
+            <div id="storeWrap" class="weui_grids">
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label active">
+                        南三店南三店南三店南三店南三店南三店南三店
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label">
+                        罗湖店南三店南三店南三店南三店南三店南三店
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label active">
+                        南三店
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label">
+                        罗湖店
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label active">
+                        南三店南三店南三店南三店南三店南三店南三店
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label">
+                        罗湖店南三店南三店南三店南三店南三店南三店
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label active">
+                        南三店
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label">
+                        罗湖店
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label active">
+                        南三店南三店南三店南三店南三店南三店南三店
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label">
+                        罗湖店南三店南三店南三店南三店南三店南三店
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label active">
+                        南三店
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label">
+                        罗湖店
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label active">
+                        南三店南三店南三店南三店南三店南三店南三店
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label">
+                        罗湖店南三店南三店南三店南三店南三店南三店
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label active">
+                        南三店
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label">
+                        罗湖店
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label">
+                        罗湖店
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label active">
+                        南三店南三店南三店南三店南三店南三店南三店
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label">
+                        罗湖店南三店南三店南三店南三店南三店南三店
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label active">
+                        南三店
+                    </p>
+                </a>
+                <a href="javascript:;" class="weui_grid">
+                    <p class="weui_grid_label">
+                        罗湖店
+                    </p>
+                </a>
+            </div>
+            <div id="btnWrap" class="button_sp_area">
+                <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary dn">重置</a>
+                <a href="javascript:;" id="actionsheet_cancel" class="weui_btn weui_btn_primary">确定</a>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    util.initPage();
+    $(document).ready(function() {
+        $('#container').on(EV, ".toFilter", function() {
+            //$("body").css("overflow", "hidden");
+            $(window).off("scroll");
+            util.showActionSheet(function() {
+                $(window).on("scroll", function() {
+                    fnScroll();
+                });
+
+                var consumptionType = $("#consumptionTypeWrap p.active").map(function() {
+                    return $(this).text();
+                }).get().join(",");
+
+                var settleType = $("#settleTypeWrap p.active").map(function() {
+                    return $(this).text();
+                }).get().join(",");
+
+                var storeNames = $("#storeWrap p.active").map(function() {
+                    return $(this).text();
+                }).get().join(",");
+
+                var filterRange = $('#filterRangeDate').mobiscroll("getValue");
+                console.log(filterRange[0].format());
+                console.log(filterRange[1].format());
+
+                //$("body").css("overflow", "auto");
+            });
+        });
+
+        $("#container").on(EV, ".weui_grids", function() {
+            window.location.href = "detail.html?dType=trade";
+        });
+
+        function isOnTop(index, obj) {
+            var headerH = $(".x_header").height(),
+                scrollTop = $("body").scrollTop(),
+                offsetTop = $(obj).offset().top,
+                objH = $(obj).height();
+            index == 0 && (headerH = 0);
+            return headerH + scrollTop > offsetTop && headerH + scrollTop < offsetTop + objH;
+        }
+
+        var dateFieldName = "F_L_TRADE_TIME_MD",
+            pageIndex = 1,
+            scrollTimer;
+
+        function query(params) {
+            $.ajax({
+                url: "",
+                type: "POST",
+                data: params,
+                dataType: "json",
+                beforeSend: function() {
+                    params.pageIndex == 1 && util.loadingToast();
+                },
+                success: function(data) {
+                    util.removeToast();
+                    if (data && (data.code == 200 || data.rtnCode == 200)) {
+                        renderData(data.data);
+                        data.totalPage == 1 || params.pageIndex == data.totalPage ? $("#pullUp").addClass("dn") : $("#pullUp").removeClass("dn");
+                    } else {
+                        util.dialog({
+                            info: data.msg || data.rtnMsg
+                        });
+                    }
+                },
+                error: function() {
+                    util.dialog({
+                        info: "服务器异常，请稍候重试！"
+                    });
+                }
+            });
+        }
+
+        function renderData(data) {
+            var groupKey,
+                groupObj = {};
+            data.forEach(function(obj) {
+                var dateArr = obj[dateFieldName].split("-");
+                groupKey = dateArr[0] + dateArr[1];
+                groupObj[groupKey] = groupObj[groupKey] || [];
+                obj[dateFieldName] = dateArr[1] + dateArr[2];
+                groupObj[groupKey].push(obj);
+            });
+
+            var tpl = $("#tpl_transaction_flw").html();
+            for (groupKey in groupObj) {
+                var html = "";
+                groupObj[groupKey].forEach(function(obj) {
+                    html += tpl.format(obj);
+                });
+                if (!$("#flw" + groupKey).length) {
+                    var date = new Date(),
+                        month = date.getMonth() + 1;
+                    var tMonth = parseInt(groupKey.substring(4), 10);
+                    var monthLabel = tMonth == month ? "本月" : tMonth + "月";
+
+                    var outerHtml = $("#tpl_month_flw").html(),
+                        outerHtml = $(outerHtml);
+                    outerHtml.attr("id", "#flw" + groupKey)
+                        .find(".month_label").html(monthLabel);
+                    outerHtml.find(".data_wrap").append(html);
+                    $("#container").append(outerHtml);
+                } else {
+                    $("#flw" + groupKey).find(".data_wrap").append(html);
+                }
+            }
+        }
+
+        function fnScroll() {
+            clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(function() {
+                jQuery.each($(".month_flw_wrap"), function(index) {
+                    if (isOnTop(index, this)) {
+                        $(".x_header", this).addClass("nav_fixed");
+                        $(".toFilter", this).removeClass("dn");
+                    } else {
+                        $(".x_header", this).removeClass("nav_fixed");
+                        $(".toFilter", this).addClass("dn");
+                    }
+                });
+
+                if (!$("#pullUp").hasClass("dn") && $("#pullUp").offset().top <= $("body").scrollTop() + $(window).height()) {
+                    query(++pageIndex);
+                }
+            }, 200);
+        }
+
+        $(window).on("scroll", function() {
+            fnScroll();
+        });
+
+    });
+    </script>
+</body>
+
+</html>

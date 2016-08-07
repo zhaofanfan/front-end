@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <title>结算汇总</title>
+    <link rel="stylesheet" type="text/css" href="css/mobiscroll.css" />
+    <link rel="stylesheet" type="text/css" href="css/mobiscroll_date.css" />
+    <link rel="stylesheet" type="text/css" href="css/weui.min.css">
+    <link rel="stylesheet" type="text/css" href="css/wxbase.css">
+    <script type="text/html" id="tpl_sttlmnt_flw">
+        <div class="weui_grids">
+            <div class="weui_grid">
+                <p class="weui_grid_label">{{sttlDate}}</p>
+            </div>
+            <div class="weui_grid">
+                <p class="weui_grid_label">{{sttlDate}}</p>
+            </div>
+            <div class="weui_grid">
+                <p class="weui_grid_label">{{sttlDate}}</p>
+            </div>
+            <div class="weui_grid">
+                <p class="weui_grid_label">{{sttlDate}}</p>
+            </div>
+            <div class="weui_grid">
+                <p class="weui_grid_label">{{sttlDate}}</p>
+            </div>
+        </div>
+    </script>
+    <script type="text/html" id="tpl_sttlmnt_dtl">
+        <div class="weui_grids">
+            <div class="weui_grid">
+                <p class="weui_grid_label">{{index}}</p>
+            </div>
+            <div class="weui_grid">
+                <p class="weui_grid_label">{{sttlDate}}</p>
+            </div>
+            <div class="weui_grid">
+                <p class="weui_grid_label">{{sttlDate}}</p>
+            </div>
+            <div class="weui_grid">
+                <p class="weui_grid_label">{{sttlDate}}</p>
+            </div>
+            <div class="weui_grid">
+                <p class="weui_grid_label">{{sttlDate}}</p>
+            </div>
+        </div>
+    </script>
+    <script type="text/html" id="tpl_rtn_smmry">
+        <div class="weui_grids">
+            <div class="weui_grid" style="width: 30%">
+                <p class="weui_grid_label tl">
+                    {{}}
+                    <br/> {{}}</p>
+            </div>
+            <div class="weui_grid" style="width: 70%;line-height: 3.1;">
+                <p class="weui_grid_label tr">{{}}</p>
+            </div>
+        </div>
+    </script>
+    <script type="text/html" id="tpl_frz_smmry">
+        <div class="weui_grids">
+            <div class="weui_grid" style="width: 30%">
+                <p class="weui_grid_label tl">
+                    {{}}
+                    <br/> {{}}</p>
+            </div>
+            <div class="weui_grid" style="width: 70%;line-height: 3.1;">
+                <p class="weui_grid_label tr">{{}}</p>
+            </div>
+        </div>
+    </script>
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="js/mobiscroll_date.js"></script>
+    <script type="text/javascript" src="js/mobiscroll.js"></script>
+    <script type="text/javascript" src="js/zepto.min.js"></script>
+    <script type="text/javascript" src="js/iscroll.js"></script>
+    <script type="text/javascript" src="js/util.js"></script>
+</head>
+
+<body>
+    <div class="query_hd">
+        <div class="weui_cells_title">结算日期</div>
+        <div class="weui_cells weui_cells_form">
+            <div class="weui_cell">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input type="text" class="weui_input" data-role="datebox" />
+                </div>
+                <div class="weui_cell_hd">
+                    <label class="weui_label tc">—</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input type="text" class="weui_input" data-role="datebox" />
+                </div>
+            </div>
+            <div class="weui_btn_area">
+                <a id="queryBtn" href="javascript:;" class="weui_btn weui_btn_primary">查询</a>
+            </div>
+        </div>
+    </div>
+    <div id="query_summary" class="weui_grids">
+        <div class="weui_grid">
+            <p class="weui_grid_label">结算总金额
+                <br/>（元）</p>
+        </div>
+        <div class="weui_grid">
+            <p class="weui_grid_label">2000.31</p>
+        </div>
+        <div class="weui_grid">
+            <p class="weui_grid_label">手续费
+                <br/>（元）</p>
+        </div>
+        <div class="weui_grid">
+            <p class="weui_grid_label">9.80</p>
+        </div>
+    </div>
+    <div class="button_sp_area simulate_tab">
+        <a href="javascript:;" data-tab-for="terminal" class="weui_btn weui_btn_mini weui_btn_primary">终端汇总</a>
+        <a href="javascript:;" data-tab-for="rent" class="weui_btn weui_btn_mini weui_btn_default">月租汇总</a>
+        <a href="javascript:;" data-tab-for="freeze" class="weui_btn weui_btn_mini weui_btn_default">冻结/解冻</a>
+    </div>
+    <div class="tab_wrap" data-wrap-for="terminal">
+        <div id="flwHead" class="weui_cells_title thead">
+            <div class="weui_grids">
+                <div class="weui_grid">
+                    <p class="weui_grid_label">结算日期</p>
+                </div>
+                <div class="weui_grid">
+                    <p class="weui_grid_label">终端号</p>
+                </div>
+                <div class="weui_grid">
+                    <p class="weui_grid_label">结算账号</p>
+                </div>
+                <div class="weui_grid">
+                    <p class="weui_grid_label">结算金额</p>
+                </div>
+                <div class="weui_grid">
+                    <p class="weui_grid_label">交易笔数</p>
+                </div>
+            </div>
+        </div>
+        <div id="flwWrapper">
+            <div id="flwScroller">
+                <div id="flwPullDown" class="pullDown">
+                    <span class="pullDownIcon"></span><span class="pullDownLabel">下拉刷新...</span>
+                </div>
+                <div id="flwDataWrapper" class="data_wrap">
+                    <div class="weui_grids">
+                        <div class="weui_grid">
+                            <p class="weui_grid_label">
+                                2016/6/3
+                            </p>
+                        </div>
+                        <div class="weui_grid">
+                            <p class="weui_grid_label">
+                                333333
+                            </p>
+                        </div>
+                        <div class="weui_grid">
+                            <p class="weui_grid_label">
+                                9876
+                            </p>
+                        </div>
+                        <div class="weui_grid">
+                            <p class="weui_grid_label">
+                                238.0
+                            </p>
+                        </div>
+                        <div class="weui_grid">
+                            <p class="weui_grid_label">
+                                5笔
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div id="flwPullUp" class="pullUp">
+                    <span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab_wrap dn" data-wrap-for="rent">
+        <div id="rntWrapper">
+            <div id="rntScroller">
+                <div id="rntDataWrapper" class="data_wrap">
+                    <div class="weui_grids">
+                        <div class="weui_grid" style="width: 30%">
+                            <p class="weui_grid_label tl">
+                                月租金额
+                                <br/> 2016-05-12
+                            </p>
+                        </div>
+                        <div class="weui_grid" style="width: 70%;line-height: 3.1;">
+                            <p class="weui_grid_label tr">
+                                333333
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div id="rntPullUp" class="pullUp">
+                    <span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab_wrap dn" data-wrap-for="freeze">
+        <div id="frzWrapper">
+            <div id="frzScroller">
+                <div id="frzDataWrapper" class="data_wrap">
+                    <div class="weui_grids">
+                        <div class="weui_grid" style="width: 30%">
+                            <p class="weui_grid_label tl">
+                                冻结金额
+                                <br/> 2016-05-12
+                            </p>
+                        </div>
+                        <div class="weui_grid" style="width: 70%;line-height: 3.1;">
+                            <p class="weui_grid_label tr">
+                                100
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div id="frzPullUp" class="pullUp">
+                    <span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="actionSheet_wrap">
+        <div class="weui_mask_transition weui_fade_toggle" id="mask"></div>
+        <div class="weui_actionsheet weui_actionsheet_rtl" id="weui_actionsheet">
+            <div class="weui_cells_title thead">
+                <div class="weui_grids">
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">
+                            序号
+                        </p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">
+                            交易时间
+                        </p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">
+                            交易金额
+                        </p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">
+                            商户手续费
+                        </p>
+                    </div>
+                    <div class="weui_grid">
+                        <p class="weui_grid_label">
+                            类型
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div id="dtlWrapper">
+                <div id="dtlScroller">
+                    <div id="dtlDataWrapper" class="data_wrap">
+                        <div class="weui_grids">
+                            <div class="weui_grid">
+                                <p class="weui_grid_label">
+                                    1
+                                </p>
+                            </div>
+                            <div class="weui_grid">
+                                <p class="weui_grid_label">
+                                    2016/6/3
+                                </p>
+                            </div>
+                            <div class="weui_grid">
+                                <p class="weui_grid_label">
+                                    9876
+                                </p>
+                            </div>
+                            <div class="weui_grid">
+                                <p class="weui_grid_label">
+                                    8.0
+                                </p>
+                            </div>
+                            <div class="weui_grid">
+                                <p class="weui_grid_label">
+                                    交易
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="dtlPullUp" class="pullUp">
+                        <span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span>
+                    </div>
+                    <div class="weui_actionsheet_action">
+                        <div class="weui_actionsheet_cell" id="actionsheet_cancel">取消</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var reqMap, flwIScroll, dtlIScroll, rntIScroll, frzIScroll;
+
+    function query(pageIndex, reqKey) {
+        var params = {
+            pageIndex: pageIndex,
+            pageSize: PAGE_SIZE
+        };
+        params = $.extend(params, reqMap[reqKey]);
+        switch (reqKey) {
+            case "flw":
+                break;
+            case "dtl":
+                params.indexRequired = !0;
+                break;
+            case "rnt":
+                break;
+            case "frz":
+                break;
+        }
+        util.query(params);
+    }
+
+    reqMap = {
+        flw: {
+            url: "js/test.json",
+            id: "flwWrapper",
+            dataWrapId: "flwDataWrapper",
+            pullUpId: "flwPullUp",
+            pullDownId: "flwPullDown",
+            tplId: "tpl_sttlmnt_flw"
+        },
+        dtl: {
+            url: "js/test.json",
+            id: "dtlWrapper",
+            dataWrapId: "dtlDataWrapper",
+            pullUpId: "dtlPullUp",
+            tplId: "tpl_sttlmnt_dtl"
+        },
+        rnt: {
+            url: "js/test.json",
+            id: "rntWrapper",
+            dataWrapId: "rntDataWrapper",
+            pullUpId: "rntPullUp",
+            tplId: "tpl_rtn_smmry"
+        },
+        frz: {
+            url: "js/test.json",
+            id: "frzWrapper",
+            dataWrapId: "frzDataWrapper",
+            pullUpId: "frzPullUp",
+            tplId: "tpl_frz_smmry"
+        }
+    };
+
+    function setOpts(reqKey) {
+        return $.extend(reqMap[reqKey], {
+            pullDownAction: function() {
+                query(1, reqKey)
+            },
+            pullUpAction: function(pageIndex) {
+                query(pageIndex, reqKey)
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        var nHeight = $(window).height();
+        $('#weui_actionsheet').height(nHeight);
+
+        flwIScroll = util.initIScroll(setOpts("flw"));
+        dtlIScroll = util.initIScroll(setOpts("dtl"));
+        rntIScroll = util.initIScroll(setOpts("rnt"));
+        frzIScroll = util.initIScroll(setOpts("frz"));
+        reqMap.flw.iScroll = flwIScroll;
+        reqMap.dtl.iScroll = dtlIScroll;
+        reqMap.rnt.iScroll = rntIScroll;
+        reqMap.frz.iScroll = frzIScroll;
+
+        $("#queryBtn").on(EV, function() {
+            query(1, "flw");
+        });
+
+        $("#flwWrapper").on(EV, ".weui_grids", function() {
+            util.showActionSheet();
+        });
+
+        $(".simulate_tab").on(EV, "a[data-tab-for]", function() {
+            $(this).siblings().removeClass("weui_btn_primary").addClass("weui_btn_default");
+            $(this).removeClass("weui_btn_default").addClass("weui_btn_primary");
+
+            $(".tab_wrap").addClass("dn")
+                .filter('[data-wrap-for="' + $(this).data("tabFor") + '"]')
+                .removeClass("dn");
+        });
+
+        // 修正偏移位置
+        setTimeout(function() {
+            var offsetTop = parseInt($("#rntWrapper").css("top"), 10),
+                hght = $("#flwHead").outerHeight(true);
+            $("#rntWrapper, #frzWrapper").css("top", offsetTop - hght + "px");
+        }, 500);
+    });
+    </script>
+</body>
+
+</html>
