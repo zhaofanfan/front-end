@@ -118,6 +118,9 @@
         padding-left: 0;
         padding-right: 0;
     }
+    &:after {
+        content: none;
+    }
 }
 
 #protocolWrap {
@@ -172,7 +175,7 @@
         }
     }
     .js-signature {
-        width: 85%;
+        width: 87%;
         margin: 0 auto;
         border: 4px dashed #464a4d;
         overflow: hidden;

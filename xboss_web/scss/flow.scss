@@ -7,29 +7,32 @@
 //@import '_base';
 .x_header {
     margin-top: 0;
-    line-height: 1.5;
+    height: 44px;
+    line-height: 44px;
     background: #f0eff4;
     font-size: 17px !important;
-}
-
-#dataWrap {
-    padding-left: 15px;
-    .weui_grids {
-        border-bottom: 1px solid #d9d9d9;
+    &:before {
+        content: none;
+    }
+    .weui_cell {
+        padding: 0 15px;
     }
 }
 
 .month_flw_wrap {
     .weui_grid {
-        width: 25%;
+        width: 20%;
+    }
+    .weui_grid:nth-child(2) {
+        width: 40%;
     }
 }
 
 #filterRangeDate {
-    width: 24px;
-    height: 25px;
-    background: url(../images/date_filter.png) no-repeat;
-    background-size: cover;
+    width: 44px;
+    height: 44px;
+    background: url(../images/date_filter.png) center center no-repeat;
+    background-size: 24px 25px;
 }
 
 #consumptionTypeWrap {
@@ -62,24 +65,24 @@
     .weui_grid_label {
         font-size: 16px;
         line-height: 1.8;
+        border: 1px solid transparent;
     }
     .weui_grid_label.active {
-        background-color: #0068b7;
-        color: #ffffff;
+        color: #0068b7;
+        border-color: #0068b7;
         border-radius: 5px;
     }
 }
 
 .btnWrapAbs {
     position: absolute;
-    width: 80%;
-    left: 10%;
+    left: 15px;
     bottom: 10%;
 }
 
 .sttlmnt_wrap {
     .weui_grids {
-        padding: 10px 0;
+        padding: 10px 15px;
         div:nth-of-type(2) {
             width: 60%;
         }
@@ -93,15 +96,22 @@
 
 /** 结算汇总*/
 
-#prevDay:after,
-#nextDay:after {
-    width: 10px;
-    height: 10px;
+#prevDay, #nextDay {
+    width: 44px;
+    text-align: right;
+    &:after {
+        width: 10px !important;
+        height: 10px !important;
+    }
 }
 
-#prevDay:after {
-    -webkit-transform: rotate(-135deg);
-    transform: rotate(-135deg);
+
+#prevDay {
+    text-align: left;
+    &:after {
+        -webkit-transform: rotate(-135deg);
+        transform: rotate(-135deg);
+    }
 }
 
 #sttlDate {
@@ -250,4 +260,9 @@
     .weui_cell:before {
         border-top: 0;
     }
+}
+
+.ta_calendar {
+    left: 0 !important;
+    top: 0 !important;
 }

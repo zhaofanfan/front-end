@@ -8,6 +8,16 @@
     <title>价改协议</title>
     <link rel="stylesheet" type="text/css" href="css/weui.min.css">
     <link rel="stylesheet" type="text/css" href="css/wxbase.css">
+    <style type="text/css">
+        #signatureWrap{padding: 0;background: #fff;z-index: 11;}
+        #signatureWrap .authForm{margin: 0 0 5px;}
+        #signatureWrap .js-signature canvas{vertical-align: top;}
+        .agreement-body em{padding: 0 5px;border-bottom: 1px solid #000;}
+        #myDialog .weui_dialog_bd{padding: 20px 0 10px;text-align: center;}
+        section.two .weui_label{width: 80px;}
+        .signature-inner .signature-img{width: auto;height: 4.25rem;}
+        .signature-inner .boldface_label{height: 4.25rem;line-height: 4.25rem;}
+    </style>
     <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="js/jq-signature.js"></script>
     <script type="text/javascript" src="js/util.js"></script>
@@ -44,57 +54,171 @@
 </head>
 
 <body>
-    <header class="rf-header clearfix">
-        <div class="rf-header-icon fl">
-            <img src="images/logo.png" alt="" height="100%" />
-        </div>
-    </header>
-    <div class="agreement" style="padding-top: 1.92rem;">
-        <!-- <img src="images/receipt_01.jpg" alt="" width="100%" /> -->
-        <div class="agreement-wrap">
-            <h2 class="heading">关于银行卡刷卡手续费调整的重要通知</h2>
-            <br/>
-            <p class="salutation">尊敬的商户：</p>
-            <br/>
-            <div class="agreement-body">
-                <p>感谢您选择嘉联支付！</p>
-                <br/>
-                <p class="breakWord">根据《国家发展改革委、中国人民银行关于完善银行卡刷卡手续费定价机制的通知》（发改价格〔2016〕557 号）规定，我司与您签订的《特约商户受理银联卡业务协议书》中有关银行卡刷卡手续费标准自 2016 年 9 月 6 日开始进行调整，具体收费标准我司将通过包括但不限于书面或电子平台/邮件/短信等方式通知您。烦请您留意我司官方网址及商户平台（网址：<a href="http://www.jlpay.com/">http://www.jlpay.com/</a>）发布的有关讯息。</p>
-                <p>如有疑问，请拨打我司客服电话 400 8868 400 进行咨询。</p>
-                <br/>
-                <p>感谢您的理解与支持！</p>
+    <section class="one">
+        <header class="rf-header clearfix">
+            <div class="rf-header-icon fl">
+                <img src="images/logo.png" alt="" height="100%" />
             </div>
-            <br/>
-            <p class="signature">嘉联支付有限公司</p>
-            <br/>
-            <p class="signature-date">二零一六年七月六日</p>
+        </header>
+        <div class="agreement" style="padding-top: 1.92rem;">
+        <!-- <img src="images/receipt_01.jpg" alt="" width="100%" />
+            <img src="images/receipt_02.jpg" alt="" width="100%" /> -->
+            <div class="agreement-wrap">
+                <h2 class="heading">关于银行卡刷卡手续费调整的重要通知</h2>
+                <br/>
+                <p class="salutation">尊敬的商户：</p>
+                <br/>
+                <div class="agreement-body">
+                    <p>感谢您选择嘉联支付！</p>
+                    <br/>
+                    <p class="breakWord">
+                        根据《国家发展改革委、中国人民银行关于完善银行卡刷卡手续费定价机制的通知》（发改价格〔2016〕557 号）规定，我司与您签订的《特约商户受理银联卡业务协议书》中有关银行卡刷卡手续费标准自2016年9月6日开始进行调整，具体收费标准调整如下：
+                    </p>
+                    <p>1、境内银联卡：</p>
+                    <p>（1）借记卡：费率为交易金额的 <em>100</em> %，封顶值 <em>100</em> 元/笔；</p>
+                    <p>（2）贷记卡：费率为交易金额的 <em>100</em> %。</p>
+                    <p>2、境外银联卡: </p>
+                    <p>费率为交易金额的 <em>100</em> %。</p>
+                    <p class="breakWord">如有疑问，请拨打我司客服电话 400 8868 400 进行咨询或登录我司官方网址及商户平台（网址：<a href="http://www.jlpay.com/">http://www.jlpay.com/</a>）了解详情。</p>
+                    <br/>
+                    <p>感谢您的理解与支持！</p>
+                </div>
+                <br/>
+                <p class="signature">嘉联支付有限公司</p>
+                <br/>
+                <p class="signature-date">二零一六年八月二十日</p>
+            </div>
         </div>
-        <img src="images/receipt_02.jpg" alt="" width="100%" />
-    </div>
-    <div id="signatureWrap" class="hidden">
-        <i id="cancelBtn" class="weui_icon_cancel">请在下方手写您的姓名</i>
-        <div class="js-signature" data-height="200" data-border="none" data-background="#363c3c" data-line-color="#bc0000" data-auto-fit="true">
+        <div id="signatureWrap" class="hidden">
+            <!-- <i id="cancelBtn" class="weui_icon_cancel">请在下方手写您的姓名</i> -->
+            <div class="authForm weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">法人代表</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input id="yourName" class="weui_input" type="text" placeholder="请输入法人姓名" />
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">确认人</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input id="idCardNo" class="weui_input" type="text" placeholder="请输入协议确认人姓名" />
+                    </div>
+                </div>
+            </div>
+            <div class="js-signature" data-height="200" data-border="none" data-background="#363c3c" data-line-color="#bc0000" data-auto-fit="true">
+            </div>
+            <div class="button_sp_area">
+                <a id="clearBtn" href="javascript:;" onclick="clearCanvas();" class="weui_btn weui_btn_mini weui_btn_primary">重签</a>
+                <a id="saveBtn" href="javascript:;" onclick="saveSignature();" class="weui_btn weui_btn_mini weui_btn_primary" disabled>确定</a>
+            </div>
         </div>
-        <div class="button_sp_area">
-            <a id="clearBtn" href="javascript:;" onclick="clearCanvas();" class="weui_btn weui_btn_mini weui_btn_primary">重签</a>
-            <a id="saveBtn" href="javascript:;" onclick="saveSignature();" class="weui_btn weui_btn_mini weui_btn_primary" disabled>确定</a>
+        <div class="button_sp_area signature_btn_wrap">
+            <a href="javascript:;" id="eSign" class="weui_btn weui_btn_primary">签订协议</a>
+            <a id="resignBtn" href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary dn">重签</a>
+            <a id="submitBtn" href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary dn">提交</a>
         </div>
-    </div>
-    <div class="button_sp_area signature_btn_wrap">
-        <a href="javascript:;" id="eSign" class="weui_btn weui_btn_primary">签订协议</a>
-        <a id="resignBtn" href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary">重签</a>
-        <a id="submitBtn" href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary">提交</a>
+        <div id="myMask" class="weui_mask dn"></div>
+        <div class="weui_dialog_confirm dn" id="myDialog">
+            <div class="weui_mask"></div>
+            <div class="weui_dialog">
+                <!-- <div class="weui_dialog_hd"><strong class="weui_dialog_title">提示</strong></div> -->
+                <div class="weui_dialog_bd">请确认是否认同该协议条款？</div>
+                <div class="weui_dialog_ft">
+                    <a href="javascript:;" class="weui_btn_dialog default">不认同</a>
+                    <a href="javascript:;" class="weui_btn_dialog primary">认同</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="two dn">
+        <div class="agreement-wrap">
+            <p class="salutation">回执：</p>
+            <br>
+            <p>嘉联支付有限公司：</p>
+            <br>
+            <div class="agreement-body">
+                <p class="breakWord">
+                    我单位已经阅读并知晓《关于银行卡刷卡手续费调整的重要通知》并同意按照有关费率执行。
+                </p>
+            </div>
+            <div class="authForm weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">法人代表：</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">确认人：</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">签名日期：</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                    </div>
+                </div>
+            </div>
+            <div class="signature-inner mt10 clearfix">
+                <img class="signature-img fr" alt src="images/camera.png" />
+                <label class="boldface_label fr">签名：</label>
+            </div>
+            <a id="toFocus" style="color: #ff0000;text-decoration: underline;" href="javascript:;">请关注嘉联公众号</a>
+        </div>
+    </section>
+    <div id="actionSheet_wrap">
+        <div class="weui_mask_transition weui_fade_toggle" id="mask"></div>
+        <div class="weui_actionsheet weui_actionsheet_rtl" id="weui_actionsheet" style="top: 0;">
+            <div class="cm-header">
+                <span class="cm-header-icon fl js_back" id="actionsheet_cancel">
+                    <i class="icon-back"></i>
+                </span>
+                <span class="cm-header-icon fr js_home">
+                    <i class="icon-home"></i>
+                </span>
+                <h1 class="cm-page-title js_title">
+                </h1>
+            </div>
+            <div class="qrcode-wrap">
+                <img src="images/jl_qrcode.png" alt="" />
+            </div>
+        </div>
     </div>
     <script type="text/javascript">
     $(document).on('ready', function() {
+        $('#toFocus').on(EV, function() {
+            util.showActionSheet();
+        });
+        
         $('.js-signature').jqSignature();
 
-        $("#eSign").on(EV, function() {
+        $("#eSign, #resignBtn").on(EV, function() {
             $(this).parent().addClass("dn");
+            $("#myMask").removeClass("dn");
             $("#signatureWrap").removeClass("hidden");
+            clearCanvas();
         });
 
+        $("#myDialog").on(EV, ".weui_btn_dialog.default", function() {
+            $("#myDialog").remove();
+        }).on(EV, ".weui_btn_dialog.primary", function() {
+            $("#myDialog").remove();
+        });
     });
+
+    function clearCanvas() {
+        $('.js-signature').jqSignature('clearCanvas');
+        $('#saveBtn').attr('disabled', true);
+    }
     </script>
 </body>
 

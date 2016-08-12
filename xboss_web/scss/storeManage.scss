@@ -20,8 +20,14 @@
             width: 33.33333333%;
         }
     }
+    .data_wrap .weui_grids {
+        padding: 0;
+    }
     .weui_actionsheet_action {
         background-color: #efeff4;
+    }
+    .weui_grid_label {
+        text-align: center;
     }
 }
 
@@ -77,5 +83,12 @@
     border: 1px solid $borderColor;
     .weui_cell_hd {
         color: $black;
+    }
+}
+
+#terminalEditForm {
+    margin-top: 40px;
+    .weui_label {
+        width: 80px;
     }
 }

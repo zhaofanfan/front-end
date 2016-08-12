@@ -11,7 +11,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 body {
-    font-family: "微软雅黑";
+    font-family: Helvetica;
 }
 
 a {
@@ -425,11 +425,17 @@ ul li {
 }
 
 .data_wrap .weui_grids {
+    padding: 0 15px;
     border-bottom: 1px solid $borderColor;
 }
 
 .data_wrap .weui_grid_label {
     color: $gridLabelColor;
+    text-align: left;
+}
+
+.data_wrap .weui_grids .weui_grid:last-child .weui_grid_label {
+    text-align: right;
 }
 
 .data_wrap .weui_grids.active .weui_grid_label {
@@ -547,6 +553,10 @@ ul li {
     background-color: $buttonBgColor;
 }
 
+.weui_icon_success:before {
+    color: $buttonBgColor;
+}
+
 .weui_btn_dialog.primary {
     color: $buttonBgColor;
 }
@@ -601,14 +611,9 @@ ul li {
     }
 }
 
-.weui_input {
-    font-family: "微软雅黑";
-}
-
 .button_sp_area {
-    padding: 10px 0;
-    margin: 0 auto;
-    width: 80%;
+    margin: 10px auto;
+    width: calc(100% - 30px);
     text-align: justify;
     text-justify: distribute-all-lines;
     font-size: 0;
@@ -658,7 +663,7 @@ ul li {
 
 .no_data {
     position: fixed;
-    top: 45px;
+    top: 44px;
     width: 100%;
     height: 100%;
     background: #f6f6f6;
@@ -688,19 +693,18 @@ ul li {
     display: inline-block;
     -webkit-transform: rotate(-135deg);
     transform: rotate(-135deg);
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     vertical-align: middle;
     border-width: 2px 2px 0 0;
     border-color: #c8c8cd;
     border-style: solid;
     position: relative;
-    top: -1px;
-    margin-right: .2em;
+    top: -2px;
 }
 
 .filter_back {
-    width: 20px;
+    width: 44px;
 }
 
 

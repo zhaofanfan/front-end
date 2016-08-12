@@ -8,6 +8,7 @@
     <title>交易流水</title>
     <link rel="stylesheet" type="text/css" href="css/weui.min.css">
     <link rel="stylesheet" type="text/css" href="css/mobiscroll.custom-2.17.1.min.css">
+    <link rel="stylesheet" type="text/css" href="css/dateRange.min.css">
     <link rel="stylesheet" type="text/css" href="css/wxbase.css">
     <script type="text/html" id="tpl_month_flw">
         <div class="month_flw_wrap">
@@ -46,19 +47,12 @@
     <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="js/zepto.min.js"></script>
     <script type="text/javascript" src="js/mobiscroll.custom-2.17.1.min.js"></script>
+    <script type="text/javascript" src="js/dateRange.min.js"></script>
     <script type="text/javascript" src="js/util.js"></script>
 </head>
 
 <body>
     <div id="container">
-        <div class="weui_cells weui_cells_access x_header">
-            <a class="weui_cell" href="javascript:;">
-                <div class="weui_cell_bd weui_cell_primary">
-                    <p class="month_label">本月</p>
-                </div>
-                <div class="toFilter weui_cell_ft">筛选</div>
-            </a>
-        </div>
         <div class="month_flw_wrap">
             <div class="weui_cells weui_cells_access x_header">
                 <a class="weui_cell" href="javascript:;">
@@ -75,7 +69,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -93,7 +87,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -111,7 +105,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -129,7 +123,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -147,7 +141,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -165,7 +159,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -183,7 +177,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -201,7 +195,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -219,7 +213,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -237,7 +231,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -255,7 +249,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -273,7 +267,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -291,7 +285,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -309,7 +303,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -327,7 +321,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -357,7 +351,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -375,7 +369,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -393,7 +387,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -411,7 +405,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -429,7 +423,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -447,7 +441,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -465,7 +459,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -483,7 +477,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -501,7 +495,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -519,7 +513,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -537,7 +531,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -555,7 +549,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -573,7 +567,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -591,7 +585,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -609,7 +603,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -639,7 +633,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -657,7 +651,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -675,7 +669,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -693,7 +687,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -711,7 +705,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -729,7 +723,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -747,7 +741,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -765,7 +759,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -783,7 +777,7 @@
                         <p class="weui_grid_label">13:20</p>
                     </div>
                     <div class="weui_grid">
-                        <p class="weui_grid_label">消费</p>
+                        <p class="weui_grid_label" style="color: #666;">消费</p>
                         <p class="weui_grid_label">南山店</p>
                     </div>
                     <div class="weui_grid">
@@ -812,7 +806,7 @@
                 <a class="weui_cell" href="javascript:;">
                     <div class="back filter_back"></div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <p class="filter_date tc">6-12</p>
+                        <p id="filterDate" class="tc"></p>
                     </div>
                     <div id="filterRangeDate"></div>
                 </a>
@@ -1116,7 +1110,7 @@
         }
 
         $(window).on("scroll", function() {
-            fnScroll();
+            //fnScroll();
         });
 
     });

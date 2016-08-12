@@ -563,7 +563,7 @@ util.initPage = function(pageType) {
         } else {
             $("#btnWrap").addClass("btnWrapAbs");
         }
-
+/*
         var minDate = new Date();
         minDate.setDate(1);
         var opts = {
@@ -573,22 +573,42 @@ util.initPage = function(pageType) {
             mode: 'scroller',
             dateFormat: 'mm-dd',
             defaultValue: [new Date(), new Date()],
-            minDate: getTargetDate(180),
-            maxDate: new Date(),
-            onSelect: function(valueText, inst) {
-                $('#rangeDate, #filterDate').text(valueText.replace(/\s-\s/, ' 至 '));
-                $('#rangeDate, #filterRangeDate').mobiscroll('setValue', inst.getVal());
+            min: getTargetDate(180),
+            max: new Date(),
+            onSet: function(event, inst) {
+                $('#rangeDate, #filterDate').text(event.valueText.replace(/\s-\s/, ' 至 '));
+                $('#rangeDate, #filterRangeDate').mobiscroll('setVal', inst.getVal());
             }
         };
         $('#rangeDate, #filterRangeDate').mobiscroll().range(opts);
 
-        $('#filterRangeDate').mobiscroll('setValue', [getTargetDate(180), new Date()]);
+        $('#filterRangeDate').mobiscroll('setVal', [getTargetDate(180), new Date()]);
 
         $('#rangeDate, #filterDate').text(new Date().format('MM-dd'));
 
         $('#rangeDate, #filterRangeDate').on(EV, function() {
             return $(this).mobiscroll('show'), false;
-        });
+        });*/
+        if (!!$("#filterRangeDate").length) {
+	        var dateRange = new pickerDateRange('filterRangeDate', {
+	            isTodayValid: true,
+	            //startDate: getTargetDate(180).format(),
+	            startDate: new Date().format(),
+	            endDate: new Date().format(),
+	            calendars: 2,
+	            autoSubmit: true,
+	            theme: 'ta',
+	            defaultText: ' 至 ',
+	            success: function(obj) {
+	                $('#filterRangeDate').text('');
+	                $('#filterDate').text(obj.startDate + ' 至 ' + obj.endDate);
+	            }
+	        });
+	        $('#filterRangeDate').text('');
+	        //$('#filterDate').text(getTargetDate(180).format() + ' 至 ' + new Date().format());
+	        $('#filterDate').text(new Date().format());
+	        window._dateRange = dateRange;
+        }
 
         $('#consumptionTypeWrap').on(EV, 'a.weui_grid', function() {
             $('.weui_grid_label', this).toggleClass('active');

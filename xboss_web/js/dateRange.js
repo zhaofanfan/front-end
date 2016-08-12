@@ -1420,7 +1420,7 @@ pickerDateRange.prototype.changeInput = function(ipt) {
     }
 
     // 移除所有输入框的附加样式
-    for (var i in allInputs) {
+    for (var i = 0; i < allInputs.length; i++) {
         $('#' + allInputs[i]).removeClass(this.mOpts.theme + '_' + this.mOpts.selectCss);
         $('#' + allInputs[i]).removeClass(this.mOpts.theme + '_' + this.mOpts.compareCss);
     }
