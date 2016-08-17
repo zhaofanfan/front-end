@@ -37,7 +37,7 @@ gulp.task("babel", function() {
         .pipe(babel({
             presets: ['es2015']
         }))
-        .pipe(gulp.dest("xboss_web/dist"));
+        .pipe(gulp.dest("xboss_web/js"));
 });
 
 gulp.task('imagemin', function() {
