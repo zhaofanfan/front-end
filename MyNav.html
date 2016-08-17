@@ -1211,6 +1211,118 @@ em{ font-style:normal;}
 	$('select').renderSelect();
 	$('input[name=gender]').renderRadio();
     </script>
+
+    <style>
+@charset "utf-8";
+.detail_layout__main{float:left;width:857px;background:#fff;padding-bottom:20px}
+.mod_list_menu{font-size:0;height:36px}
+.list_menu__item{display:inline-block;margin-right:10px;vertical-align:top}
+.list_menu__icon_add,.list_menu__icon_down,.list_menu__icon_pause,.list_menu__icon_play,.list_menu__icon_share{display:block;width:36px;height:36px;background-image:url(http://imgcache.gtimg.cn/mediastyle/yqq/img/icon_list_menu.png?max_age=2592000&v=873fb6560497db4abbe63767018022eb);background-image:-webkit-image-set(url(http://imgcache.gtimg.cn/mediastyle/yqq/img/icon_list_menu.png) 1x,url(http://imgcache.gtimg.cn/mediastyle/yqq/img/icon_list_menu@2x.png) 2x);background-repeat:no-repeat}
+.list_menu__icon_play{background-position:0 0}
+.list_menu__icon_pause{background-position:0 -200px}
+.list_menu__icon_share{background-position:0 -40px}
+.list_menu__icon_add{background-position:0 -80px}
+.list_menu__icon_down{background-position:0 -120px}
+.list_menu__item:hover .list_menu__icon_play{background-position:-40px 0}
+.list_menu__item:hover .list_menu__icon_pause{background-position:-40px -200px}
+.list_menu__item:hover .list_menu__icon_share{background-position:-40px -40px}
+.list_menu__item:hover .list_menu__icon_add{background-position:-40px -80px}
+.list_menu__item:hover .list_menu__icon_down{background-position:-40px -120px}
+.songlist__item--disable .list_menu__item{cursor:default}
+.songlist__item--disable .list_menu__icon_play,.songlist__item--disable .list_menu__item:hover .list_menu__icon_play{background-position:-160px 0}
+.songlist__item--disable .list_menu__icon_pause,.songlist__item--disable .list_menu__item:hover .list_menu__icon_pause{background-position:-160px -200px}
+.songlist__item--disable .list_menu__icon_share,.songlist__item--disable .list_menu__item:hover .list_menu__icon_share{background-position:-160px -40px}
+.songlist__item--disable .list_menu__icon_add,.songlist__item--disable .list_menu__item:hover .list_menu__icon_add{background-position:-160px -80px}
+.songlist__item--disable .list_menu__icon_down,.songlist__item--disable .list_menu__item:hover .list_menu__icon_down{background-position:-160px -120px}
+.mod_songlist_toolbar{position:relative;margin-bottom:20px;font-size:0}
+.mod_songlist_toolbar .mod_btn{min-width:74px;text-align:center}
+.mod_songlist{overflow:hidden;font-size:14px}
+.songlist__header,.songlist__item{position:relative;padding-left:46px;padding-right:100px}
+.songlist__header{height:50px;line-height:50px;background-color:#fbfbfd;color:#999}
+.songlist__header_name,.songlist__songname{float:left;width:47.685185%;position:relative}
+.songlist__album,.songlist__artist,.songlist__header_album,.songlist__header_author{float:left;padding-left:20px;width:23.611111%}
+.songlist__header_time,.songlist__time{position:absolute;top:0;right:38px;width:50px}
+.songlist__header_other,.songlist__other{position:absolute;top:0;right:0;width:38px}
+.songlist__item{overflow:hidden;clear:both;font-size:0}
+.songlist__item--even{background-color:#fbfbfd}
+.songlist__album,.songlist__artist,.songlist__number,.songlist__other,.songlist__songname,.songlist__time{line-height:50px;height:50px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}
+.songlist__time{color:#999}
+.songlist__number{position:absolute;top:0;left:10px;color:#999;width:36px;font-size:13px}
+.songlist__songname_txt{display:block;overflow:hidden;text-overflow:ellipsis;max-width:85%}
+.songlist__item .mod_list_menu{position:absolute;right:-10px;right:-9999px\9;top:50%;overflow:hidden;opacity:0;pointer-events:none}
+.songlist__item--current .mod_list_menu,.songlist__item:hover .mod_list_menu{opacity:1;pointer-events:inherit;right:-10px;margin-top:-18px}
+.songlist__item--current .songlist__songname_txt,.songlist__item:hover .songlist__songname_txt{max-width:54%}
+.songlist__item--disable .songlist__songname_txt a{color:#999}
+.songlist__edit{display:none}
+.songlist__checkbox{opacity:0;filter:alpha(opacity=0)}
+.mod_songlist_toolbar--edit{margin-bottom:60px;margin-top:-50px}
+.mod_songlist--edit .songlist__header,.mod_songlist--edit .songlist__item,.mod_songlist_toolbar--edit{padding-left:82px}
+.mod_songlist--edit .songlist__edit,.mod_songlist_toolbar--edit .songlist__edit{display:block;position:absolute;left:20px;top:50%;margin-top:-9px;width:14px;height:14px;line-height:14px;border:1px solid #ccc}
+.mod_songlist--edit .songlist__edit input,.mod_songlist_toolbar--edit input{width:14px;height:14px}
+.mod_songlist--edit .songlist__edit--check,.mod_songlist_toolbar--edit .songlist__edit--check{border-color:#31c27c;background-image:url(img/icon_sprite.png?max_age=2592000&v=837ceb5162f2a8e2e6eac9689f0837e4);background-image:-webkit-image-set(url(img/icon_sprite.png) 1x,url(img/icon_sprite@2x.png) 2x);background-position:-60px -100px}
+.mod_songlist--edit .songlist__number{left:46px}
+.mod_songlist--edit .songlist__item--current .songlist__songname_txt,.mod_songlist--edit .songlist__item:hover .songlist__songname_txt{margin-right:184px}
+.mod_songlist{padding-bottom:60px}
+.songlist__header{background-color:#fbfbfd}
+.songlist__header_name,.songlist__songname{width:54%}
+.songlist__album,.songlist__artist,.songlist__header_album,.songlist__header_author{width:20%}
+/* |xGv00|4c2664eff9c4465ec7daf4aa21a218de*/
+</style>
+<div class="detail_layout__main">
+	<div class="mod_songlist">
+	    <ul class="songlist__header">
+	        <li class="songlist__edit songlist__edit--check">
+	            <input type="checkbox" class="songlist__checkbox js_check_all">
+	        </li>
+	        <li class="songlist__header_name">歌曲</li>
+	        <li class="songlist__header_author">歌手</li>
+	        <li class="songlist__header_album">专辑</li>
+	        <li class="songlist__header_time">时长</li>
+	    </ul>
+	    <ul class="songlist__list">
+	        <li>
+	            <div class="songlist__item" onmouseover="this.className=(this.className+' songlist__item--hover')" onmouseout="this.className=this.className.replace(/ songlist__item--hover/, '')">
+	                <div class="songlist__edit songlist__edit--check">
+	                    <input type="checkbox" class="songlist__checkbox">
+	                </div>
+	                <div class="songlist__number">1</div>
+	                <div class="songlist__songname">
+	                    <span class="songlist__songname_txt"><a href="javascript:;" class="js_song" title="So Dope (They Wanna) [feat. Wrekonize, Snow tha Product &amp; Twisted Insane]">So Dope (They Wanna) [feat. Wrekonize, Snow tha Product &amp; Twisted Insane]</a></span>
+	                    <div class="mod_list_menu">
+	                        <a href="javascript:;" class="list_menu__item list_menu__play" title="播放">
+	                            <i class="list_menu__icon_play"></i>
+	                            <span class="icon_txt">播放</span>
+	                        </a>
+	                        <a href="javascript:;" class="list_menu__item list_menu__add" title="添加到歌单" aria-haspopup="true" data-target="menu_add">
+	                            <i class="list_menu__icon_add"></i>
+	                            <span class="icon_txt">添加到歌单</span>
+	                        </a>
+	                        <a href="javascript:;" class="list_menu__item list_menu__down" title="下载" aria-haspopup="true" data-target="menu_down">
+	                            <i class="list_menu__icon_down"></i>
+	                            <span class="icon_txt">下载</span>
+	                        </a>
+	                        <a href="javascript:;" class="list_menu__item list_menu__share" title="分享" aria-haspopup="true" data-aria="menu_share">
+	                            <i class="list_menu__icon_share"></i>
+	                            <span class="icon_txt">分享</span>
+	                        </a>
+	                    </div>
+	                </div>
+	                <div class="songlist__artist">
+	                    <a href="javascript:;" title="Tech&#32;N9ne" class="singer_name">Tech&#32;N9ne</a> /
+	                    <a href="javascript:;" title="Eminem" class="singer_name">Eminem</a> /
+	                    <a href="javascript:;" title="Krizz&#32;Kaliko" class="singer_name">Krizz&#32;Kaliko</a>
+	                </div>
+	                <div class="songlist__album">
+	                    <a href="javascript:;" title="Special&#32;Effects&#32;&#40;Deluxe&#32;Version&#41;">Special&#32;Effects&#32;&#40;Deluxe&#32;Version&#41;</a>
+	                </div>
+	                <div class="songlist__time">04&#58;55</div>
+	                <div class="songlist__other">
+	                </div>
+	            </div>
+	        </li>
+	    </ul>
+	</div>
+</div>
 </body>
 
 </html>
