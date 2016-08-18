@@ -18,6 +18,8 @@
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "gulp-header": "^1.8.8",
+    "gulp-seajs-combine": "^0.3.3",
+    "gulp-seajs-combo": "^1.2.3",
     "gulp-sourcemaps": "^1.6.0",
     "jsx-loader": "^0.13.2",
     "react-hot-loader": "^1.3.0",

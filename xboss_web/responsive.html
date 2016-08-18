@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Examples</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+</head>
+
+<body>
+    <script type="text/javascript">
+    window.Q = window.Q || {};
+    Q.$ = jQuery;
+    Q.PageInfo = Q.PageInfo || {};
+    Q.PageInfo.respInfo = {
+        "cnf": [{
+            "layout": 0,
+            "cls": "qypage-980",
+            "range": {
+                "min": 0,
+                "max": 1179
+            },
+            "extraInfo": {
+                "digitalSlide": 7,
+                "playListViewCount": 4,
+                "actorTotal": 5,
+                "actorHideNum": 4,
+                "rightWrapHeight": 417
+            },
+            "viewHeight": 160
+        }, {
+            "layout": 1,
+            "cls": "qypage-1180",
+            "range": {
+                "min": 1180,
+                "max": 1439
+            },
+            "extraInfo": {
+                "digitalSlide": 9,
+                "playListViewCount": 5,
+                "actorTotal": 5,
+                "actorHideNum": 3,
+                "rightWrapHeight": 530
+            },
+            "viewHeight": 200
+        }, {
+            "layout": 2,
+            "cls": "qypage-1440",
+            "range": {
+                "min": 1440,
+                "max": 1679
+            },
+            "extraInfo": {
+                "digitalSlide": 9,
+                "playListViewCount": 5,
+                "actorTotal": 5,
+                "actorHideNum": 3,
+                "rightWrapHeight": 530
+            },
+            "viewHeight": 240
+        }, {
+            "layout": 3,
+            "cls": "qypage-1680",
+            "range": {
+                "min": 1680,
+                "max": 20000
+            },
+            "extraInfo": {
+                "digitalSlide": 11,
+                "playListViewCount": 6,
+                "actorTotal": 5,
+                "actorHideNum": 2,
+                "rightWrapHeight": 631
+            },
+            "viewHeight": 240
+        }],
+        "curLayout": 0
+    };
+
+    (function() {
+        var body = Q.$('body');
+        var width = Q.$(window).width();
+        if (Q && Q.PageInfo && Q.PageInfo.respInfo) {
+            var cnf = Q.PageInfo.respInfo.cnf;
+            body.removeClass(cnf[Q.PageInfo.respInfo.curLayout].cls);
+            for (var i = 0; i < cnf.length; i++) {
+                if (width >= cnf[i].range.min && width <= cnf[i].range.max && !body.hasClass(cnf[i].cls)) {
+                    body.addClass(cnf[i].cls);
+                    Q.PageInfo.respInfo.curLayout = cnf[i].layout;
+                    break;
+                }
+            }
+        }
+    })();
+
+    var PageSizeListener = {
+        init: function() {
+            function getSize() {
+                var e = Q.$(window).width(),
+                    t = Q.$(window).height();
+                return {
+                    width: e,
+                    height: t
+                }
+            }
+            var t = null;
+            this._size = getSize();
+            var n = this;
+            Q.$(window).on("resize", function() {
+                t && clearTimeout(t), t = setTimeout(function() {
+                    var t = getSize();
+                    (n._size.width !== t.width || n._size.height !== t.height) && (n._size = t, Q.$(window).trigger("sizeChange", {
+                        data: {
+                            size: t
+                        }
+                    }))
+                }, 100)
+            }).on("sizeChange", function(ev, e) {
+                n.sizeChangeHandler(e.data.size)
+            });
+        },
+        get: function() {
+            return this._size
+        },
+        sizeChangeHandler: function(n) {
+            Q.PageInfo = Q.PageInfo || {};
+            var e = Q.PageInfo.respInfo,
+                t = Q.$("body");
+            n = n || r.get();
+            for (var a = e.cnf, o = 0; o < a.length; o++) {
+                var l = n.width;
+                if (l >= a[o].range.min && l <= a[o].range.max && !t.hasClass(a[o].cls)) {
+                    t.removeClass(a[e.curLayout].cls), t.addClass(a[o].cls), e.curLayout = a[o].layout;
+                    break
+                }
+            }
+        }
+    }
+
+    PageSizeListener.init();
+    Q.$(window).on("sizeChange", function(ev, e) {
+        console.log("custom handler");
+    });
+    </script>
+</body>
+
+</html>

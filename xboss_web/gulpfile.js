@@ -91,6 +91,23 @@ gulp.task('jsmin', function() {
         .pipe(gulp.dest('./js'));
 });
 
+var seajsCombo = require('gulp-seajs-combo');
+gulp.task('seajscombo', function() {
+    return gulp.src('./src/main.js')
+        .pipe(seajsCombo({
+            ignore: ['jquery'],
+            map: {
+                '/src/a': './a'
+            }
+        }))
+        .pipe(uglify({
+            //mangle: true, //类型：Boolean 默认：true 是否修改变量名
+            mangle: { except: ['require', 'exports', 'module', '$'] } //排除混淆关键字
+        }))
+        .pipe(gulp.dest('./build'));
+});
+
+
 // 监视文件改动并重新载入
 // 监视 Sass 文件的改动，如果发生变更，运行 'sass' 任务，并且重载文件
 gulp.task('serve', ['sass'], function() {
