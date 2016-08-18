@@ -27,47 +27,68 @@ var babel = require("gulp-babel");
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 var sass = require('gulp-ruby-sass');
+var sourcemaps = require('gulp-sourcemaps');
 var cssmin = require('gulp-minify-css');
 var imagemin = require('gulp-imagemin');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 
 gulp.task("babel", function() {
-    return gulp.src("xboss_web/js/EmailInput.jsx")
+    return gulp.src("./js/EmailInput.jsx")
         .pipe(babel({
             presets: ['es2015']
         }))
-        .pipe(gulp.dest("xboss_web/js"));
+        .pipe(gulp.dest("./dist"));
 });
 
 gulp.task('imagemin', function() {
-    gulp.src('xboss_web/images/*')
+    gulp.src('./images/*')
         .pipe(imagemin({
             progressive: true
         }))
-        .pipe(gulp.dest('xboss_web/dist/images'))
+        .pipe(gulp.dest('./dist/images'))
 });
 
 gulp.task('sass', function() {
-    return sass('xboss_web/scss/wxbase.scss')
-        .pipe(gulp.dest('xboss_web/css'))
+    return sass('./scss/wxbase.scss', { sourcemap: false })
+        .on('error', sass.logError)
+        // for inline sourcemaps 
+        .pipe(sourcemaps.write())
+        // for file sourcemaps 
+        .pipe(sourcemaps.write('./', {
+            includeContent: false,
+            sourceRoot: './scss'
+        }))
+        //.pipe(gulp.dest('./css'))
         .pipe(cssmin())
-        .pipe(gulp.dest('xboss_web/css'))
+        .pipe(gulp.dest('./css'))
         .pipe(reload({ stream: true }));
 });
 
 /*
 gulp.task('sass', function () {
-    return gulp.src('xboss_web/scss/wxbase.scss')
+    return gulp.src('./scss/wxbase.scss')
         .pipe(sass({sourcemap: true, sourcemapPath: '../scss'}))
-        .pipe(gulp.dest('xboss_web/css'));
+        .pipe(gulp.dest('./css'));
 });*/
 
+// using data from package.json 
+var pkg = require('./package.json');
+var header = require('gulp-header');
+var banner = ['/**',
+    ' * <%= pkg.name %> - <%= pkg.description %>',
+    ' * @version v<%= pkg.version %>',
+    ' * @link <%= pkg.homepage %>',
+    ' * @license <%= pkg.license %>',
+    ' */',
+    ''
+].join('\n');
 gulp.task('jsmin', function() {
-    gulp.src('xboss_web/js/util.js')
+    gulp.src('./js/util.js')
         .pipe(uglify())
         .pipe(rename('util.min.js'))
-        .pipe(gulp.dest('xboss_web/js'));
+        .pipe(header(banner, { pkg: pkg }))
+        .pipe(gulp.dest('./js'));
 });
 
 // 监视文件改动并重新载入
@@ -75,11 +96,11 @@ gulp.task('jsmin', function() {
 gulp.task('serve', ['sass'], function() {
     browserSync({
         server: {
-            baseDir: 'xboss_web'
+            baseDir: '.'
         }
     });
 
-    gulp.watch(['*.html', 'css/*.css', 'js/*.js'], { cwd: 'xboss_web' }, reload);
-    gulp.watch('xboss_web/js/*.js', ['jsmin']);
-    gulp.watch('xboss_web/scss/*.scss', ['sass']);
+    gulp.watch(['*.html', 'css/*.css', 'js/*.js'], { cwd: '.' }, reload);
+    //gulp.watch('./js/*.js', ['jsmin']);
+    gulp.watch('./scss/*.scss', ['sass']);
 });

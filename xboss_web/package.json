@@ -1,19 +1,33 @@
 {
-  "name": "x_boss_web",
+  "name": "xboss_web",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "author": "zhaofan@xinguodu.com",
+  "license": "Copyright Calliance Payment co.,Ltd.",
+  "description": "Wechat版商户平台",
   "devDependencies": {
+    "babel-core": "^6.13.2",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-react-transform": "^2.0.2",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-preset-react": "^6.11.1",
     "browser-sync": "^2.14.0",
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
+    "gulp-header": "^1.8.8",
+    "gulp-sourcemaps": "^1.6.0",
     "jsx-loader": "^0.13.2",
+    "react-hot-loader": "^1.3.0",
+    "react-transform-hmr": "^1.0.4",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0"
   }
 }
