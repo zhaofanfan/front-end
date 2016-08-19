@@ -146,6 +146,89 @@
         console.log("custom handler");
     });
     </script>
+    <style type="text/css">
+    .pie3 {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        background: yellowgreen;
+        background-image: linear-gradient(to right, transparent 50%, currentColor 0);
+        color: #655;
+    }
+    
+    .pie3::before {
+        content: '';
+        display: block;
+        margin-left: 50%;
+        height: 100%;
+        border-radius: 0 100% 100% 0 / 50%;
+        background-color: inherit;
+        transform-origin: left;
+        animation: spin 3s linear infinite, bg 6s step-end infinite;
+    }
+    
+    @keyframes spin {
+        to {
+            transform: rotate(.5turn);
+        }
+    }
+    
+    @keyframes bg {
+        50% {
+            background: currentColor;
+        }
+    }
+    </style>
+    <div class="pie3"></div>
+    <style type="text/css">
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .full-box {
+        display: none;
+        background-color: #010101;
+        position: absolute;
+        text-align: center;
+        width: 100%;
+        overflow: hidden;
+        z-index: 90;
+    }
+    </style>
+    <div id="adflash" class="full-box"></div>
+    <script type="text/javascript">
+    var focusAd = {
+        w: 1004,
+        h: 410,
+        adUrl: "http://r1.ykimg.com/material/0A03/201608/0818/117432/1300470.swf?jsStart=&jsEnd=execHtmlEndCMDfortaobao&url=http://val.atm.youku.com/c?id=9512"
+    };
+
+    function openFocusAd() {
+        var adHtml = getFlashStr(focusAd.w, focusAd.h, focusAd.adUrl);
+        document.getElementById("adflash").innerHTML = adHtml;
+        document.getElementById("adflash").style.display = "block";
+    }
+
+    function closeFocusAd() {
+        document.getElementById("adflash").style.display = "none";
+        document.getElementById("adflash").innerHTML = ""
+    }
+
+    function getFlashStr(width, height, adUrl) {
+        var str = '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"';
+        str += 'width="' + width + '" height="' + height + '" align="middle" id="' + Math.random() + '">';
+        str += '<param name="movie" value="' + adUrl + '" />';
+        str += '<param name="quality" value="high" />';
+        str += '<param name="wmode" value="transparent" />';
+        str += '<param name="allowscriptaccess" value="always" />';
+        str += '<embed src="' + adUrl + '" quality="high" width="' + width + '" height="' + height + '" align="middle" wmode="transparent" allowscriptaccess="always" type="application/x-shockwave-flash" /></object>';
+        return str
+    };
+
+    openFocusAd();
+    setTimeout(closeFocusAd, 1e4);
+    </script>
 </body>
 
 </html>
