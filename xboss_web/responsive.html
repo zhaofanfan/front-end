@@ -227,7 +227,93 @@
     };
 
     openFocusAd();
-    setTimeout(closeFocusAd, 1e4);
+    //setTimeout(closeFocusAd, 1e4);
+
+    function createFlash(url, opts) {
+        var extend = function(dest, src, callback) {
+                callback = callback || function() {
+                    return !0
+                };
+                for (var property in src) src.hasOwnProperty(property) && callback(dest[property], src[property]) && (dest[property] = src[property]);
+                return dest
+            },
+            jsonToQuery = function(json) {
+                var key, value, ret = [];
+                for (key in json) {
+                    key = encodeURIComponent(key);
+                    value = json[key];
+                    if (value && value.constructor == Array) {
+                        var queryValues = [];
+                        for (var i = 0, len = value.length, val; i < len; i++) {
+                            val = value[i];
+                            queryValues.push(key + '=' + encodeURIComponent(!val ? '' : String(val)));
+                        }
+                        ret = ret.concat(queryValues);
+                    } else {
+                        ret.push(key + '=' + encodeURIComponent(!value ? '' : String(value)));
+                    }
+                }
+                return ret.join('&');
+            },
+            _opts = {
+                id: null,
+                height: 1,
+                width: 1,
+                styles: {},
+                properties: {},
+                params: {
+                    quality: "high",
+                    allowScriptAccess: "always",
+                    wMode: "window",
+                    align: "middle",
+                    bgcolor: "#000000",
+                    swLiveConnect: "true",
+                    loop: "true",
+                    play: "true",
+                    DeviceFont: "false",
+                    allowFullScreen: "true",
+                    menu: "true"
+                },
+                vars: {}
+            },
+            id = opts.id || "swf_" + Date.now().toString(36),
+            params = extend(_opts.params, opts.params || {}),
+            vars = extend(_opts.vars, opts.vars || {}),
+            styles = extend(_opts.styles, opts.styles || {}),
+            properties = function() {
+                return extend(_opts.properties, {
+                    height: _opts.height,
+                    width: _opts.width
+                }, function(a, b) {
+                    return b ? !0 : void 0
+                }), extend(_opts.properties, opts.properties, function(a, b) {
+                    return b ? !0 : void 0
+                }), extend(_opts.properties, {
+                    height: opts.height,
+                    width: opts.width
+                }, function(a, b) {
+                    return b ? !0 : void 0
+                })
+            }();
+        params.flashVars = jsonToQuery(vars), navigator.userAgent.indexOf('MSIE') >= 0 ? (properties.classid = "clsid:D27CDB6E-AE6D-11cf-96B8-444553540000", params.movie = url) : properties.type = "application/x-shockwave-flash", properties.data = url;
+        var l = [];
+        l.push('<object id="', id, '"');
+        for (var m in properties) l.push(" ", m, '="', properties[m], '"');
+        l.push(' style="');
+        for (var n in styles) l.push(n, ":", styles[n], ";");
+        l.push('"'), l.push(">");
+        for (var o in params) params[o] && l.push('<param name="', o, '" value="', params[o], '" />');
+        return l.push('<div id="qiyi_flash_install" style="height:100%;background: rgb(0, 0, 0); "><div style="text-align: center; line-height: 422px;"><a style="padding: 10px; color: rgb(255, 255, 255); font-size: 14px;" href="http://www.adobe.com/go/getflashplayer" target="_blank">主人，没有安装flash player不能播放啊~~请您<span class="green">立即安装</span></a></div></div>'), l.push("</object>"), l.join("")
+    }
+
+    var opts = {};
+    opts.id = 'adflash';
+    opts.width = '100%';
+    opts.height = '410px';
+    opts.styles = {
+        'vertical-align': 'top'
+    };
+    document.getElementById("adflash").innerHTML = createFlash("http://r1.ykimg.com/material/0A03/201608/0818/117432/1300470.swf?jsStart=&jsEnd=execHtmlEndCMDfortaobao&url=http://val.atm.youku.com/c?id=9512", opts);
     </script>
 </body>
 
