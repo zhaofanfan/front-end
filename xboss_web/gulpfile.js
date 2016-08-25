@@ -28,6 +28,7 @@ var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 var sass = require('gulp-ruby-sass');
 var sourcemaps = require('gulp-sourcemaps');
+var autoprefixer = require('gulp-autoprefixer');
 var cssmin = require('gulp-minify-css');
 var imagemin = require('gulp-imagemin');
 var browserSync = require('browser-sync');
@@ -50,17 +51,24 @@ gulp.task('imagemin', function() {
 });
 
 gulp.task('sass', function() {
-    return sass('./scss/wxbase.scss', { sourcemap: false })
+    /**
+     * nested：嵌套缩进的css代码，它是默认值。
+     * expanded：没有缩进的、扩展的css代码。
+     * compact：简洁格式的css代码。
+     * compressed：压缩后的css代码。
+     */
+    return sass('./scss/wxbase.scss', { sourcemap: true, style: 'compressed' })
         .on('error', sass.logError)
+        .pipe(autoprefixer("last 2 version", "> 1%", "ie 8", "ie 7"))
         // for inline sourcemaps 
-        .pipe(sourcemaps.write())
+        //.pipe(sourcemaps.write())
         // for file sourcemaps 
-        .pipe(sourcemaps.write('./', {
+        .pipe(sourcemaps.write('.', {
             includeContent: false,
             sourceRoot: './scss'
         }))
         //.pipe(gulp.dest('./css'))
-        .pipe(cssmin())
+        //.pipe(cssmin())
         .pipe(gulp.dest('./css'))
         .pipe(reload({ stream: true }));
 });
