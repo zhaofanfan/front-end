@@ -60,9 +60,9 @@ gulp.task('sass', function() {
     return sass('./scss/wxbase.scss', { sourcemap: true, style: 'compressed' })
         .on('error', sass.logError)
         .pipe(autoprefixer("last 2 version", "> 1%", "ie 8", "ie 7"))
-        // for inline sourcemaps 
+        // for inline sourcemaps
         //.pipe(sourcemaps.write())
-        // for file sourcemaps 
+        // for file sourcemaps
         .pipe(sourcemaps.write('.', {
             includeContent: false,
             sourceRoot: './scss'
@@ -80,7 +80,7 @@ gulp.task('sass', function () {
         .pipe(gulp.dest('./css'));
 });*/
 
-// using data from package.json 
+// using data from package.json
 var pkg = require('./package.json');
 var header = require('gulp-header');
 var banner = ['/**',
