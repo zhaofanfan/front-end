@@ -277,6 +277,7 @@
                 </a>
             </div>
         </div>
+        <a href="javascript:;" class="weui_btn logout-btn">退出当前账号</a>
         <div class="button_sp_area nickname-pad-6rem" align="center">
             <a href="#/" class="weui_btn weui_btn_primary">返回</a>
         </div>
@@ -293,7 +294,6 @@
             enterTimeout: 250,
             leaveTimeout: 20
         });
-
         var memberCenter = {
             url: '/',
             className: 'memberCenter',
@@ -301,7 +301,6 @@
                 return $("#centerBox").html();
             }
         }
-
         var addAccount = {
             url: '/addAccount',
             className: 'addAccount',
@@ -310,10 +309,8 @@
             },
             bind: function(event) {
                 /* Act on the event */
-
             }
         }
-
         var changeNickName = {
             url: '/changeNickName',
             className: 'changeNickName',
@@ -321,7 +318,6 @@
                 return $("#changeNickName").html();
             }
         }
-
         var changeSettleAccount = {
             url: '/changeSAccount',
             className: 'changeSAccountdf',
@@ -343,7 +339,6 @@
                 return $("#changeAddress").html();
             }
         }
-
         var changePwdAffirm = {
             url: '/changePwdAffirm',
             className: 'changePwdAffirm',
@@ -360,7 +355,6 @@
             bind: function() {
                 $(".toggelType").click(function(event) {
                     /* Act on the event */
-
                     var type = $(this).parent().prev("div").find("input").attr('type');
                     if (type == 'password') {
                         $(this).parent().prev("div").find("input").attr('type', 'text');
@@ -370,7 +364,6 @@
                 });
             }
         }
-
         router.push(memberCenter)
             .push(addAccount)
             .push(changeNickName)

@@ -5,8 +5,7 @@
  */
 
 //@import '_base';
-body,
-html {
+body, html {
     height: 100%;
     -webkit-tap-highlight-color: transparent;
 }
@@ -125,8 +124,7 @@ html {
     color: #ff0000;
 }
 
-.ft-des-pad {
-}
+.ft-des-pad {}
 
 .ft-des-color {
     color: #FF0000;
@@ -158,8 +156,7 @@ html {
     background-color: #efeff4;
     color: #666666;
     font-size: 17px;
-    &:before,
-    &:after {
+    &:before, &:after {
         border: 0;
     }
     p {
@@ -181,7 +178,7 @@ html {
     width: 100%;
     min-height: 100%;
     height: auto;
-/*  margin: 0 auto;
+    /*  margin: 0 auto;
     min-width: 320px;
     max-width: 540px; */
     position: relative;
@@ -228,8 +225,7 @@ html {
 }
 
 .W_login .weui_cells {
-    &:before, 
-    &:after {
+    &:before, &:after {
         content: none;
     }
     border: 1px solid #b3b3b3;
@@ -240,7 +236,7 @@ html {
     padding: 8px 10px;
 }
 
-.W_login .clear_btn {
+.clear_btn {
     position: absolute;
     top: 50%;
     right: 5px;
@@ -250,7 +246,7 @@ html {
     transform: translateY(-50%);
 }
 
-.W_login .clear_btn:after {
+.clear_btn:after {
     content: ' ';
     display: block;
     width: 100%;
@@ -280,4 +276,128 @@ html {
     line-height: 28px;
     background-color: transparent;
     text-align: justify;
+}
+
+.login-type {
+    padding: 0 40px;
+    a {
+        color: #0099ff;
+    }
+}
+
+.authcode-wrap {
+    position: relative;
+}
+
+.authcode-wrap .auth-code {
+    width: 5em;
+}
+
+.authcode-wrap .authcode-btn {
+    position: absolute;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    border: 1px solid #00ccff;
+    border-radius: 3px;
+    color: #3399cc;
+}
+
+.bindtip-wrap {
+    padding: 18px 40px 26px 30px;
+    color: #999;
+}
+
+.bindtip-wrap .bindtip {
+    min-height: 54px;
+    padding-left: 60px;
+    background: url(../images/shield.png) left top no-repeat;
+    background-size: auto 54px;
+}
+
+.icon-label {
+    width: 0 !important;
+    height: 25px !important;
+    padding-left: 30px;
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.ren-label-icon {
+    background-image: url(../images/ren.png);
+}
+
+.lock-label-icon {
+    background-image: url(../images/suo.png);
+}
+
+.eye_close_btn {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    width: 26px;
+    height: 26px;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.eye_close_btn:after {
+    content: ' ';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: url(../images/eye_close.png) center center no-repeat;
+    background-size: cover;
+}
+
+.eye_open:after {
+    background-image: url(../images/eye.png);
+}
+
+#selectAccWrap {
+    border: 1px solid #cccccc;
+    .weui_icon_warn {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        &:before {
+            font-size: 54px;
+            color: #cccccc;
+        }
+    }
+    .selecttip {
+        position: relative;
+        padding-left: 60px;
+    }
+    .accountList li {
+        padding: 0 15px;
+        height: 44px;
+        line-height: 44px;
+        font-size: 16px;
+        border-top: 1px solid #cccccc;
+        &.active {
+            position: relative;
+            background: #0099cc;
+            color: #fff;
+            &:after {
+                content: " ";
+                background: url(../images/select_acc.png) right center no-repeat;
+                background-size: contain;
+                position: absolute;
+                right: 15px;
+                top: 50%;
+                width: 46px;
+                height: 33px;
+                -webkit-transform: translateY(-50%) scale(.6);
+                transform: translateY(-50%) scale(.6);
+            }
+        }
+    }
 }

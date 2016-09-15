@@ -17,6 +17,7 @@
     "browser-sync": "^2.14.0",
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
+    "gulp-autoprefixer": "^3.1.1",
     "gulp-header": "^1.8.8",
     "gulp-seajs-combine": "^0.3.3",
     "gulp-seajs-combo": "^1.2.3",

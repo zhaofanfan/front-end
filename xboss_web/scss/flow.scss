@@ -39,8 +39,7 @@
     padding-top: 10px;
 }
 
-#consumptionTypeWrap,
-#settleTypeWrap {
+#consumptionTypeWrap, #settleTypeWrap {
     border-bottom: 1px solid #d9d9d9;
     .weui_grid {
         width: 25%;
@@ -105,7 +104,6 @@
     }
 }
 
-
 #prevDay {
     text-align: left;
     &:after {
@@ -114,15 +112,10 @@
     }
 }
 
-#sttlDate {
-    width: 60%;
-    margin: 0 auto;
-}
-
 #sttlDataWrap {
     padding: 1em;
     .settle_wrap {
-        border: 2px solid #d3d3d3;
+        border: 1px solid #d3d3d3;
         border-radius: 8px;
         overflow: hidden;
         .settle_header {
@@ -152,14 +145,28 @@
         .dot {
             background: #0068b7;
         }
-        .row_header .weui_grid:before {
-            height: 50%;
-            top: 10px;
-            border-right: 1px solid #d3d3d3 !important;
+        .row_header .weui_grid {
+            padding-bottom: 0 !important;
+            &:before {
+                height: 50%;
+                top: 10px;
+                border-right: 1px solid #d3d3d3 !important;
+            }
+            &:last-child {
+                &:before {
+                    content: none;
+                }
+            }
         }
         .total_wrap {
             padding: 5px 15px;
+            .weui_icon_info_circle {
+                position: relative;
+                left: 2px;
+                top: -3px;
+            }
             .currency {
+                font-size: 20px;
                 font-weight: normal;
             }
             .weui_cells {
@@ -169,17 +176,18 @@
                 }
             }
             .weui_cell {
-                padding-top: 0;
-                padding-bottom: 0;
+                padding: 0;
+                padding-right: 15px;
             }
             .detail_link {
                 padding-bottom: 5px;
+                margin-top: -15px;
                 &:before {
                     border-top: 0;
                 }
             }
             p {
-                font-size: 24px;
+                font-size: 30px;
                 color: #0068b7;
             }
         }
@@ -210,7 +218,8 @@
     padding: 1em 0 0;
     .page_desc {
         text-align: center;
-        font-size: 16px;
+        font-size: 20px;
+        font-weight: bold;
     }
     .weui_grid {
         width: 50%;
@@ -264,5 +273,5 @@
 
 .ta_calendar {
     left: 0 !important;
-    top: 0 !important;
+    /* top: 0 !important; */
 }

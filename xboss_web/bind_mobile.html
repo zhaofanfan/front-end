@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>绑定手机</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+        <link href="./css/weui.min.css" rel="stylesheet" />
+        <link href="./css/style.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="css/wxbase.css">
+        <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+
+    </head>
+
+    <body>
+        <div class="authForm" style="margin-top: 0;">
+            <div class="bindtip-wrap fs14">
+                <div class="bindtip">
+                    绑定手机号码可以用手机号码登陆商户平台进行对账，绑定手机号码需要通过短信验证
+                </div>
+            </div>
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">中国+86</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input id="phoneNo" class="weui_input" type="number" pattern="" placeholder="请输入手机号码">
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">验证码</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary authcode-wrap">
+                        <input id="authCode" class="weui_input auth-code" type="number" pattern="" placeholder="短信验证码">
+                        <a id="getAuthCode" href="javascript:;" class="authcode-btn">获取验证码</a>
+                    </div>
+                </div>
+            </div>
+            <div class="button_sp_area">
+                <a id="" href="javascript:;" class="weui_btn weui_btn_primary">完成</a>
+            </div>
+        </div>
+        <script type="text/javascript">
+        </script>
+    </body>
+
+</html>

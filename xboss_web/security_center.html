@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>安全中心</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+        <link href="./css/weui.min.css" rel="stylesheet" />
+        <link href="./css/style.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="css/wxbase.css">
+        <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+        <script type="text/javascript" src="js/router.min.js"></script>
+        <script type="text/html" id="securityCenter">
+            <div id="companyWrap" class="weui_cells weui_cells_access">
+                <div class="weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <div class="weui_panel_bd">
+                            <div class="weui_media_box weui_media_appmsg">
+                                <div class="weui_media_hd">
+                                    <img src="./images/logo.jpg" alt="" />
+                                </div>
+                                <div class="weui_media_bd">
+                                    <a href="javascript:;" style="color:#ffffff">新国都技术有限公司</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#/addAccount" class="weui_cell_ft"></a>
+                </div>
+            </div>
+            <div class="weui_cells weui_cells_access mt15">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd icon-hd phone-icon">手机号码</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <a href="bind_mobile.html" class="weui_cell_ft fr">未绑定</a>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd icon-hd email-icon">登陆邮箱</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <a href="javascript:;" class="weui_cell_ft fr">未设置</a>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd icon-hd key-icon">登陆密码</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <a href="javascript:;" class="weui_cell_ft fr">无密码</a>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells weui_cells_access mt15">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd icon-hd lock-icon">账号安全</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <a href="#/authorizedInfo" class="weui_cell_ft fr">
+                            <span class="authentication-state">已认证</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd icon-hd card-icon">结算信息</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <a href="javascript:;" class="weui_cell_ft fr">中国银行</a>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd icon-hd house-icon">公司信息</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <a href="javascript:;" class="weui_cell_ft fr">营业执照</a>
+                    </div>
+                </div>
+            </div>
+        </script>
+        <script type="text/html" id="authorizedInfo">
+            <div class="weui_cells">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd mr5">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        张三
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd mr5">身 &nbsp;份 &nbsp;证：</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        4290********1234
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd mr5">认证账号：</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        6226********0120
+                    </div>
+                </div>
+            </div>
+        </script>
+    </head>
+
+    <body>
+        <div class="container" id="container">
+        </div>
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                var router = new Router({
+                    container: '#container',
+                    enterTimeout: 250,
+                    leaveTimeout: 20
+                });
+                var securityCenter = {
+                    url: '/',
+                    className: 'securityCenter',
+                    render: function() {
+                        return $("#securityCenter").html();
+                    }
+                }
+                var authorizedInfo = {
+                    url: '/authorizedInfo',
+                    className: 'authorizedInfo',
+                    render: function() {
+                        return $("#authorizedInfo").html();
+                    }
+                }
+                router.push(securityCenter)
+                    .push(authorizedInfo)
+                    .setDefault('/')
+                    .init();
+            });
+        </script>
+    </body>
+
+</html>

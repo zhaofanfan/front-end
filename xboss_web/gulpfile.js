@@ -1,4 +1,4 @@
-/**
+﻿/**
  *  npm install gulp -g
  *  npm install --save-dev gulp-babel
  *  npm install --save-dev babel-preset-es2015
@@ -59,7 +59,7 @@ gulp.task('sass', function() {
      */
     return sass('./scss/wxbase.scss', { sourcemap: true, style: 'compressed' })
         .on('error', sass.logError)
-        .pipe(autoprefixer("last 2 version", "> 1%", "ie 8", "ie 7"))
+        .pipe(autoprefixer())
         // for inline sourcemaps
         //.pipe(sourcemaps.write())
         // for file sourcemaps

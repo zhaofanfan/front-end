@@ -9,26 +9,43 @@
     <link rel="stylesheet" type="text/css" href="css/weui.min.css">
     <link rel="stylesheet" type="text/css" href="css/wxbase.css">
     <script type="text/html" id="tpl_verification">
-        <div class="hd">
-            <h1 class="page_title">为了保证您的账号安全，必须使用您的结算账号进行身份验证！</h1>
+        <div class="lgnheader">
+            <div class="header_tit tc">
+                <em class="jllogo"></em>
+                <h4 class="header_tit_txt">为了您的信息安全，请通过结算账号进行身份验证！</h4>
+            </div>
         </div>
-        <div class="bd">
-            <p class="page_head">请输入您的结算卡号</p>
-            <div class="weui_cells">
-                <div class="weui_cell">
-                    <div class="weui_cell_bd weui_cell_primary">
-                        <input id="accNo" onkeyup="formatAccNo.call(this);" onfocus="accNoOnFocus.call(this);" onblur="accNoOnBlur.call(this);" class="weui_input sttlmntNo" type="text" pattern="[0-9]*" placeholder="请输入结算卡号">
+        <div class="o_body">
+            <div class="W_login_tit">
+                请输入您入网时的结算账号：
+            </div>
+            <div class="W_login">
+                <div class="weui_cells">
+                    <div class="weui_cell">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <input id="accNo" onkeyup="formatAccNo.call(this);" onfocus="accNoOnFocus.call(this);" onblur="accNoOnBlur.call(this);" class="weui_input sttlmntNo" type="text" placeholder="请输入结算卡号">
+                        </div>
+                        <a href="javascript:void(0)" class="clear_btn" ontouchstart="$('#accNo').val('');"></a>
                     </div>
                 </div>
-            </div>
-            <div class="verifySuccess dn">
-                <h1 class="page_title tc" style="background: none;">请选择下面一种方式进行身份验证</h1>
-                <div class="button_sp_area">
-                    <a href="#/realnameAuth" class="weui_btn weui_btn_mini weui_btn_primary">实名认证</a>
-                    <a href="#/payVerify" class="weui_btn weui_btn_mini weui_btn_primary">打款验证</a>
+                <div class="verifySuccess dn">
+                    <h1 class="page_title tc" style="background: none;">请选择下面一种方式进行身份验证</h1>
+                    <div class="button_sp_area">
+                        <a href="#/realnameAuth" class="realnameBtn weui_btn weui_btn_mini weui_btn_primary">实名认证</a>
+                        <a href="#/payVerify" class="payBtn weui_btn weui_btn_mini weui_btn_primary">打款验证</a>
+                    </div>
+                </div>
+                <div class="btns login_btn">
+                    <a id="submitBtn" href="javascript:;" class="weui_btn weui_btn_primary weui_btn_disabled cancel_btn">提交验证</a>
                 </div>
             </div>
-            <a id="submitBtn" href="#/verifyFailure" class="weui_btn weui_btn_primary">提交</a>
+        </div>
+        <div class="login-type clearfix mt30">
+            <a href="#/mobileLogin" class="fl">手机验证码登陆</a>
+            <a href="#/accountLogin" class="fr">账号密码登陆</a>
+        </div>
+        <div class="footer">
+            <p>嘉联支付有限公司</p>
         </div>
     </script>
     <script type="text/html" id="tpl_verifyFailure">
@@ -146,6 +163,155 @@
             </div>
         </div>
     </script>
+    <script type="text/html" id="tpl_mobileLogin">
+        <div class="authForm" style="margin-top: 0;">
+            <div class="bindtip-wrap fs14">
+                <div class="bindtip pt10">
+                    请使用您绑定账号的手机登陆！
+                </div>
+            </div>
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">中国+86</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input id="phoneNo" class="weui_input" type="number" pattern="" placeholder="请输入手机号码">
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">验证码</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary authcode-wrap">
+                        <input id="authCode" class="weui_input auth-code" type="number" pattern="" placeholder="短信验证码">
+                        <a id="getAuthCode" href="javascript:;" class="authcode-btn">获取验证码</a>
+                    </div>
+                </div>
+            </div>
+            <div class="button_sp_area">
+                <a id="" href="javascript:;" class="weui_btn weui_btn_primary">完成</a>
+            </div>
+        </div>
+    </script>
+    <script type="text/html" id="tpl_accountLogin">
+        <div class="authForm" style="margin-top: 0;">
+            <div class="bindtip-wrap fs14">
+                <div class="bindtip pt10">
+                    您可以使用结算账号或已经绑定的手机或邮箱登录！
+                </div>
+            </div>
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label icon-label ren-label-icon"></label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input id="" class="weui_input" type="number" pattern="" placeholder="手机号码/登陆邮箱/结算账号">
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label icon-label lock-label-icon"></label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary authcode-wrap">
+                        <input id="loginPwd" class="weui_input" type="password" pattern="" placeholder="请输入登陆密码">
+                        <a id="toggleEye" onclick="toggleEye.call(this)" href="javascript:;" class="eye_close_btn"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt20 pr20 tr">
+                <a href="#/forgetPwd" class="">忘记密码找回</a>
+            </div>
+            <div class="button_sp_area">
+                <a id="" href="javascript:;" class="weui_btn weui_btn_primary">提交</a>
+            </div>
+        </div>
+        <div id="selectAccWrap" class="ml15 mr15">
+            <div class="bindtip-wrap fs14">
+                <div class="selecttip">
+                    <i class="weui_icon_msg weui_icon_warn"></i>您的手机号码已经与多个商户绑定，请选择一个商户登录！
+                </div>
+            </div>
+            <ul class="accountList">
+                <li class="active">嘉联支付有限公司</li>
+                <li>嘉联支付有限公司</li>
+                <li>嘉联支付有限公司</li>
+                <li>嘉联支付有限公司</li>
+            </ul>
+        </div>
+    </script>
+    <script type="text/html" id="tpl_forgetPwd">
+        <div class="authForm" style="margin-top: 0;">
+            <div class="bindtip-wrap fs14">
+                <div class="bindtip pt10">
+                    请使用您绑定账号的手机找回登陆密码！
+                </div>
+            </div>
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">结算账号</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input id="accNo" class="weui_input" type="number" pattern="" placeholder="请输入结算账号">
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">中国+86</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input id="phoneNo" class="weui_input" type="number" pattern="" placeholder="请输入手机号码">
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">验证码</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary authcode-wrap">
+                        <input id="authCode" class="weui_input auth-code" type="number" pattern="" placeholder="短信验证码">
+                        <a id="getAuthCode" href="javascript:;" class="authcode-btn">获取验证码</a>
+                    </div>
+                </div>
+            </div>
+            <div class="button_sp_area">
+                <a href="#/setNewPwd" class="weui_btn weui_btn_primary">提交</a>
+            </div>
+        </div>
+    </script>
+    <script type="text/html" id="tpl_setNewPwd">
+        <div class="authForm" style="margin-top: 0;">
+            <div class="bindtip-wrap fs14">
+                <div class="bindtip pt10">
+                    请使用您绑定账号的手机找回登陆密码！
+                </div>
+            </div>
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">新 密 码</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary authcode-wrap">
+                        <input id="pwd" class="weui_input" type="password" pattern="" placeholder="请输入您的新密码">
+                        <a onclick="toggleEye.call(this)" href="javascript:;" class="eye_close_btn"></a>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label">确认密码</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary authcode-wrap">
+                        <input id="confirmPwd" class="weui_input" type="password" pattern="" placeholder="请再次输入密码">
+                        <a onclick="toggleEye.call(this)" href="javascript:;" class="eye_close_btn"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="button_sp_area">
+                <a href="javascript:;" class="weui_btn weui_btn_primary">提交</a>
+            </div>
+        </div>
+    </script>
     <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="js/zepto.min.js"></script>
     <script type="text/javascript" src="js/router.min.js"></script>
@@ -156,6 +322,12 @@
     <div class="container" id="container">
     </div>
     <script type="text/javascript">
+    function toggleEye() {
+        $(this).toggleClass("eye_open");
+        var $input = $(this).prev("input");
+        "text" == $input.attr("type") ? $input.attr("type", "password") : $input.attr("type", "text");
+    }
+
     function formatAccNo(ev) {
         ev = ev || window.event;
         if (ev.keyCode != 8) {
@@ -172,16 +344,14 @@
         if (this.value.length > 10)
             this.value = util.formatBankCard(this.value, !0);
     }
-
     var router = new Router({
         container: '#container',
         enterTimeout: 250,
         leaveTimeout: 250
     });
-
     var verification = {
         url: '/',
-        className: 'verification',
+        className: 'index_page',
         render: function() {
             return $('#tpl_verification').html();
         },
@@ -197,7 +367,6 @@
                         });*/
         }
     };
-
     var verifyFailure = {
         url: '/verifyFailure',
         className: 'verifyFailure',
@@ -205,7 +374,6 @@
             return $('#tpl_verifyFailure').html();
         }
     };
-
     var verifyOk = {
         url: '/verifyOk',
         className: 'verifyOk',
@@ -226,7 +394,6 @@
             }, 1E3);
         }
     };
-
     var realnameAuth = {
         url: '/realnameAuth',
         className: 'realnameAuth',
@@ -246,7 +413,6 @@
             });
         }
     };
-
     var payVerify = {
         url: '/payVerify',
         className: 'payVerify',
@@ -259,12 +425,47 @@
             });
         }
     };
-
+    var mobileLogin = {
+        url: '/mobileLogin',
+        className: 'mobileLogin',
+        render: function() {
+            return $('#tpl_mobileLogin').html();
+        },
+        bind: function() {}
+    };
+    var accountLogin = {
+        url: '/accountLogin',
+        className: 'accountLogin',
+        render: function() {
+            return $('#tpl_accountLogin').html();
+        },
+        bind: function() {}
+    };
+    var forgetPwd = {
+        url: '/forgetPwd',
+        className: 'forgetPwd',
+        render: function() {
+            return $('#tpl_forgetPwd').html();
+        },
+        bind: function() {}
+    };
+    var setNewPwd = {
+        url: '/setNewPwd',
+        className: 'setNewPwd',
+        render: function() {
+            return $('#tpl_setNewPwd').html();
+        },
+        bind: function() {}
+    };
     router.push(verification)
         .push(verifyFailure)
         .push(verifyOk)
         .push(realnameAuth)
         .push(payVerify)
+        .push(mobileLogin)
+        .push(accountLogin)
+        .push(forgetPwd)
+        .push(setNewPwd)
         .setDefault('/')
         .init();
     </script>

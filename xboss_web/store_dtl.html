@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>终端详情</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+        <link href="./css/weui.min.css" rel="stylesheet" />
+        <link href="./css/style.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="css/wxbase.css">
+        <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+        <script type="text/javascript" src="js/router.min.js"></script>
+        <script type="text/html" id="storeDtl">
+            <div id="companyWrap" class="weui_cells weui_cells_access">
+                <div class="weui_cell" style="background: #fff;">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <div class="weui_panel_bd">
+                            <div class="weui_media_box weui_media_appmsg">
+                                <div class="weui_media_hd">
+                                    <img src="./images/logo.jpg" alt="" />
+                                </div>
+                                <div class="weui_media_bd">
+                                    <p class="companyWrap-name fs16 fw-b">新国都技术有限公司</p>
+                                    <p class="intime-wrap mt5">
+                                        <span>2015/12/26</span>
+                                        <span class="ml10">09:25:05</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="javascript:;" class="weui_cell_ft"></a>
+                </div>
+            </div>
+            <div class="weui_cells weui_cells_access mt15">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">结算账号：</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        **** **** **** 123
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">门店地址：</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        深圳市南山区软件园
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">入网类型：</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        租赁合同
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">法人姓名：</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        林*
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">终端台数：</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        10台
+                    </div>
+                    <a href="#/terminalList" class="weui_cell_ft"></a>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">商户简称：</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        南山南
+                    </div>
+                    <a href="#/" class="weui_cell_ft"></a>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">打印名称：</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        南山南
+                    </div>
+                    <a href="#/" class="weui_cell_ft"></a>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">扣率信息：</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        标准商户扣率
+                    </div>
+                    <a href="#/" class="weui_cell_ft"></a>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">行业类别：</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        一般类
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">全部订单：</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        3个订单
+                    </div>
+                    <a href="#/" class="weui_cell_ft"></a>
+                </div>
+            </div>
+        </script>
+        <script type="text/html" id="terminalList">
+            <div id="terminalsWrap" class="weui_panel weui_panel_access">
+                <div class="filter-header">
+                    <a href="javascript:void(0);" class="weui_panel_ft tr">
+                        <span class="mr30 fw-b js-filter">终端状态</span>
+                    </a>
+                    <ul id="statusList" class="status-list dn">
+                        <li data-status="2" class="active">全部</li>
+                        <li data-status="1">启用</li>
+                        <li data-status="0">停用</li>
+                    </ul>
+                </div>
+                <div class="weui_panel_bd">
+                    <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg terminal-box">
+                        <div class="weui_media_hd">
+                            <img class="weui_media_appmsg_thumb" src="../images/camera.png" alt="">
+                        </div>
+                        <div class="weui_media_bd">
+                            <p class="weui_media_desc">机器名称：AAAA</p>
+                            <p class="weui_media_desc">机器型号：AAAA</p>
+                            <p class="weui_media_desc">机身编号：AAAA</p>
+                            <p class="weui_media_desc">终端状态：<span>启用</span></p>
+                        </div>
+                    </a>
+                    <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg terminal-box">
+                        <div class="weui_media_hd">
+                            <img class="weui_media_appmsg_thumb" src="../images/camera.png" alt="">
+                        </div>
+                        <div class="weui_media_bd">
+                            <p class="weui_media_desc">机器名称：AAAA</p>
+                            <p class="weui_media_desc">机器型号：AAAA</p>
+                            <p class="weui_media_desc">机身编号：AAAA</p>
+                            <p class="weui_media_desc">终端状态：<span>启用</span></p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </script>
+    </head>
+
+    <body>
+        <div class="container" id="container">
+        </div>
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                var router = new Router({
+                    container: '#container',
+                    enterTimeout: 250,
+                    leaveTimeout: 20
+                });
+                var storeDtl = {
+                    url: '/',
+                    className: 'storeDtl',
+                    render: function() {
+                        return $("#storeDtl").html();
+                    }
+                }
+                var terminalList = {
+                    url: '/terminalList',
+                    className: 'terminalList',
+                    render: function() {
+                        return $("#terminalList").html();
+                    },
+                    bind: function() {
+                        $("#terminalsWrap").delegate(".weui_media_box", "click", function() {
+                            window.location.href = "terminal_dtl.html";
+                        });
+
+                        $(".js-filter").on("click", function() {
+                            $("#statusList").toggleClass("dn");
+                        });
+
+                        $("#statusList").delegate("li", "click", function() {
+                            $(this).addClass("active").siblings().removeClass("active");
+                            $("#statusList").addClass("dn");
+                        });
+                    }
+                }
+                router.push(storeDtl)
+                    .push(terminalList)
+                    .setDefault('/')
+                    .init();
+
+
+            });
+        </script>
+    </body>
+
+</html>

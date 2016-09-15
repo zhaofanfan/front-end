@@ -1,16 +1,13 @@
 /**
- * 
+ *
  * @authors zhaofan@xinguodu.com
  * @date    2016-06-12 19:05:32
  * @version $Id$
  */
-
 var util = function() {};
-
 var hasTouch = 'ontouchstart' in window,
     EV = 'click', //'touchstart'
     PAGE_SIZE = 20;
-
 util.query = function(params, callback) {
     var url = params.url,
         wrapId = params.dataWrapId || "dataWrapper",
@@ -40,7 +37,6 @@ util.query = function(params, callback) {
                 params.pageIndex == 1 ? $("#" + wrapId).html(html) : $("#" + wrapId).append(html);
                 $("#" + wrapId).data("pageIndex", params.pageIndex);
                 !+data.totalPage || data.totalPage == 1 || params.pageIndex == data.totalPage ? $("#" + pullUpId).addClass("dn") : $("#" + pullUpId).removeClass("dn");
-
                 iScroll && iScroll.refresh();
                 callback && callback(data.data);
             } else {
@@ -52,14 +48,12 @@ util.query = function(params, callback) {
         }
     });
 };
-
 util.wxUploadImage = function(wx, opts, fnSuccess, fnFailure) {
     opts = $.extend({
         count: 1, // 默认9
         sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
         sourceType: ['album', 'camera'] // 可以指定来源是相册还是相机，默认二者都有);
     }, opts || {});
-
     wx.chooseImage({
         count: opts.count,
         sizeType: opts.sizeType,
@@ -71,7 +65,6 @@ util.wxUploadImage = function(wx, opts, fnSuccess, fnFailure) {
             };
             images.localId = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
             //alert('已选择 ' + res.localIds.length + ' 张图片');
-
             if (images.localId.length == 0) {
                 alert('请先使用 chooseImage 接口选择图片');
                 return;
@@ -89,7 +82,6 @@ util.wxUploadImage = function(wx, opts, fnSuccess, fnFailure) {
                         //alert('已上传：' + i + '/' + length);
                         images.serverId.push(res.serverId);
                         fnSuccess && fnSuccess(localId, res.serverId);
-
                         if (i < length) {
                             upload();
                         }
@@ -104,7 +96,6 @@ util.wxUploadImage = function(wx, opts, fnSuccess, fnFailure) {
         }
     });
 };
-
 /**
  * 合并图片
  * @param  {[type]}   dataList 要合并的图片列表
@@ -143,32 +134,27 @@ util.compose = function(dataList, width, height, fn) {
     }
     draw(0);
 };
-
 util.initIScroll = function(opts) {
     var myScroll,
         opts = opts || {},
         pullDownEl, pullDownOffset,
         pullUpEl, pullUpOffset,
         generatedCount = 0;
-
     var pullDownAction = opts.pullDownAction || function() {
             myScroll.refresh();
         },
         pullUpAction = opts.pullUpAction || function() {
             myScroll.refresh();
         };
-
-    //初始化绑定iScroll控件 
+    //初始化绑定iScroll控件
     document.addEventListener('touchmove', function(e) {
         e.preventDefault();
     }, false);
-
     pullDownEl = $('#' + (opts['pullDownId'] || 'pullDown'));
     pullDownEl = pullDownEl.length && pullDownEl[0];
     pullDownOffset = pullDownEl && pullDownEl.offsetHeight;
     pullUpEl = $('#' + (opts['pullUpId'] || 'pullUp'))[0];
     pullUpOffset = pullUpEl.offsetHeight;
-
     /**
      * 初始化iScroll控件
      */
@@ -179,7 +165,6 @@ util.initIScroll = function(opts) {
         // 隐藏元素不能获取其准确位置
         bHidden = parentWrap.hasClass("dn");
     bHidden && parentWrap.removeClass("dn");
-
     var offsetTop = wrap.position().top;
     wrap.css({
         position: "absolute",
@@ -189,7 +174,6 @@ util.initIScroll = function(opts) {
         width: "100%"
     });
     bHidden && parentWrap.addClass("dn");
-
     myScroll = new iScroll(wrapId, {
         vScrollbar: false,
         topOffset: pullDownOffset || 0,
@@ -228,7 +212,6 @@ util.initIScroll = function(opts) {
     });
     return myScroll;
 };
-
 util.showActionSheet = function(fnOk) {
     var mask = $('#mask');
     var weuiActionsheet = $('#weui_actionsheet');
@@ -238,15 +221,12 @@ util.showActionSheet = function(fnOk) {
         .addClass('weui_fade_toggle').one('click', function() {
             util.hideActionSheet();
         });
-
     $('#actionsheet_cancel').one('click', function() {
         fnOk && fnOk();
         util.hideActionSheet();
     });
-
     mask.unbind('transitionend').unbind('webkitTransitionEnd');
 };
-
 util.hideActionSheet = function() {
     var mask = $('#mask');
     var weuiActionsheet = $('#weui_actionsheet');
@@ -258,7 +238,6 @@ util.hideActionSheet = function() {
         mask.hide();
     })
 };
-
 util.dialog = function(opts) {
     var html = '<div class="weui_dialog_confirm" id="dialog">' +
         '<div class="weui_mask"></div>' +
@@ -267,11 +246,10 @@ util.dialog = function(opts) {
         '<div class="weui_dialog_bd">' + opts.info + '</div>' +
         '<div class="weui_dialog_ft">' +
         (opts.cancel ? '<a href="javascript:;" class="weui_btn_dialog default">取消</a>' : '') +
-        '<a href="javascript:;" class="weui_btn_dialog primary">确定</a>' +
+        '<a href="javascript:;" class="weui_btn_dialog primary">' + (opts.btnname || '确定') + '</a>' +
         '</div>' +
         '</div>' +
         '</div>';
-
     var $html = $(html);
     $html.on(EV, ".weui_btn_dialog.default", function() {
         opts.cancelCb && opts.cancelCb();
@@ -280,10 +258,8 @@ util.dialog = function(opts) {
         opts.okCb && opts.okCb();
         $("#dialog").remove();
     });
-
     $("body").append($html);
 };
-
 util.toast = function(content) {
     var html = '<div id="toast">' +
         '<div class="weui_mask_transparent"></div>' +
@@ -297,7 +273,6 @@ util.toast = function(content) {
         $('#toast').remove();
     }, 2000);
 }
-
 util.loadingToast = function() {
     var html = '<div id="loadingToast" class="weui_loading_toast">' +
         '<div class="weui_mask_transparent"></div>' +
@@ -321,15 +296,12 @@ util.loadingToast = function() {
         '</div>';
     $("body").append(html);
 }
-
 util.removeToast = function() {
     $('#toast, #loadingToast').remove();
 };
-
 util.strLen = function(str) {
     return (str || "").replace(/[^\x00-\xff]/g, "00").length;
 };
-
 util.formatBankCard = function(input, replace) {
     input = input.replace(/\s/g, "");
     if (replace) {
@@ -337,15 +309,12 @@ util.formatBankCard = function(input, replace) {
     }
     return input.replace(/(\d{4})(?!$)/g, "$1 ");
 };
-
 util.isValidId = function(id) {
     return /(^\d{15}$)|(^\d{17}([0-9]|X|x)$)/.test(id);
 };
-
 util.isValidMobile = function(mobile) {
     return /^1[34578]\d{9}$/.test(mobile);
 };
-
 util.queryToJson = function(url) {
     var query = url.substr(url.lastIndexOf('?') + 1),
         params = query.split('&'),
@@ -353,7 +322,6 @@ util.queryToJson = function(url) {
         result = {},
         i = 0,
         key, value, item, param;
-
     for (; i < len; i++) {
         if (!params[i]) {
             continue;
@@ -361,20 +329,40 @@ util.queryToJson = function(url) {
         param = params[i].split('=');
         key = param[0];
         value = param[1];
-
         item = result[key];
         if ('undefined' == typeof item) {
             result[key] = value;
         } else if (isArray(item)) {
             item.push(value);
-        } else { // 这里只可能是string了  
+        } else { // 这里只可能是string了
             result[key] = [item, value];
         }
     }
-
     return result;
 };
-
+! function(e) {
+    var timeout = null,
+        _hasInserDOM = 0;
+    e.tips = function(tip) {
+        if (!_hasInserDOM) {
+            var dom = document.createElement("div");
+            dom.id = "tips", dom.style.cssText = "position:fixed;top:-30px;left:0;z-index:9999;width:100%;height:30px;overflow:hidden;-webkit-transition:all 250ms;-webkit-transform:translate3d(0,0,0)", dom.innerHTML = '<p style="height:30px;line-height:30px;margin:0 10px;text-align:center;font-size:14px;color:#fff;-webkit-border-radius:0 0 3px 3px;background:rgba(0,0,0,.7)"></p>', dom.onclick = function() {
+                $(this).css({
+                    "-webkit-transform": "translateY(0)"
+                })
+            }, document.body.appendChild(dom), _hasInserDOM = 1
+        }
+        setTimeout(function() {
+            timeout && clearTimeout(timeout), $("#tips p").text(tip), $("#tips").css({
+                "-webkit-transform": "translateY(30px)"
+            }), timeout = setTimeout(function() {
+                $("#tips").css({
+                    "-webkit-transform": "translateY(0)"
+                })
+            }, 3e3)
+        })
+    }
+}(util);
 //Array.forEach implementation for IE support..
 //https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/forEach
 Array.prototype.forEach || (Array.prototype.forEach = function(callback, thisArg) {
@@ -400,7 +388,6 @@ Array.prototype.forEach || (Array.prototype.forEach = function(callback, thisArg
         k++;
     }
 });
-
 /**
  * 日期格式化
  * @param  {[type]} format [description]
@@ -424,7 +411,6 @@ Date.prototype.format = function(format) {
             format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
     return format;
 };
-
 String.prototype.format = function(args) {
     var reg,
         result = this;
@@ -464,7 +450,6 @@ Array.prototype.remove = function(val) {
 function getDaysInMonth(iYear, iMonth) {
     return new Date(iYear || (new Date).getFullYear(), iMonth, 0).getDate();
 }
-
 /**
  * 根据结束日期和差值获取目标日期
  * @param  {Number} diff 差值 - 天数，每月固定按30天算
@@ -488,7 +473,6 @@ function getTargetDate(diff, minDate, endDate) {
             iYear--;
         }
         targetDate.setFullYear(iYear);
-
         var iDate = getDaysInMonth(iYear, targetMonth + 1);
         iDate > oDate.getDate() && (iDate = oDate.getDate());
         targetDate.setMonth(targetMonth, iDate);
@@ -499,9 +483,8 @@ function getTargetDate(diff, minDate, endDate) {
     }
     return minDate ? (targetDate < minDate ? minDate : targetDate) : targetDate;
 }
-
 $(document).ready(function() {
-    /*    
+    /*
         var currYear = (new Date()).getFullYear();
         $.fn.mobiscroll && $('input[data-role="datebox"]').mobiscroll({
             preset: 'date', //日期类型--datatime --time,
@@ -520,7 +503,6 @@ $(document).ready(function() {
             maxDate: new Date()
         }).val(new Date().format());*/
 });
-
 /*;
 (function(doc, win) {
     var docEl = doc.documentElement,
@@ -550,7 +532,6 @@ $(document).ready(function() {
     win.addEventListener(resizeEvt, recalc, false);
     doc.addEventListener('DOMContentLoaded', recalc, false);
 })(document, window);*/
-
 util.initPage = function(pageType) {
     $(document).ready(function() {
         var nHeight = $(window).height(),
@@ -563,53 +544,58 @@ util.initPage = function(pageType) {
         } else {
             $("#btnWrap").addClass("btnWrapAbs");
         }
-/*
-        var minDate = new Date();
-        minDate.setDate(1);
-        var opts = {
-            theme: 'mobiscroll',
-            lang: 'zh',
-            display: 'top',
-            mode: 'scroller',
-            dateFormat: 'mm-dd',
-            defaultValue: [new Date(), new Date()],
-            min: getTargetDate(180),
-            max: new Date(),
-            onSet: function(event, inst) {
-                $('#rangeDate, #filterDate').text(event.valueText.replace(/\s-\s/, ' 至 '));
-                $('#rangeDate, #filterRangeDate').mobiscroll('setVal', inst.getVal());
-            }
-        };
-        $('#rangeDate, #filterRangeDate').mobiscroll().range(opts);
+        /*
+                var minDate = new Date();
+                minDate.setDate(1);
+                var opts = {
+                    theme: 'mobiscroll',
+                    lang: 'zh',
+                    display: 'top',
+                    mode: 'scroller',
+                    dateFormat: 'mm-dd',
+                    defaultValue: [new Date(), new Date()],
+                    min: getTargetDate(180),
+                    max: new Date(),
+                    onSet: function(event, inst) {
+                        $('#rangeDate, #filterDate').text(event.valueText.replace(/\s-\s/, ' 至 '));
+                        $('#rangeDate, #filterRangeDate').mobiscroll('setVal', inst.getVal());
+                    }
+                };
+                $('#rangeDate, #filterRangeDate').mobiscroll().range(opts);
 
-        $('#filterRangeDate').mobiscroll('setVal', [getTargetDate(180), new Date()]);
+                $('#filterRangeDate').mobiscroll('setVal', [getTargetDate(180), new Date()]);
 
-        $('#rangeDate, #filterDate').text(new Date().format('MM-dd'));
+                $('#rangeDate, #filterDate').text(new Date().format('MM-dd'));
 
-        $('#rangeDate, #filterRangeDate').on(EV, function() {
-            return $(this).mobiscroll('show'), false;
-        });*/
+                $('#rangeDate, #filterRangeDate').on(EV, function() {
+                    return $(this).mobiscroll('show'), false;
+                });*/
         if (!!$("#filterRangeDate").length) {
-	        var dateRange = new pickerDateRange('filterRangeDate', {
-	            isTodayValid: true,
-	            //startDate: getTargetDate(180).format(),
-	            startDate: new Date().format(),
-	            endDate: new Date().format(),
-	            calendars: 2,
-	            autoSubmit: true,
-	            theme: 'ta',
-	            defaultText: ' 至 ',
-	            success: function(obj) {
-	                $('#filterRangeDate').text('');
-	                $('#filterDate').text(obj.startDate + ' 至 ' + obj.endDate);
-	            }
-	        });
-	        $('#filterRangeDate').text('');
-	        //$('#filterDate').text(getTargetDate(180).format() + ' 至 ' + new Date().format());
-	        $('#filterDate').text(new Date().format());
-	        window._dateRange = dateRange;
+            var dateRange = new pickerDateRange('filterRangeDate', {
+                isTodayValid: true,
+                //startDate: getTargetDate(180).format(),
+                startDate: new Date().format(),
+                endDate: new Date().format(),
+                calendars: 2,
+                autoSubmit: true,
+                theme: 'ta',
+                defaultText: ' 至 ',
+                success: function(obj) {
+                    $('#filterRangeDate').data('isChanged', 1).text('');
+                    $('#filterDate').text(obj.startDate + ' 至 ' + obj.endDate);
+                    $("#actionsheet_cancel").show();
+                }
+            });
+            $('#filterRangeDate').text('');
+            //$('#filterDate').text(getTargetDate(180).format() + ' 至 ' + new Date().format());
+            $('#filterDate').text(new Date().format());
+            window._dateRange = dateRange;
+            //修正因父窗体滚动的偏移值
+            $("#filterRangeDate").on(EV, function() {
+                var scrollTop = $("body").scrollTop();
+                $("#" + dateRange.calendarId).css("top", scrollTop + "px");
+            });
         }
-
         $('#consumptionTypeWrap').on(EV, 'a.weui_grid', function() {
             $('.weui_grid_label', this).toggleClass('active');
             var bActive = $('.weui_grid_label', this).hasClass('active');
@@ -631,17 +617,14 @@ util.initPage = function(pageType) {
                 }
             }
         });
-
         $('#settleTypeWrap, #storeWrap').on(EV, 'a.weui_grid', function() {
             $('.weui_grid_label', this).toggleClass('active');
         });
-
         $("#weui_actionsheet").on("click", ".filter_back", function() {
             util.hideActionSheet();
         });
     });
 };
-
 util.initPrintMerName = function(url) {
     $.ajax({
         url: url,
@@ -672,8 +655,7 @@ util.initPrintMerName = function(url) {
                         });*/
         }
     });
-}
-
+};
 ~ function() {
     var browser = {},
         ua = navigator.userAgent.toLowerCase();
@@ -683,3 +665,7 @@ util.initPrintMerName = function(url) {
     browser.android = /android/.test(ua);
     util.browser = browser;
 }();
+//kill error
+window.onerror = function(msg, url, line) {
+    alert("真不幸，又出错了\n" + "\n错误信息：" + msg + "\n所在文件：" + url + "\n错误行号：" + line);
+};

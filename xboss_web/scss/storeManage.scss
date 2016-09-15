@@ -64,8 +64,7 @@
     background-color: #efeff4;
     color: #666666;
     font-size: 17px;
-    &:before,
-    &:after {
+    &:before, &:after {
         border: 0;
     }
     .weui_cell:before {
@@ -90,5 +89,100 @@
     margin-top: 40px;
     .weui_label {
         width: 80px;
+    }
+}
+
+.storeManage .intime-wrap {
+    color: #999;
+    font-size: 14px;
+}
+
+.single-terminal {
+    background: #fff;
+    margin-top: 15px;
+    padding: 15px 0;
+    border: 1px solid #EFEFF4;
+    border-left: 0;
+    border-right: 0;
+    .store-name {
+        margin: 0;
+        font-size: 20px;
+        font-weight: bold;
+        color: #666666;
+    }
+    .weui_cell {
+        padding: 4px 15px;
+        color: #666;
+    }
+    .weui_cells:before, .weui_cells:after, .weui_cell:before {
+        content: none;
+    }
+}
+
+#terminalsWrap {
+    min-height: 160px;
+    &:before, &:after {
+        content: none;
+    }
+}
+
+.terminalList {
+    .weui_panel {
+        background-color: inherit;
+    }
+    .filter-header {
+        position: relative;
+        background: #fff;
+        .weui_panel_ft {
+            font-size: 16px;
+            color: #333333;
+            &:after {
+                -webkit-transform: rotate(135deg) translateY(8px);
+                transform: rotate(135deg) translateY(8px);
+                height: 10px;
+                width: 10px;
+            }
+            &:active {
+                background-color: #fff;
+            }
+        }
+        .status-list {
+            position: absolute;
+            right: 10px;
+            top: calc(100% - 10px);
+            width: 108px;
+            background: #fff;
+            border: 1px solid #cccccc;
+            border-radius: 2px;
+            z-index: 1;
+            text-align: center;
+            li {
+                line-height: 36px;
+                font-weight: bold;
+                &.active {
+                    background: #0099cc;
+                    color: #fff;
+                }
+            }
+            li ~ li {
+                border-top: 1px solid #efeff4;
+            }
+        }
+    }
+}
+
+.terminal-box {
+    margin-top: 10px;
+    background: #fff;
+    .weui_media_hd {
+        margin-right: 1em !important;
+        width: 96px !important;
+        height: 96px !important;
+        line-height: 96px !important;
+    }
+    .weui_media_desc {
+        font-size: 14px;
+        line-height: 24px;
+        color: #333333;
     }
 }
