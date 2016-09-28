@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>添加应用</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+        <link rel="stylesheet" type="text/css" href="css/weui.min.css">
+        <link rel="stylesheet" type="text/css" href="css/wxbase.css">
+    </head>
+
+    <body ontouchstart class="addapply-page">
+        <section class="weui_cells_access weui_cells_checkbox unionPayWrap">
+            <label class="weui_cell no_access nav-hd weui_check_label" for="ordinaryTrade">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <label class="weui_label nav-icon card-icon">普通收单</label>
+                </div>
+                <div class="weui_cell_hd">
+                    <input type="checkbox" class="weui_check" name="ordinaryTrade" id="ordinaryTrade" checked="checked">
+                    <i class="weui_icon_checked"></i>
+                </div>
+            </label>
+            <div class="weui_cells nav-wrap">
+                <div class="weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <label class="weui_label textJustify">境内借记卡</label><span>：</span>
+                        <strong>15%</strong>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <label class="weui_label dib">封顶：</label>
+                        <strong>200元</strong>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label textJustify">境内贷记卡</label><span>：</span>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>20%</p>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label textJustify">境 外 卡</label><span>：</span>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>20%</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="weui_cells_access weui_cells_checkbox applyWrap">
+            <div class="weui_cells nav-wrap">
+                <label class="weui_cell no_access nav-hd weui_check_label" for="weixinTrade">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <label class="weui_label nav-icon wechat-icon textJustify">微信</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <label class="weui_label dib">扣率：</label>
+                        <strong>0.6%</strong>
+                    </div>
+                    <div class="weui_cell_hd outof-flex">
+                        <input type="checkbox" class="weui_check" name="weixinTrade" id="weixinTrade">
+                        <i class="weui_icon_checked"></i>
+                    </div>
+                </label>
+                <label class="weui_cell no_access nav-hd weui_check_label" for="alipayTrade">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <label class="weui_label nav-icon alipay-icon textJustify">支付宝</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <label class="weui_label dib">扣率：</label>
+                        <strong>0.6%</strong>
+                    </div>
+                    <div class="weui_cell_hd outof-flex">
+                        <input type="checkbox" class="weui_check" name="alipayTrade" id="alipayTrade">
+                        <i class="weui_icon_checked"></i>
+                    </div>
+                </label>
+            </div>
+        </section>
+        <section class="weui_cells_access weui_cells_checkbox unionPayWrap">
+            <label class="weui_cell no_access nav-hd weui_check_label" for="guangdaTrade">
+                <div class="weui_cell_bd weui_cell_primary">
+                    <label class="weui_label nav-icon card-icon">光大理财</label>
+                </div>
+                <div class="weui_cell_hd">
+                    <input type="checkbox" class="weui_check" name="guangdaTrade" id="guangdaTrade">
+                    <i class="weui_icon_checked"></i>
+                </div>
+            </label>
+            <div class="weui_cells nav-wrap">
+                <div class="weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <label class="weui_label textJustify">借记卡扣率</label><span>：</span>
+                        <strong>15%</strong>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <label class="weui_label dib">封顶：</label>
+                        <strong>200元</strong>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label textJustify">贷记卡扣率</label><span>：</span>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>20%</p>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label textJustify">境外银联卡</label><span>：</span>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>20%</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <p class="audit-result c-red ml15 mt5">
+            <i class="weui_icon_info_circle"></i>
+            <span>申请结果：审批中</span>
+        </p>
+        <div class="button_sp_area">
+            <a id="J_submit" href="javascript:;" class="weui_btn weui_btn_primary mt20">提交申请</a>
+        </div>
+        <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+        <script type="text/javascript">
+        </script>
+    </body>
+
+</html>

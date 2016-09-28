@@ -8,6 +8,7 @@ var util = function() {};
 var hasTouch = 'ontouchstart' in window,
     EV = 'click', //'touchstart'
     PAGE_SIZE = 20;
+
 util.query = function(params, callback) {
     var url = params.url,
         wrapId = params.dataWrapId || "dataWrapper",
@@ -346,18 +347,21 @@ util.queryToJson = function(url) {
     e.tips = function(tip) {
         if (!_hasInserDOM) {
             var dom = document.createElement("div");
-            dom.id = "tips", dom.style.cssText = "position:fixed;top:-30px;left:0;z-index:9999;width:100%;height:30px;overflow:hidden;-webkit-transition:all 250ms;-webkit-transform:translate3d(0,0,0)", dom.innerHTML = '<p style="height:30px;line-height:30px;margin:0 10px;text-align:center;font-size:14px;color:#fff;-webkit-border-radius:0 0 3px 3px;background:rgba(0,0,0,.7)"></p>', dom.onclick = function() {
+            dom.id = "tips", dom.style.cssText = "position:fixed;top:-30px;left:0;z-index:9999;width:100%;height:30px;overflow:hidden;-webkit-transition:all 250ms;transition:all 250ms;-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0);", dom.innerHTML = '<p style="height:30px;line-height:30px;margin:0 10px;text-align:center;font-size:14px;color:#fff;-webkit-border-radius:0 0 3px 3px;border-radius:0 0 3px 3px;background:rgba(0,0,0,.7)"></p>', dom.onclick = function() {
                 $(this).css({
-                    "-webkit-transform": "translateY(0)"
+                    "-webkit-transform": "translate3d(0,0,0)",
+                    transform: "translate3d(0,0,0)"
                 })
             }, document.body.appendChild(dom), _hasInserDOM = 1
         }
         setTimeout(function() {
             timeout && clearTimeout(timeout), $("#tips p").text(tip), $("#tips").css({
-                "-webkit-transform": "translateY(30px)"
+                "-webkit-transform": "translateY(30px)",
+                transform: "translateY(30px)"
             }), timeout = setTimeout(function() {
                 $("#tips").css({
-                    "-webkit-transform": "translateY(0)"
+                    "-webkit-transform": "translate3d(0,0,0)",
+                    transform: "translate3d(0,0,0)"
                 })
             }, 3e3)
         })
@@ -503,10 +507,14 @@ $(document).ready(function() {
             maxDate: new Date()
         }).val(new Date().format());*/
 });
-/*;
+
+;
 (function(doc, win) {
-    var docEl = doc.documentElement,
-        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+    var docEl = doc.documentElement;
+    if (!docEl.hasAttribute('data-userem')) {
+        return;
+    }
+    var resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
         recalc = function() {
             var clientWidth = docEl.clientWidth;
             if (!clientWidth) return;
@@ -531,7 +539,8 @@ $(document).ready(function() {
     if (!doc.addEventListener) return;
     win.addEventListener(resizeEvt, recalc, false);
     doc.addEventListener('DOMContentLoaded', recalc, false);
-})(document, window);*/
+})(document, window);
+
 util.initPage = function(pageType) {
     $(document).ready(function() {
         var nHeight = $(window).height(),
@@ -656,6 +665,130 @@ util.initPrintMerName = function(url) {
         }
     });
 };
+
+var PasswordRules = {
+    letterPattern: /[a-zA-Z]+/,
+    numbericPattern: /[0-9]+/,
+    specialPattern: /[~!@#$%^&*()_+`\-=\[\]\\{}\|;':",\.\/<>\?]/,
+    //illegalPattern: /[^a-zA-Z0-9~!@#$%^&*()_+`\-=\[\]\\{}\|;':",\.\/<>\?]+/,
+    illegalPattern: /[~!@#$%^&*()+`\-=\[\]\\{}\|;':",\.\/<>\?]/,
+    validate: function(pwd) {
+        var len = util.strLen(pwd);
+        var result = {
+            success: false,
+            strength: 'w',
+            message: ''
+        };
+
+        if (this.illegalPattern.test(pwd)) {
+            result.success = false;
+            result.message = "密码中包含非法字符";
+            result.strength = 'w';
+            return result;
+        }
+
+        var category = this.calcCharsCategory(pwd);
+        if (category < 3) {
+            result.message = "密码必须包含数字、字母和下划线";
+            return result;
+        }
+
+        if (len < 8 || len > 12) {
+            result.message = "密码在8-12位之间";
+            return result;
+        }
+
+        if (category === 2) {
+            if (len >= 8 && len <= 10) {
+                result.success = true;
+                result.strength = 'm';
+            } else if (len > 10 && len <= 12) {
+                result.success = true;
+                result.strength = 's';
+            } else {
+                result.success = false;
+                result.strength = 's';
+            }
+        } else {
+            if (len >= 8 && len <= 10) {
+                result.success = true;
+                result.strength = 'm';
+            } else if (len > 10 && len <= 12) {
+                result.success = true;
+                result.strength = 's';
+            } else {
+                result.success = false;
+                result.strength = 's';
+            }
+        }
+
+        return result;
+    },
+    calcCharsCategory: function(pwd) {
+        var category = 0;
+
+        if (this.letterPattern.test(pwd)) {
+            category++;
+        }
+
+        if (this.numbericPattern.test(pwd)) {
+            category++;
+        }
+
+        if (this.specialPattern.test(pwd)) {
+            category++;
+        }
+
+        return category;
+    }
+}
+
+var CharacterRules = {
+    limitString: function(evt) {
+        evt = evt || window.event;
+        var maxlength = parseInt($(this).attr("maxlength"), 10),
+            length = util.strLen($.trim($(this).val()));
+        if (length >= maxlength) {
+            if (evt.keyCode != 8 && evt.preventDefault)
+                evt.preventDefault();
+        }
+    },
+    doKeyup: function() {
+        var value = $.trim($(this).val()),
+            length = util.strLen(value),
+            size = parseInt($(this).attr("maxlength"), 10);
+        if (length > size) {
+            $(this).val(CharacterRules.cutString(value, size));
+        }
+    },
+    /**
+     * 截取字符串（普通），中文占两个字符
+     * @param {String} str 要截取的字符串
+     * @param {Number} size 截取长度
+     * @return {String} 截取后的字符串
+     */
+    cutString: function(str, size) {
+        if (!str || !size) {
+            return '';
+        }
+        var i = 0,
+            count = 0,
+            temp = '';
+        for (i = 0; i < str.length; i++) {
+            if (str.charCodeAt(i) > 255) {
+                count += 2;
+            } else {
+                count++;
+            }
+            if (count > size) {
+                return temp;
+            }
+            temp += str.charAt(i);
+        }
+        return str;
+    }
+}
+
 ~ function() {
     var browser = {},
         ua = navigator.userAgent.toLowerCase();
@@ -669,3 +802,5 @@ util.initPrintMerName = function(url) {
 window.onerror = function(msg, url, line) {
     alert("真不幸，又出错了\n" + "\n错误信息：" + msg + "\n所在文件：" + url + "\n错误行号：" + line);
 };
+//active兼容处理 即 伪类 :active在IOS下失效
+document.addEventListener('touchstart', function() {}, false);

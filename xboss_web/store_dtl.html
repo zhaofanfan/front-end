@@ -2,7 +2,7 @@
 <html lang="en">
 
     <head>
-        <title>终端详情</title>
+        <title>门店详情</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
         <link href="./css/weui.min.css" rel="stylesheet" />
@@ -10,6 +10,7 @@
         <link rel="stylesheet" type="text/css" href="css/wxbase.css">
         <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
         <script type="text/javascript" src="js/router.min.js"></script>
+        <script type="text/javascript" src="js/util.js"></script>
         <script type="text/html" id="storeDtl">
             <div id="companyWrap" class="weui_cells weui_cells_access">
                 <div class="weui_cell" style="background: #fff;">
@@ -64,20 +65,20 @@
                     </div>
                     <a href="#/terminalList" class="weui_cell_ft"></a>
                 </div>
-                <div class="weui_cell">
+                <a class="weui_cell" href="#/updateShortName">
                     <div class="weui_cell_hd">商户简称：</div>
                     <div class="weui_cell_bd weui_cell_primary">
                         南山南
                     </div>
-                    <a href="#/" class="weui_cell_ft"></a>
-                </div>
-                <div class="weui_cell">
+                    <div class="weui_cell_ft"></div>
+                </a>
+                <a class="weui_cell" href="#/updatePrintName">
                     <div class="weui_cell_hd">打印名称：</div>
                     <div class="weui_cell_bd weui_cell_primary">
                         南山南
                     </div>
-                    <a href="#/" class="weui_cell_ft"></a>
-                </div>
+                    <div class="weui_cell_ft"></div>
+                </a>
                 <div class="weui_cell">
                     <div class="weui_cell_hd">扣率信息：</div>
                     <div class="weui_cell_bd weui_cell_primary">
@@ -138,6 +139,52 @@
                 </div>
             </div>
         </script>
+        <script type="text/html" id="updateShortName">
+            <div class="authForm" style="margin-top: 0;">
+                <div class="bindtip-wrap fs14">
+                    <div class="bindtip pt10">
+                        请设置您的新商户简称！
+                        <br>（不能超过10个汉字）
+                    </div>
+                </div>
+                <div class="weui_cells weui_cells_form">
+                    <div class="weui_cell">
+                        <div class="weui_cell_hd">
+                            <label class="weui_label">商户简称</label>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <input id="shortName" class="weui_input" onkeydown="CharacterRules.limitString.call(this);" onkeyup="CharacterRules.doKeyup.call(this);" maxlength="20" placeholder="请输入新商户简称">
+                        </div>
+                    </div>
+                </div>
+                <div class="button_sp_area">
+                    <a id="submitBtn" href="javascript:;" onclick="" class="weui_btn weui_btn_primary">提交</a>
+                </div>
+            </div>
+        </script>
+        <script type="text/html" id="updatePrintName">
+            <div class="authForm" style="margin-top: 0;">
+                <div class="bindtip-wrap fs14">
+                    <div class="bindtip pt10">
+                        请设置您的打印小票名称！
+                        <br>（不能超过10个汉字）
+                    </div>
+                </div>
+                <div class="weui_cells weui_cells_form">
+                    <div class="weui_cell">
+                        <div class="weui_cell_hd">
+                            <label class="weui_label">小票名称</label>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <input id="printName" class="weui_input" placeholder="请输入您的打印小票名称">
+                        </div>
+                    </div>
+                </div>
+                <div class="button_sp_area">
+                    <a id="submitBtn" href="javascript:;" onclick="" class="weui_btn weui_btn_primary">提交</a>
+                </div>
+            </div>
+        </script>
     </head>
 
     <body>
@@ -154,6 +201,7 @@
                     url: '/',
                     className: 'storeDtl',
                     render: function() {
+                        document.title = "门店详情";
                         return $("#storeDtl").html();
                     }
                 }
@@ -178,8 +226,24 @@
                         });
                     }
                 }
+                var updateShortName = {
+                    url: '/updateShortName',
+                    render: function() {
+                        document.title = "修改商户简称";
+                        return $("#updateShortName").html();
+                    }
+                }
+                var updatePrintName = {
+                    url: '/updatePrintName',
+                    render: function() {
+                        document.title = "修改打印商户名";
+                        return $("#updatePrintName").html();
+                    }
+                }
                 router.push(storeDtl)
                     .push(terminalList)
+                    .push(updateShortName)
+                    .push(updatePrintName)
                     .setDefault('/')
                     .init();
 

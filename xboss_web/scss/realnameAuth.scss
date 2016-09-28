@@ -100,20 +100,20 @@ body, html {
         }
     }
     .weui_cell {
-        padding: 10px 20px;
+        padding: 10px;
         &:before {
             left: 0;
         }
     }
     .button_sp_area {
         width: auto;
-        padding: 10px 20px;
+        padding: 10px;
     }
     .weui_cells_tips {
         padding-left: 20px;
     }
     .weui_cell_bd {
-        font-size: 17px;
+        font-size: 16px;
     }
 }
 
@@ -304,6 +304,7 @@ body, html {
     -webkit-transform: translateY(-50%);
     border: 1px solid #00ccff;
     border-radius: 3px;
+    font-size: 16px;
     color: #3399cc;
 }
 

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>加机申请</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+        <link rel="stylesheet" type="text/css" href="css/weui.min.css">
+        <link rel="stylesheet" type="text/css" href="css/wxbase.css">
+    </head>
+
+    <body ontouchstart class="addpos-page">
+        <section class="weui_cells weui_cells_access">
+            <a class="weui_cell" href="javascript:;">
+                <div class="weui_cell_hd">
+                    <label class="weui_label">行业小类：</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <p>超市</p>
+                </div>
+                <div class="weui_cell_ft"></div>
+            </a>
+        </section>
+        <section class="weui_cells_access unionPayWrap">
+            <div class="weui_cell no_access nav-hd J-nav">
+                <div class="weui_cell_hd">
+                    <label class="weui_label nav-icon card-icon">银联收单</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                </div>
+                <div class="weui_cell_ft up-arrow"></div>
+            </div>
+            <div class="weui_cells nav-wrap J-navWrap">
+                <a class="weui_cell" href="javascript:;">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label textJustify">境内借记卡</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>费率：0.78% 56元封顶</p>
+                    </div>
+                    <div class="weui_cell_ft"></div>
+                </a>
+                <a class="weui_cell" href="javascript:;">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label textJustify">境内贷记卡</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>费率：0.78%</p>
+                    </div>
+                    <div class="weui_cell_ft"></div>
+                </a>
+                <a class="weui_cell" href="javascript:;">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label textJustify">境 外 卡</label>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>费率：0.2%</p>
+                    </div>
+                    <div class="weui_cell_ft"></div>
+                </a>
+            </div>
+        </section>
+        <section class="weui_cells_access applyWrap">
+            <div class="weui_cell no_access nav-hd J-nav">
+                <div class="weui_cell_hd">
+                    <label class="weui_label nav-icon apply-icon">第三方应用</label>
+                </div>
+                <div class="weui_cell_bd weui_cell_primary">
+                </div>
+                <div class="weui_cell_ft up-arrow"></div>
+            </div>
+            <div class="weui_cells nav-wrap J-navWrap">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label nav-icon wechat-icon textJustify">微信支付费率</label><span>：</span>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>0.6 %</p>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd">
+                        <label class="weui_label nav-icon alipay-icon textJustify">支付宝支付费率</label><span>：</span>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>0.6 %</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="button_sp_area">
+            <a id="J_submit" href="javascript:;" class="weui_btn weui_btn_primary mt20">提交</a>
+        </div>
+        <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+        <script type="text/javascript">
+            $(".addpos-page").delegate(".J-nav", "click", function() {
+                $(this).next(".J-navWrap").toggleClass("dn");
+                $(this).find(".weui_cell_ft").toggleClass("down-arrow");
+            });
+        </script>
+    </body>
+
+</html>

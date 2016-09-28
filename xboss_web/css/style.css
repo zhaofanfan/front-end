@@ -35,10 +35,10 @@ ul.pcenter li{float: left;line-height: 59px;}
 .weui_cells_access .weui_cell_ft:after{height: 12px;width: 12px;/* border-color: #ffffff;*/}
 #companyWrap{margin-top: 10px;}
 #companyWrap:after{border-bottom: none;}
-#companyWrap .weui_cell{background-color: #167bcd;padding-top: 0;padding-bottom: 0;}
-#companyWrap .weui_media_box{padding-left: 0;}
-#companyWrap .weui_media_hd{background: url(../images/avatar_bg.png) center center no-repeat;background-size: cover;border-radius: 50%;overflow: hidden;}
-#companyWrap .weui_cell_ft{width: 45px;height: 90px;line-height: 90px;margin-right: -15px;padding-right: 15px;}
+#companyWrap .weui_cell{/* background-color: #167bcd;*/padding-top: 0;padding-bottom: 0;}
+#companyWrap .weui_media_box{padding: 5px 0;}
+#companyWrap .weui_media_hd{width: 44px;height: 44px;line-height: 44px;margin-right: 0;background: url(../images/avatar_bg.png) center center no-repeat;background-size: cover;border-radius: 50%;overflow: hidden;}
+#companyWrap .weui_cell_ft{/* width: 45px;height: 90px;line-height: 90px;margin-right: -15px;padding-right: 15px;*/}
 .white_btn{background-color: #3494e3 !important;border: 1px solid #fff;}
 #basicInfoWrap{margin-top: 0.5em;}
 .addAccount .weui_media_box.active .weui_media_bd{position: relative;}
@@ -56,8 +56,9 @@ ul.pcenter li{float: left;line-height: 59px;}
 .house-icon{background-image: url(../images/rr.png);}
 .authcode-wrap{position: relative;}
 .authcode-wrap .auth-code{width: 5em;}
-.authcode-wrap .authcode-btn{position: absolute;height: 30px;line-height: 30px;padding: 0 5px;right: 0px;top: 50%;transform: translateY(-50%);-webkit-transform: translateY(-50%);border: 1px solid #00ccff;border-radius: 3px;color: #3399cc;}
+.authcode-wrap .authcode-btn{position: absolute;height: 30px;line-height: 30px;padding: 0 5px;right: 0px;top: 50%;transform: translateY(-50%);-webkit-transform: translateY(-50%);border: 1px solid #00ccff;border-radius: 3px;font-size: 16px;color: #3399cc;}
 .bindtip-wrap{padding: 18px 40px 26px 30px;color: #999;}
 .bindtip-wrap .bindtip{min-height: 54px;padding-left: 60px;background: url(../images/shield.png) left top no-repeat;background-size: auto 54px;}
 .logout-btn{margin-top: 10px;background-color: #fff !important;color: #333333;font-weight: bold;border-radius: 0;text-align: left;}
-.logout-btn:after{border-radius: 0;}
+.logout-btn:after{border-left: 0;border-right: 0;border-radius: 0;}
+.logout-btn:active{background-color: #ececec !important;}

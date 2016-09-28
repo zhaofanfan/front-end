@@ -1,0 +1,193 @@
+@charset "UTF-8";
+
+/**
+ * 加机
+ */
+
+//@import '_base';
+strong {
+    font-weight: normal;
+}
+
+.addpos-page, .addapply-page {
+    height: auto;
+    background: #f0eff5;
+    section {
+        margin-top: 10px;
+        .nav-hd {
+            background: #fff;
+        }
+        .nav-wrap {
+            margin-top: 0;
+        }
+    }
+    .nav-icon {
+        padding-left: 34px;
+        background-position: left center;
+        background-repeat: no-repeat;
+        background-size: 28px 26px;
+        color: #333;
+        font-weight: bold;
+        &.card-icon {
+            background-image: url(../images/cardIcon.png);
+        }
+        &.apply-icon {
+            background-image: url(../images/thirdPartyIcon.png);
+        }
+        &.wechat-icon, &.alipay-icon {
+            width: 7.5em;
+            padding-left: 40px;
+            background-size: auto 24px;
+            color: #9c9c9c;
+        }
+        &.alipay-icon {
+            background-image: url(../images/alipayIcon.png);
+        }
+        &.wechat-icon {
+            background-image: url(../images/wechatIcon.png);
+        }
+    }
+    .unionPayWrap {
+        .textJustify {
+            width: 5em;
+            color: #333;
+        }
+    }
+}
+
+.addpos-page {
+    .unionPayWrap {
+        .textJustify {
+            padding-right: 12px;
+            border-right: 1px solid #d2d2d2;
+        }
+        .weui_cell_bd {
+            color: #9c9c9c;
+        }
+    }
+    .applyWrap {
+        color: #9c9c9c;
+    }
+}
+
+.addapply-page {
+    .nav-icon {
+        &.wechat-icon, &.alipay-icon {
+            width: 3.2em;
+            color: #333;
+            font-weight: normal;
+        }
+    }
+    .weui_cells_checkbox {
+        .weui_cell_hd {
+            margin-right: 0;
+        }
+    }
+    .weui_cell_hd.outof-flex {
+        position: absolute;
+        right: 15px;
+    }
+    .weui_cell {
+        .weui_cell_primary ~ .weui_cell_primary {
+            padding-left: 20%;
+            label {
+                width: 45px;
+            }
+        }
+    }
+    .audit-result {
+        font-size: 15px;
+        i:before {
+            color: #ff0000;
+        }
+    }
+}
+
+.pos-wrap {
+    .weui_panel_hd {
+        padding: 0;
+        color: inherit;
+        font-size: inherit;
+    }
+    .weui_cell_hd {
+        margin-right: 0;
+    }
+    .textOverflow {
+        width: 80%;
+    }
+    .textJustify {
+        width: 64px;
+    }
+    .weui_cells {
+        margin-top: 0;
+        .weui_cell {
+            padding: 4px 0;
+        }
+    }
+    .weui_cells:before, .weui_cells:after, .weui_cell:before {
+        content: none;
+    }
+    .radio-wrap {
+        span {
+            display: inline-block;
+            width: 68px;
+            height: 26px;
+            line-height: 26px;
+            border: 1px solid #dcdcdc;
+            text-align: center;
+        }
+        .weui_check:checked+span {
+            background: url(../images/addway_bg.png) center center no-repeat;
+            background-size: cover;
+            border-color: transparent;
+            color: #fe5f1b;
+        }
+    }
+    .weui_media_hd {
+        width: 72px !important;
+        height: 72px !important;
+        line-height: 72px !important;
+    }
+}
+
+.weui_cells_checkbox .weui_cell:active {
+    background-color: #fff;
+}
+
+.x-number-selector {
+    float: left;
+    width: 28px;
+    height: 18px;
+    line-height: 16px;
+    padding: 3px 2px;
+    border: 1px solid #ddd;
+    color: currentColor;
+    font-size: 17px;
+    text-align: center;
+}
+
+.x-number-selector.x-number-disabled {
+    color: #ccc;
+}
+
+.x-number-selector-sub {
+    border-right: none;
+    border-radius: 2px 0 0 2px;
+}
+
+.x-number-selector-plus {
+    border-left: none;
+    margin-right: 5px;
+    border-radius: 0 2px 2px 0;
+}
+
+.x-number-input {
+    float: left;
+    width: 44px;
+    height: 18px;
+    padding: 3px 0;
+    color: #666;
+    appearance: none;
+    border: 1px solid #ddd;
+    text-align: center;
+}

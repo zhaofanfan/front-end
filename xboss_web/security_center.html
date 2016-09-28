@@ -10,45 +10,47 @@
         <link rel="stylesheet" type="text/css" href="css/wxbase.css">
         <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
         <script type="text/javascript" src="js/router.min.js"></script>
+        <script type="text/javascript" src="js/util.js"></script>
         <script type="text/html" id="securityCenter">
             <div id="companyWrap" class="weui_cells weui_cells_access">
-                <div class="weui_cell">
+                <a class="weui_cell" href="#/addAccount">
                     <div class="weui_cell_bd weui_cell_primary">
                         <div class="weui_panel_bd">
                             <div class="weui_media_box weui_media_appmsg">
-                                <div class="weui_media_hd">
-                                    <img src="./images/logo.jpg" alt="" />
-                                </div>
                                 <div class="weui_media_bd">
-                                    <a href="javascript:;" style="color:#ffffff">新国都技术有限公司</a>
+                                    <!-- <a href="javascript:;" style="color:#ffffff">新国都技术有限公司</a> -->
+                                    <p>账号管理</p>
+                                </div>
+                                <div class="weui_media_hd">
+                                    <img src="./images/logo.jpg" alt="" width="44px" />
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <a href="#/addAccount" class="weui_cell_ft"></a>
-                </div>
+                    <div class="weui_cell_ft"></div>
+                </a>
             </div>
-            <div class="weui_cells weui_cells_access mt15">
+            <div class="weui_cells weui_cells_access mt10" style="line-height: 1.6;">
                 <div class="weui_cell">
                     <div class="weui_cell_hd icon-hd phone-icon">手机号码</div>
                     <div class="weui_cell_bd weui_cell_primary">
                         <a href="bind_mobile.html" class="weui_cell_ft fr">未绑定</a>
                     </div>
                 </div>
-                <div class="weui_cell">
-                    <div class="weui_cell_hd icon-hd email-icon">登陆邮箱</div>
+                <a class="weui_cell" href="#/setNickname">
+                    <div class="weui_cell_hd icon-hd email-icon">用户昵称</div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <a href="javascript:;" class="weui_cell_ft fr">未设置</a>
+                        <div class="weui_cell_ft fr">未设置</div>
                     </div>
-                </div>
-                <div class="weui_cell">
-                    <div class="weui_cell_hd icon-hd key-icon">登陆密码</div>
+                </a>
+                <a class="weui_cell" href="#/setLoginPwd">
+                    <div class="weui_cell_hd icon-hd key-icon">设置登陆密码</div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <a href="javascript:;" class="weui_cell_ft fr">无密码</a>
+                        <div class="weui_cell_ft fr">无密码</div>
                     </div>
-                </div>
+                </a>
             </div>
-            <div class="weui_cells weui_cells_access mt15">
+            <div class="weui_cells weui_cells_access mt10">
                 <div class="weui_cell">
                     <div class="weui_cell_hd icon-hd lock-icon">账号安全</div>
                     <div class="weui_cell_bd weui_cell_primary">
@@ -57,12 +59,12 @@
                         </a>
                     </div>
                 </div>
-                <div class="weui_cell">
+                <a class="weui_cell" href="#/settleInfo">
                     <div class="weui_cell_hd icon-hd card-icon">结算信息</div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <a href="javascript:;" class="weui_cell_ft fr">中国银行</a>
+                        <div class="weui_cell_ft fr">中国银行</div>
                     </div>
-                </div>
+                </a>
                 <div class="weui_cell">
                     <div class="weui_cell_hd icon-hd house-icon">公司信息</div>
                     <div class="weui_cell_bd weui_cell_primary">
@@ -93,12 +95,128 @@
                 </div>
             </div>
         </script>
+        <script type="text/html" id="settleInfo">
+            <div class="weui_cells">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd mr5">结算卡</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <a class="tr fr" href="javascript:;" style="width: 50px;color: #01a3e4;">解绑</a>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>中国银行</p>
+                        <p class="mt5">**********1234</p>
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd mr5">结算卡</div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <a class="tr fr" href="javascript:;" style="width: 50px;color: #01a3e4;">解绑</a>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p>中国银行</p>
+                        <p class="mt5">**********1234</p>
+                    </div>
+                </div>
+            </div>
+        </script>
+        <script type="text/html" id="setNickname">
+            <div class="authForm" style="margin-top: 0;">
+                <div class="bindtip-wrap fs14">
+                    <div class="bindtip pt10">
+                        请设置您的新昵称便于您的管理！
+                    </div>
+                </div>
+                <div class="weui_cells weui_cells_form">
+                    <div class="weui_cell">
+                        <div class="weui_cell_hd">
+                            <label class="weui_label">用户昵称</label>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <input id="nickname" class="weui_input" placeholder="请输入您的新昵称">
+                        </div>
+                    </div>
+                </div>
+                <div class="button_sp_area">
+                    <a id="submitBtn" href="javascript:;" onclick="" class="weui_btn weui_btn_primary">提交</a>
+                </div>
+            </div>
+        </script>
+        <script type="text/html" id="setLoginPwd">
+            <div class="authForm" style="margin-top: 0;">
+                <div class="bindtip-wrap fs14">
+                    <div class="bindtip pt10">
+                        请设置您的登录密码，便于后期登录！
+                    </div>
+                </div>
+                <div id="step1" class="weui_cells weui_cells_form">
+                    <div class="weui_cell">
+                        <div class="weui_cell_hd">
+                            <label class="weui_label">中国+86</label>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <input id="phoneNo" class="weui_input" value="138****1234" readonly="readonly" />
+                        </div>
+                    </div>
+                    <div class="weui_cell">
+                        <div class="weui_cell_hd">
+                            <label class="weui_label">验证码</label>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary authcode-wrap">
+                            <input id="authCode" class="weui_input auth-code" type="number" pattern="" placeholder="短信验证码">
+                            <a id="getAuthCode" href="javascript:;" class="authcode-btn">获取验证码</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="step2" class="weui_cells weui_cells_form dn">
+                    <div class="weui_cell">
+                        <div class="weui_cell_hd">
+                            <label class="weui_label">新 密 码</label>
+                        </div>
+                        <div class="weui_cell_bd weui_cell_primary authcode-wrap">
+                            <input id="pwd" class="weui_input" type="password" placeholder="8-12位数字、字母和下划线">
+                            <a onclick="toggleEye.call(this)" href="javascript:;" class="eye_close_btn"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="button_sp_area">
+                    <a id="submitBtn" href="javascript:;" onclick="fnSubmit();" class="weui_btn weui_btn_primary">提交</a>
+                </div>
+            </div>
+        </script>
     </head>
 
-    <body>
+    <body ontouchstart>
         <div class="container" id="container">
         </div>
         <script type="text/javascript">
+            PasswordRules.specialPattern = /_/;
+
+            function toggleEye() {
+                $(this).toggleClass("eye_open");
+                var $input = $(this).prev("input");
+                "text" == $input.attr("type") ? $input.attr("type", "password") : $input.attr("type", "text");
+            }
+
+            function fnSubmit() {
+                if ($("#step2").hasClass("dn")) {
+                    //todo
+                    $("#step1").addClass("dn");
+                    $("#step2").removeClass("dn");
+                } else {
+                    var pwd = $.trim($("#pwd").val()),
+                        result;
+                    if (result = PasswordRules.validate(pwd), !result.success) {
+                        util.tips(result.message);
+                    }
+                    //todo
+                }
+            }
             jQuery(document).ready(function($) {
                 var router = new Router({
                     container: '#container',
@@ -109,18 +227,43 @@
                     url: '/',
                     className: 'securityCenter',
                     render: function() {
+                        document.title = "安全中心";
                         return $("#securityCenter").html();
+                    }
+                }
+                var setNickname = {
+                    url: '/setNickname',
+                    render: function() {
+                        document.title = "设置昵称";
+                        return $("#setNickname").html();
+                    }
+                }
+                var setLoginPwd = {
+                    url: '/setLoginPwd',
+                    render: function() {
+                        document.title = "设置登陆密码";
+                        return $("#setLoginPwd").html();
                     }
                 }
                 var authorizedInfo = {
                     url: '/authorizedInfo',
-                    className: 'authorizedInfo',
                     render: function() {
+                        document.title = "认证信息";
                         return $("#authorizedInfo").html();
                     }
                 }
+                var settleInfo = {
+                    url: '/settleInfo',
+                    render: function() {
+                        document.title = "结算信息";
+                        return $("#settleInfo").html();
+                    }
+                }
                 router.push(securityCenter)
+                    .push(setNickname)
+                    .push(setLoginPwd)
                     .push(authorizedInfo)
+                    .push(settleInfo)
                     .setDefault('/')
                     .init();
             });

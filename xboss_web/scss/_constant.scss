@@ -1,7 +1,9 @@
 @charset "utf-8";
+
 /**
  * 常量
  */
+
 $white: #ffffff;
 $black: #000000;
 $buttonBgColor: #01a3e4;
@@ -9,5 +11,20 @@ $placeholderColor: #b2b2b2;
 $borderColor: #dadada;
 $gridLabelColor: #969696;
 $tableHeadBgColor: #107bcd;
+$volcanoRedColor: #ff6633;
 
+/**
+ * mixin
+ */
 
+@mixin flexbox {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+}
+
+@mixin flex ($value: 1) {
+    -webkit-box-flex: $value;
+    -webkit-flex: $value;
+    flex: $value;
+}
