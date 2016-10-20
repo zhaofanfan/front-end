@@ -6,6 +6,7 @@
         <meta content="yes" name="apple-mobile-web-app-capable">
         <meta content="yes" name="apple-touch-fullscreen">
         <meta content="telephone=no,email=no" name="format-detection">
+        <title>再来一波</title>
         <style type="text/css">
             .checkbox {
                 min-height: 24px;
@@ -110,7 +111,7 @@
             }
         </style>
         <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
-        <title>再来一波</title>
+        <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
     </head>
 
     <body>
@@ -141,6 +142,12 @@
                 </li>
             </ul>
         </section>
+        <div id="countDownWrap" data-time="1475251200000">
+            <span class="days"></span>天
+            <span class="hours"></span>小时
+            <span class="minutes"></span>分
+            <span class="secs"></span>秒
+        </div>
         <script type="text/javascript">
             /**
              * 函数节流方法
@@ -157,6 +164,33 @@
                     }, delay);
                 }
             };
+
+            function timeLeft(outerWrap) {
+                var $wrap = outerWrap,
+                    desttime = parseInt($wrap.attr("data-time")),
+                    counter;
+
+                function countDown(longtime) {
+                    var nowtime = (new Date()).getTime(),
+                        delta = longtime - nowtime,
+                        leftsecs = parseInt(delta / 1000),
+                        days = Math.floor((leftsecs / (24 * 60 * 60))),
+                        hours = Math.floor(((leftsecs - days * 24 * 60 * 60) / (60 * 60))),
+                        minutes = Math.floor((leftsecs - days * 24 * 60 * 60 - hours * 3600) / 60),
+                        secs = Math.floor(leftsecs - days * 24 * 60 * 60 - hours * 3600 - minutes * 60);
+                    if (delta < 0) {
+                        clearInterval(counter);
+                        $wrap.find(".days").text("00").end().find(".hours").text("00").end().find(".minutes").text("00").end().find(".secs").text("00")
+                    } else {
+                        $wrap.find(".days").text(days < 10 ? ("0" + days) : days).end().find(".hours").text(hours < 10 ? ("0" + hours) : hours).end().find(".minutes").text(minutes < 10 ? ("0" + minutes) : minutes).end().find(".secs").text(secs < 10 ? ("0" + secs) : secs)
+                    }
+                }
+                counter = setInterval(function() {
+                    countDown(desttime)
+                }, 1000)
+            };
+
+            timeLeft($("#countDownWrap"));
 
             function SwipeDelete(element, deleteWrap) {
                 this.element = document.querySelector(element);
