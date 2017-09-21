@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Examples</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <link href="" rel="stylesheet">
+        <style type="text/css">
+            * {
+                margin: 0;
+                padding: 0
+            }
+            
+            *,
+            :after,
+            :before {
+                box-sizing: content-box!important;
+                font-family: sans-serif!important;
+                background-position: 50%!important;
+                -webkit-appearance: none!important;
+                outline: none;
+                padding: 0;
+                margin: 0;
+                -webkit-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                -webkit-overflow-scrolling: touch;
+                -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            }
+            
+            .toast {
+                position: absolute;
+                pointer-events: none;
+                -webkit-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+                top: 50%;
+                left: 50%;
+                width: 60%;
+                text-align: center;
+                background: rgba(0, 0, 0, .7);
+                padding: 12px;
+                color: #fff;
+                font-size: 15px;
+                opacity: 0;
+                transition: opacity .5s;
+                box-shadow: 0 0 5px #000;
+            }
+            
+            .toast.shown {
+                opacity: 1;
+                -webkit-transition: none;
+                transition: none
+            }
+            
+            @-webkit-keyframes blink {
+                0% {
+                    opacity: 0
+                }
+                to {
+                    opacity: 1
+                }
+            }
+            
+            @keyframes blink {
+                0% {
+                    opacity: 0
+                }
+                to {
+                    opacity: 1
+                }
+            }
+            
+            .login-page .main-frame {
+                width: 100%;
+                padding: 0 16px;
+                box-sizing: border-box!important
+            }
+            
+            .login-page .main-frame .phone-wrap {
+                position: relative
+            }
+            
+            .login-page .main-frame .phone-wrap .clear-btn {
+                content: '';
+                width: 18px;
+                height: 18px;
+                position: absolute;
+                right: 5px;
+                top: 18px;
+                background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Ccircle fill='%23EBEBEB' cx='15' cy='15' r='15'/%3E%3Cpath d='M15 15.707l5.303 5.303.707-.707L15.707 15l5.303-5.303-.707-.707L15 14.293 9.697 8.99l-.707.707L14.293 15 8.99 20.303l.707.707L15 15.707z' fill='%23A7A192'/%3E%3C/g%3E%3C/svg%3E");
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: 50%;
+            }
+            
+            .login-page .main-frame button {
+                border: 0 none
+            }
+            
+            .login-page .main-frame .phone-input {
+                margin: 16px 0 8px
+            }
+            
+            .login-page .main-frame .phone-input:empty:before {
+                content: '\8BF7\8F93\5165\624B\673A\53F7'
+            }
+            
+            .login-page .main-frame .code-input:empty:before {
+                content: '\8F93\5165\9A8C\8BC1\7801'
+            }
+            
+            .login-page .main-frame .fake-input1 {
+                height: 32px;
+                font-size: 15px;
+                color: #40320d;
+                border: none;
+                border-bottom: 1px solid #dbdbdb;
+                padding: 6px 4px;
+                width: 100%;
+                position: relative
+            }
+            
+            .login-page .main-frame .fake-input {
+                line-height: 44px;
+                height: 44px;
+                font-size: 15px;
+                color: #40320d;
+                border-bottom: 1px solid #dbdbdb;
+                padding: 0 4px;
+                width: 100%;
+                position: relative;
+                box-sizing: border-box!important
+            }
+            
+            .login-page .main-frame .fake-input.focus {
+                border-bottom-color: #bdbdbd
+            }
+            
+            .login-page .main-frame .fake-input.focus:after {
+                content: '';
+                height: 18px;
+                display: inline-block;
+                width: 2px;
+                background: #fed52f;
+                vertical-align: middle;
+                -webkit-animation-name: blink;
+                animation-name: blink;
+                -webkit-animation-duration: .5s;
+                animation-duration: .5s;
+                -webkit-animation-iteration-count: infinite;
+                animation-iteration-count: infinite;
+                -webkit-animation-timing-function: linear;
+                animation-timing-function: linear
+            }
+            
+            .login-page .main-frame .fake-input:empty:before {
+                display: inline;
+                color: #b3b3b3
+            }
+            
+            .login-page .main-frame .fake-input:empty:after {
+                position: absolute;
+                left: 2px;
+                top: 13px
+            }
+            
+            .new-login-page .title {
+                font-size: 32px;
+                height: 32px;
+                line-height: 32px
+            }
+            
+            .new-login-page .btn-row {
+                color: #333;
+                height: 36px;
+                -webkit-box-flex: 1;
+                -ms-flex-positive: 1;
+                flex-grow: 1;
+                margin-bottom: 12px
+            }
+            
+            .new-login-page .btn-row input {
+                border: 1px solid #ccc;
+                box-sizing: border-box!important;
+                height: 100%;
+                line-height: 38px;
+                width: 100%;
+                font-size: 15px
+            }
+            
+            .new-login-page .btn-row .captcha {
+                height: 100%
+            }
+            
+            .new-login-page .btn-row .captchaInput {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 1000px;
+                height: 100%;
+                opacity: 0;
+                border: none;
+                color: transparent;
+                text-shadow: 0 0 0 #000
+            }
+            
+            .new-login-page .btn-row .captchaInput::focus {
+                outline: none;
+                text-indent: -9999em
+            }
+            
+            .new-login-page .btn-row .box {
+                width: 20%;
+                height: 36px;
+                border-bottom: 1px solid #bababa;
+                float: left;
+                font-size: 18px;
+                font-weight: bolder;
+                text-align: center;
+                line-height: 36px;
+                margin-right: 5%;
+                box-sizing: border-box!important;
+                position: relative
+            }
+            
+            .new-login-page .btn-row .box.yellow {
+                border-color: #ffd500
+            }
+            
+            .new-login-page .btn-row .box.yellow:after {
+                position: absolute;
+                left: center;
+                top: 13px;
+                content: '';
+                height: 18px;
+                display: inline-block;
+                width: 2px;
+                background: #fed52f;
+                vertical-align: middle;
+                -webkit-animation-name: blink;
+                animation-name: blink;
+                -webkit-animation-duration: .5s;
+                animation-duration: .5s;
+                -webkit-animation-iteration-count: infinite;
+                animation-iteration-count: infinite;
+                -webkit-animation-timing-function: linear;
+                animation-timing-function: linear
+            }
+            
+            .new-login-page .main-frame {
+                padding: 0 22px;
+                margin-top: 50px
+            }
+            
+            .new-login-page .main-frame .fake-input {
+                height: 36px;
+                line-height: 36px;
+                font-size: 18px;
+                margin: 35px 0 0
+            }
+            
+            .new-login-page .main-frame .fake-input:empty:after {
+                top: 9px
+            }
+            
+            .new-login-page .main-frame .phone-wrap .clear-btn {
+                width: 24px;
+                height: 36px;
+                background-size: 14px;
+                top: 0;
+                right: 0
+            }
+            
+            .new-login-page .captcha-box .captcha-input {
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                display: -webkit-flex;
+                -webkit-box-orient: horizontal;
+                -webkit-box-direction: normal;
+                -ms-flex-direction: row;
+                flex-direction: row;
+                -webkit-flex-direction: row;
+                margin-top: 35px
+            }
+            
+            .new-login-page .captcha-box .captcha-input .btn-row .captcha-active:before {
+                content: '\8BF7\8F93\5165\53F3\8FB9\6570\5B57';
+                display: inline;
+                color: #b3b3b3;
+                position: absolute;
+                margin-top: 10px
+            }
+            
+            .new-login-page .captcha-box .input-row {
+                width: 135px;
+                height: 35px;
+                position: relative;
+                background: #f1f1f1
+            }
+            
+            .new-login-page .captcha-box .img-wrap {
+                width: 100%;
+                padding-right: 35px;
+                text-align: center
+            }
+            
+            .new-login-page .captcha-box .img-wrap,
+            .new-login-page .captcha-box .refresh-btn,
+            .new-login-page .captcha-box img {
+                height: 35px;
+                box-sizing: border-box!important
+            }
+            
+            .new-login-page .captcha-box .refresh-btn {
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 35px;
+                border: 1px solid #f1f1f1;
+                background-color: #fff;
+                background-repeat: no-repeat;
+                background-size: 20px;
+                background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='58' height='49' viewBox='0 0 58 49'%3E%3Cpath d='M57.6 26.9l-6.3-6.6c-.3-.3-.7-.5-1.1-.5-.4 0-.7.2-1 .5L43 27c-.6.6-.6 1.6 0 2.2.2.3.6.5 1 .5s.8-.2 1.1-.5l3.7-4c-.3 8.9-5.8 16.7-13.7 19.5-2 .7-4.2 1.1-6.3 1.1-3.3 0-6.6-.9-9.5-2.5-3-1.8-5.5-4.3-7.4-7.3-.2-.4-.7-.7-1.2-.7-.3 0-.6.1-.8.2-.7.5-.9 1.5-.5 2.2 2.1 3.5 5 6.4 8.5 8.3 3.3 2 7.1 3 10.9 3 2.4 0 4.9-.5 7.3-1.3 9.1-3.3 15.3-12.2 15.7-22.4l3.7 3.9c.2.3.6.4 1 .4s.8-.1 1.1-.5c.5-.6.5-1.6 0-2.2zM15 20c-.2-.4-.6-.5-1-.5s-.8.1-1 .4l-3.9 4c.2-9 5.7-16.8 13.7-19.6 2-.8 4.2-1.2 6.3-1.2 3.3 0 6.6.9 9.5 2.6 3 1.7 5.5 4.2 7.4 7.3.2.4.7.7 1.2.7.3 0 .6-.1.8-.3.7-.4.9-1.4.4-2.1-2.1-3.5-5-6.4-8.4-8.3C36.7 1.1 32.9.1 29.1.1c-2.5 0-4.9.4-7.3 1.2-9 3.3-15.3 12.2-15.7 22.4l-3.6-4.1c-.2-.3-.6-.4-1-.4s-.8.1-1 .4c-.6.6-.6 1.6-.1 2.2l6.1 6.8c.3.3.7.5 1.1.5.4 0 .7-.2 1-.4l6.4-6.6c.6-.5.6-1.5 0-2.1z' fill='%23767676' fill-rule='evenodd'/%3E%3C/svg%3E")
+            }
+            
+            .keyboard-wrap {
+                width: 100%;
+                height: 215px;
+                position: absolute;
+                bottom: 0;
+                left: 0
+            }
+            
+            .keyboard-wrap table {
+                width: 100%;
+                height: 100%;
+                border-collapse: collapse;
+                border: 1px solid #dedfe2;
+                box-sizing: border-box!important
+            }
+            
+            .keyboard-wrap td {
+                width: 25px;
+                border: 1px solid #dedfe2;
+                text-align: center;
+                font-size: 25px;
+                color: #000;
+                background-color: #fff
+            }
+            
+            .keyboard-wrap td.submit div {
+                line-height: 106px
+            }
+            
+            .keyboard-wrap td .hide-btn span {
+                display: block;
+                width: 0;
+                height: 0;
+                border: 10px solid transparent;
+                border-top-color: #333;
+                margin: auto;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0
+            }
+            
+            .keyboard-wrap td .kong {
+                background-color: #f6f6f6
+            }
+            
+            .keyboard-wrap td .del {
+                background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='55' height='40' viewBox='0 0 55 40'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M1.29 20.35c-.39-.39-.38-1.03 0-1.42L18.52 1.71c.39-.39 1.16-.71 1.7-.71H49c2.21 0 4.01 1.8 4.01 4.01v29.26c0 2.22-1.79 4.01-4.01 4.01H20.22c-.55 0-1.32-.32-1.7-.71L1.29 20.35z' stroke='%23030303' stroke-width='2'/%3E%3Cpath d='M34.47 21.12L42 28.65c.39.39 1.03.39 1.42 0l.23-.23c.39-.39.39-1.03 0-1.42l-7.53-7.53 7.53-7.53c.39-.39.39-1.03 0-1.42l-.23-.23c-.39-.39-1.03-.39-1.42 0l-7.53 7.53-7.53-7.52a.999.999 0 0 0-1.42-.01l-.23.24a.996.996 0 0 0 0 1.41l7.53 7.53L25.3 27c-.4.39-.4 1.03-.01 1.42l.24.23c.39.39 1.02.39 1.41 0l7.53-7.53z' fill='%23030303'/%3E%3C/g%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                background-position: 50%;
+                background-size: 25px auto
+            }
+            
+            .keyboard-wrap td .no {
+                background-color: #cecece;
+                color: #fff
+            }
+            
+            .keyboard-wrap td .no.ok {
+                background-color: #5fa4f0;
+                color: #fff
+            }
+            
+            .keyboard-wrap td div {
+                width: 100%;
+                height: 100%;
+                line-height: 53px;
+                background-color: #fff;
+                position: relative
+            }
+        </style>
+    </head>
+
+    <body class="login-page new-login-page">
+        <div class="main-frame">
+            <h1 class="title">欢迎你</h1>
+            <div class="phone-wrap">
+                <div class="phone-input fake-input focus" maxlength="13"></div>
+                <div class="clear-btn"></div>
+            </div>
+            <div class="captcha-box">
+                <div class="captcha-input">
+                    <div class="btn-row">
+                        <div class="captcha captcha-active">
+                            <div class="box"></div>
+                            <div class="box"></div>
+                            <div class="box"></div>
+                            <div class="box"></div>
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <div class="refresh-btn"></div>
+                        <div class="img-wrap"><img src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAABGCAMAAAB8DG+AAAAAP1BMVEUAAAAlf1RGoHVNp3w6lGkFXzR0zqNZs4gDXTIifFF506h71apowpcadElUroNRq4BSrIEifFEXcUY5k2gPaT7JJ7xpAAAAAXRSTlMAQObYZgAAAwtJREFUeJzsmeuSqjAMx5NhRxl1nSnv/7BntkBzaQJiW+mcMfvBRbD98c+lDcDXvva1r33WEPBshE1DROwFcjC/xcg4Y55rw2AQJrYeGE0FOVwPkNoyBefPjgwTEYeMp25ns8HKR0f8+Hbrg1DHXBQwCnkrCMefcjLHFgULS8/PTyvClQuhLK2bKSgFxO5Kz8rC8Hqqj4tg4NXHl8dpSJgUpPQ+ouAaug0BmYJy2hCCRjHwEJsuRWxsXR1DIEJ7QURmzfi0dwiXAZoQ+AHAOWklMa6fBGimjCxLbQjXCi2ZgREyFBkCCOm7pgr6IyNpaSgoVGsHuMOHggX1D3F/lFI8v4Dx6pMLqCRrVga3XCNXGBAKqp6wYYpsK8hWGFkvdVaYhKEG4Cs5AstehzSzI1LzhWLC7eqgznk5O46jkyW1FAR4PB7GKel9VB5mfONo8F2v1xp8EeLxsAmVguAJOI55JF+vkbC0A0sCOoDOIY8/R8EZsLRHXCL9JUBPwRiDHmCpgutMrofR5LU3DZARlsG9lMRmDOa/qlOmjTG2mg4rix2cKuvIMgjq79ymI5N3xbX3raV8tPel9n+z08n5SMGsM6inYORbCHc2mRago+BxvrTNzKeMgLjfK/oLieHhOXp0Swj0vAIofKkJMkNlAVwDckdB/WPQbRyqtkmcy4+za62JZz7YvMYARLW79rDY7ZCwgo+f2Zib92I6ouiiNF1SkFiGYcgV8eWEXEXXeyBcA/J2lCBr08cni0fDn4kLAdQWkaRHesCCVifuQFLjqAVwlOCei4BguaCyCSowunFc7hqlb2bAdv2cyUhtfBZCWsHlFdFeLFVkZJGBKpFky5SYwvZi3giT/keqs/xdT/JyCIF5vJr9HsFND9ZVlizPDlG3xzX4fg8Qzpi4t2S8YRuvA47yyRzKQN/Rb5oavFDxFHxjqGmapkYvVND4O25/gFMDumrWPSD0zvc/WOUsv9ccDGa+moT3e23CyoDdK3jYns/nzhWn8+0SwuUzLKa9Ani5nEhoA/4LAAD//yYNDnuNpw5AAAAAAElFTkSuQmCC"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="keyboard-wrap">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div>
+                                1
+                                <canvas class="ink" height="106" width="184" style="border-radius: inherit; height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;"></canvas>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                2
+                                <canvas class="ink" height="0" width="0" style="border-radius: inherit; height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;"></canvas>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                3
+                                <canvas class="ink" height="0" width="0" style="border-radius: inherit; height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;"></canvas>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="hide-btn"><span></span>
+                                <canvas class="ink" height="0" width="0" style="border-radius: inherit; height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;"></canvas>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>
+                                4
+                                <canvas class="ink" height="0" width="0" style="border-radius: inherit; height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;"></canvas>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                5
+                                <canvas class="ink" height="0" width="0" style="border-radius: inherit; height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;"></canvas>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                6
+                                <canvas class="ink" height="0" width="0" style="border-radius: inherit; height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;"></canvas>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="del">
+                                <canvas class="ink" height="0" width="0" style="border-radius: inherit; height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;"></canvas>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>
+                                7
+                                <canvas class="ink" height="0" width="0" style="border-radius: inherit; height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;"></canvas>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                8
+                                <canvas class="ink" height="0" width="0" style="border-radius: inherit; height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;"></canvas>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                9
+                                <canvas class="ink" height="0" width="0" style="border-radius: inherit; height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;"></canvas>
+                            </div>
+                        </td>
+                        <td rowspan="2" class="submit">
+                            <div class="no">
+                                确认
+                                <canvas class="ink" height="0" width="0" style="border-radius: inherit; height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;"></canvas>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="kong"></div>
+                        </td>
+                        <td>
+                            <div>
+                                0
+                                <canvas class="ink" height="0" width="0" style="border-radius: inherit; height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;"></canvas>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="kong"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="toast shown">请先填写正确的验证码！</div>
+    </body>
+
+</html>
