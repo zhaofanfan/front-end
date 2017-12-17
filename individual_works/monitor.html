@@ -9,57 +9,7 @@
         <meta name="description" content="">
         <meta name="keywords" content="">
         <link rel="stylesheet" type="text/css" href="css/reset.css" />
-        <style type="text/css">
-            html,
-            body {
-                height: 100%;
-                min-width: 800px;
-            }
-            
-            .clearfix:after {
-                content: '';
-                display: block;
-                clear: both;
-                height: 0;
-                overflow: hidden;
-                visibility: hidden;
-            }
-            
-            .clearfix {
-                zoom: 1;
-            }
-            
-            .layout-aside,
-            .layout-main {
-                float: left;
-                height: 100%;
-                text-align: center
-            }
-            
-            .layout {
-                padding: 0 300px;
-                height: 100%;
-            }
-            
-            .layout-main {
-                width: 100%;
-                background: #4dbcb0
-            }
-            
-            .layout-aside {
-                width: 300px;
-                background: #daf1ef
-            }
-            
-            .layout-aside__left {
-                margin-left: -300px;
-            }
-            
-            .layout-aside__right {
-                margin-right: -300px;
-                float: right;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
         <script type="text/javascript">
             ~ function() {
                 var designWidth = 800;
@@ -109,9 +59,12 @@
 
     <body>
         <div class="layout clearfix">
-            <div class="layout-aside layout-aside__left">左侧边栏宽度固定</div>
+            <div class="layout-aside layout-aside__left">
+                <span class="number_box js_num">
+                </span>
+            </div>
             <div class="layout-main">
-                <div style="height:600px" id="echarts-map-chart"></div>
+                <div style="height: 600px" id="echarts-map-chart"></div>
             </div>
             <div class="layout-aside layout-aside__right">
                 <input type="text" value="75" class="dial" data-fgColor="#1AB394" data-width="85" data-height="85" />
@@ -120,10 +73,8 @@
         <script type="text/javascript" src="https://cdn.staticfile.org/jquery/2.1.4/jquery.min.js"></script>
         <script type="text/javascript" src="http://www.zi-han.net/theme/hplus/js/plugins/jsKnob/jquery.knob.js"></script>
         <script type="text/javascript" src="js/echarts-all.js"></script>
-        <script type="text/javascript" src="js/WebSocket.js"></script>
+        <script type="text/javascript" src="js/monitor.js"></script>
         <script type="text/javascript">
-            G_vmlCanvasManager = undefined;
-            $(".dial").knob();
         </script>
     </body>
 

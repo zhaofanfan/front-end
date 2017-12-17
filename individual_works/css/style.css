@@ -3,3 +3,86 @@
 Primary style
 
 -------------------------------- */
+
+html, body {
+    height: 100%;
+    min-width: 800px;
+}
+
+.clearfix:after {
+    content: '';
+    display: block;
+    clear: both;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.layout-aside, .layout-main {
+    float: left;
+    height: 100%;
+    text-align: center
+}
+
+.layout {
+    padding: 0 300px;
+    height: 100%;
+}
+
+.layout-main {
+    width: 100%;
+    background: #4dbcb0
+}
+
+.layout-aside {
+    width: 300px;
+    background: #daf1ef
+}
+
+.layout-aside__left {
+    margin-left: -300px;
+}
+
+.layout-aside__right {
+    margin-right: -300px;
+    float: right;
+}
+
+.number_box {
+    float: left;
+    overflow: hidden;
+    margin-top: 2px
+}
+
+.number_item {
+    float: left;
+    width: 15px;
+    height: 20px;
+    text-align: center;
+    position: relative;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    margin-left: 3px
+}
+
+.number_item::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    -webkit-box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    border-style: solid;
+    border-color: currentColor;
+    border-width: 1px;
+    border-radius: 3px;
+    opacity: .3
+}
