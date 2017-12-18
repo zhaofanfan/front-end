@@ -1,25 +1,160 @@
-/* -------------------------------- 
+/* --------------------------------
 
 Primary style
 
 -------------------------------- */
 
-html, body {
-    height: 100%;
-    min-width: 800px;
+.clearfix:after {
+    clear: both;
+    content: ' ';
+    display: block;
+    font-size: 0;
+    line-height: 0;
+    visibility: hidden;
+    width: 0;
+    height: 0
 }
 
-.clearfix:after {
-    content: '';
-    display: block;
-    clear: both;
-    height: 0;
-    overflow: hidden;
-    visibility: hidden;
+ul.clearfix li {
+    float: left
 }
 
 .clearfix {
-    zoom: 1;
+    *zoom: 1
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline
+}
+
+* {
+    box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -icab-box-sizing: border-box;
+    -khtml-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box
+}
+
+@media screen and (max-device-width:960px) {
+    body {
+        -webkit-text-size-adjust: none
+    }
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block
+}
+
+html {
+    overflow-y: visible;
+    overflow-x: hidden
+}
+
+select {
+    border: 1px solid #dee1e3;
+    font-size: 12px;
+    color: #333;
+    line-height: 12px
+}
+
+ul {
+    list-style: none
+}
+
+ol {
+    list-style: decimal inside
+}
+
+blockquote, q {
+    quotes: none
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+    content: none
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer
+}
+
+a:hover {
+    text-decoration: none
+}
+
+a:focus {
+    outline: 0
+}
+
+span {
+    color: inherit
+}
+
+a img {
+    vertical-align: middle
+}
+
+label[for] {
+    cursor: pointer
+}
+
+body, html {
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+}
+
+#datavLoading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0f2a42;
+}
+
+#datavLoading img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -60px 0 0 -60px;
+    width: 120px;
+}
+
+.datavLayout {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+}
+
+.datavLayout .data-com {
+    position: absolute !important;
+    margin: 0 !important;
+}
+
+#datavTextLogo {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    width: 50px;
+    z-index: 99999999;
 }
 
 .layout-aside, .layout-main {
@@ -34,8 +169,8 @@ html, body {
 }
 
 .layout-main {
+    position: relative;
     width: 100%;
-    background: #4dbcb0
 }
 
 .layout-aside {
@@ -85,4 +220,43 @@ html, body {
     border-width: 1px;
     border-radius: 3px;
     opacity: .3
+}
+
+.main-img {
+    left: 136px;
+    top: 0px;
+    width: 1596px;
+    height: 107px;
+    z-index: 1;
+}
+
+.main-img .data-wrapper {
+    width: 1596px;
+    height: 107px;
+    background-image: url(../image/header.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.main-title {
+    left: 640px;
+    top: 8px;
+    width: 645px;
+    height: 65px;
+    z-index: 41;
+}
+
+.main-title .data-wrapper {
+    width: 645px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(255, 255, 255);
+    font-weight: bolder;
+    font-family: "Microsoft Yahei", Arial, sans-serif;
+    font-size: 40px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }

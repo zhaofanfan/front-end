@@ -1,5 +1,5 @@
 /**
- * 
+ *
  * @authors Your Name (you@example.org)
  * @date    2017-12-17 20:51:16
  * @version 1.0
@@ -43,6 +43,7 @@ var demo = (function() {
     var showChartFunc = function() {
         myChart.setOption({
             title: {
+                show: !1,
                 text: "iphone销量",
                 subtext: "纯属虚构",
                 x: "center"
@@ -51,20 +52,21 @@ var demo = (function() {
                 trigger: "item"
             },
             legend: {
+                show: !1,
                 orient: "vertical",
                 x: "left",
                 data: ["iphone4", "iphone5"]
             },
-            dataRange: {
-                min: 0,
-                max: 2500,
-                x: "left",
-                y: "bottom",
-                text: ["高", "低"],
-                calculable: !0
-            },
+            // dataRange: {
+            //     min: 0,
+            //     max: 2500,
+            //     x: "left",
+            //     y: "bottom",
+            //     text: ["高", "低"],
+            //     calculable: !0
+            // },
             toolbox: {
-                show: !0,
+                show: !1,
                 orient: "vertical",
                 x: "right",
                 y: "center",
@@ -85,7 +87,7 @@ var demo = (function() {
                 }
             },
             roamController: {
-                show: !0,
+                show: !1,
                 x: "right",
                 mapTypeControl: {
                     china: !0
@@ -94,6 +96,7 @@ var demo = (function() {
             series: [{
                 name: "iphone4",
                 type: "map",
+                roam: !0,
                 mapType: "china",
                 itemStyle: {
                     normal: {
@@ -111,6 +114,7 @@ var demo = (function() {
             }, {
                 name: "iphone5",
                 type: "map",
+                roam: !0,
                 mapType: "china",
                 itemStyle: {
                     normal: {
@@ -200,6 +204,7 @@ var demo = (function() {
             name: "澳门",
             value: Math.round(1e3 * Math.random())
         }];
+
         repayDataValues = [{
             name: "北京",
             value: Math.round(1e3 * Math.random())

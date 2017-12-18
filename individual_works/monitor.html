@@ -11,70 +11,174 @@
         <link rel="stylesheet" type="text/css" href="css/reset.css" />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         <script type="text/javascript">
-            ~ function() {
-                var designWidth = 800;
+            // ~ function() {
+            //     var designWidth = 800;
 
-                var asideDesignWidth = 175;
+            //     var asideDesignWidth = 175;
 
-                function resizefn() {
-                    var width = document.documentElement.scrollWidth || window.innerWidth;
+            //     function resizefn() {
+            //         var width = document.documentElement.scrollWidth || window.innerWidth;
 
-                    var asideWidth = parseInt(asideDesignWidth / designWidth * width, 10);
+            //         var asideWidth = parseInt(asideDesignWidth / designWidth * width, 10);
 
-                    var cssStr = '.layout{padding: 0 ' + asideWidth + 'px;} .layout-aside{width: ' + asideWidth + 'px;} .layout-aside__left{margin-left: -' + asideWidth + 'px;} .layout-aside__right{margin-right: -' + asideWidth + 'px;}';
+            //         var cssStr = '.layout{padding: 0 ' + asideWidth + 'px;} .layout-aside{width: ' + asideWidth + 'px;} .layout-aside__left{margin-left: -' + asideWidth + 'px;} .layout-aside__right{margin-right: -' + asideWidth + 'px;}';
 
-                    if (!document.getElementById("J_asideStyle")) {
-                        addStyle(cssStr, "J_asideStyle");
-                    } else {
-                        document.getElementById("J_asideStyle").innerHTML = cssStr;
-                    }
-                }
+            //         if (!document.getElementById("J_asideStyle")) {
+            //             addStyle(cssStr, "J_asideStyle");
+            //         } else {
+            //             document.getElementById("J_asideStyle").innerHTML = cssStr;
+            //         }
+            //     }
 
-                window.onresize = resizefn;
-                resizefn();
-            }();
+            //     window.onresize = resizefn;
+            //     resizefn();
+            // }();
 
-            function addStyle(cssString, id) {
-                var doc = document;
-                var style = doc.createElement("style");
-                !id || style.setAttribute("id", id);
-                style.setAttribute("type", "text/css");
+            // function addStyle(cssString, id) {
+            //     var doc = document;
+            //     var style = doc.createElement("style");
+            //     !id || style.setAttribute("id", id);
+            //     style.setAttribute("type", "text/css");
 
-                if (style.styleSheet) { // IE
-                    style.styleSheet.cssText = cssString;
-                } else { // w3c
-                    var cssText = doc.createTextNode(cssString);
-                    style.appendChild(cssText);
-                }
+            //     if (style.styleSheet) { // IE
+            //         style.styleSheet.cssText = cssString;
+            //     } else { // w3c
+            //         var cssText = doc.createTextNode(cssString);
+            //         style.appendChild(cssText);
+            //     }
 
-                var heads = doc.getElementsByTagName("head");
-                if (heads.length) {
-                    heads[0].appendChild(style);
-                } else {
-                    doc.documentElement.appendChild(style);
-                }
-            }
+            //     var heads = doc.getElementsByTagName("head");
+            //     if (heads.length) {
+            //         heads[0].appendChild(style);
+            //     } else {
+            //         doc.documentElement.appendChild(style);
+            //     }
+            // }
         </script>
     </head>
 
     <body>
-        <div class="layout clearfix">
-            <div class="layout-aside layout-aside__left">
-                <span class="number_box js_num">
-                </span>
+        <div id="datavLoading">
+            <a target="_blank" href="javascript:;">
+                <img src="image/loading.svg" />
+            </a>
+        </div>
+        <div class="datavLayout">
+            <div class="data-com main-img">
+                <div class="data-wrapper"></div>
             </div>
-            <div class="layout-main">
-                <div style="height: 600px" id="echarts-map-chart"></div>
+            <div class="data-com main-title">
+                <div class="data-wrapper">E 眼 监 控 大 屏</div>
             </div>
-            <div class="layout-aside layout-aside__right">
-                <input type="text" value="75" class="dial" data-fgColor="#1AB394" data-width="85" data-height="85" />
+            <div class="layout clearfix">
+                <div class="layout-aside layout-aside__left">
+                    <span class="number_box js_num">
+                	</span>
+                </div>
+                <div class="layout-main">
+                    <div style="position: absolute;top: 94px;width: 100%;height: 600px;" id="echarts-map-chart"></div>
+                </div>
+                <div class="layout-aside layout-aside__right">
+                    <input type="text" value="75" class="dial" data-fgColor="#1AB394" data-width="85" data-height="85" />
+                </div>
             </div>
         </div>
-        <script type="text/javascript" src="https://cdn.staticfile.org/jquery/2.1.4/jquery.min.js"></script>
-        <script type="text/javascript" src="http://www.zi-han.net/theme/hplus/js/plugins/jsKnob/jquery.knob.js"></script>
+        <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="js/jquery.knob.min.js"></script>
         <script type="text/javascript" src="js/echarts-all.js"></script>
         <script type="text/javascript" src="js/monitor.js"></script>
         <script type="text/javascript">
+            var config = {
+                "backgroundImage": "https://datav.oss-cn-hangzhou.aliyuncs.com/uploads/images/f86b2ac1cac415bb226e7810f54f7dd5.jpg",
+                "width": 1920,
+                "height": 1080,
+                "display": 2
+            };
+
+            window.screen = window.config || {};
+            window.screen.width && $('body').css('width', window.screen.width);
+            // window.screen.height && $('body').css('height', window.screen.height);
+            $('head').append('<meta name="viewport" content="width=' + window.screen.width + '"/>');
+            window.config && window.config.backgroundImage && $("body").css("background", "none" == window.config.backgroundImage ? window.config.backgroundImage : "url(" + window.config.backgroundImage + ")");
+
+            $(window, document).resize(function() {
+                resize();
+            }).load(function() {
+                $('.datavLayout').css('visibility', 'visible');
+                resize();
+                $('#datavLoading').fadeOut();
+
+                window.screen.height && $('body').css('height', window.screen.height);
+            });
+
+            function resize() {
+                if (window.screen.display == 2) {
+                    resizeCenter();
+                } else if (window.screen.display == 3) {
+                    resizeFull();
+                } else {
+                    resizeWidth();
+                }
+            }
+
+            function resizeWidth() {
+                var ratio = $(window).width() / (window.screen.width || $('body').width());
+
+                $('body').css({
+                    transform: "scale(" + ratio + ")",
+                    transformOrigin: "left top",
+                    backgroundSize: "100%"
+                });
+            }
+
+            function resizeCenter() {
+                if (!window.screen.height || !window.screen.width) return resizeCenterBak();
+                var ratio = $(window).height() / window.screen.height;
+
+                $('body').css({
+                    transform: "scale(" + ratio + ")",
+                    transformOrigin: "left top",
+                    backgroundSize: 100 * (window.screen.width / $(window).width() * ratio) + "%" + ' 100%',
+                    backgroundPosition: ($(window).width() - $('body').width() * ratio) / 2 + "px top",
+                    marginLeft: ($(window).width() - $('body').width() * ratio) / 2
+                });
+            }
+
+            function resizeFull() {
+                if (!window.screen.height || !window.screen.width) return resizeFullBak();
+                var ratioX = $(window).width() / window.screen.width;
+                var ratioY = $(window).height() / window.screen.height;
+
+                $('body').css({
+                    transform: "scale(" + ratioX + ", " + ratioY + ")",
+                    transformOrigin: "left top",
+                    backgroundSize: "100% 100%",
+                });
+            }
+
+            function resizeCenterBak() {
+                var ratioX = $(window).width() / $('body').width();
+                var ratioY = $(window).height() / $('body').height();
+                var ratio = Math.min(ratioX, ratioY);
+
+                $('body').css({
+                    transform: "scale(" + ratio + ")",
+                    transformOrigin: "left top",
+                    backgroundSize: (1 / ratioX) * 100 * ratio + "%",
+                    backgroundPosition: ($(window).width() - $('body').width() * ratio) / 2 + "px top",
+                    marginLeft: ($(window).width() - $('body').width() * ratio) / 2
+                });
+            }
+
+            function resizeFullBak() {
+                var ratioX = $(window).width() / $('body').width();
+                var ratioY = $(window).height() / $('body').height();
+                $('body').css({
+                    transform: "scale(" + ratioX + ", " + ratioY + ")",
+                    transformOrigin: "left top",
+                    backgroundSize: "100% " + ratioY * 100 + "%",
+                });
+            }
         </script>
     </body>
 
