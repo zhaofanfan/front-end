@@ -314,7 +314,7 @@ var AbnormityChart = (function() {
      * 获取信息
      */
     var getDataFunc = function() {
-        $.getJSON('js/mock.json').done(function(data) {
+        $.getJSON('js/mock.js').done(function(data) {
             if (data) {
                 distDataValues = data.distInfos;
                 handleDataValues = data.handleInfos;
