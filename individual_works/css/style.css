@@ -177,7 +177,7 @@ body {
 .layout-aside {
     position: relative;
     width: 490px;
-    /*background: #daf1ef*/
+    /* background: rgba(255, 255, 255, 0.05); */
 }
 
 .layout-aside__left {
@@ -605,4 +605,129 @@ body {
 
 .percentage-bar-6 {
     top: 476px;
+}
+
+.layout-aside__right .data-com {
+    left: 40px;
+}
+
+.alarm-proportion {
+    top: 156px;
+    width: 420px;
+    height: 604px;
+    z-index: 15;
+}
+
+.alarm-proportion li {
+    float: left;
+    width: 33.33%;
+}
+
+.alarm-proportion .proportion-header {
+    text-align: left
+}
+
+.alarm-proportion .dot {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    position: relative;
+    top: -4px;
+    background: #f1786b
+}
+
+.alarm-proportion .proportion-txt {
+    font-size: 16px;
+    color: #fff
+}
+
+.alarm-proportion .counter {
+    float: left;
+}
+
+.alarm-proportion .proportion-main {
+    margin-top: 30px;
+    line-height: 28px;
+    color: #fff
+}
+
+.alarm-proportion .counter .number {
+    font-size: 32px;
+    font-weight: bold;
+    color: #4ff5f5
+}
+
+.proportion-footer .counter {
+    padding: 5px 2px;
+    margin-top: 15px;
+    background: #b9d4ff;
+    color: #fff
+}
+
+.proportion-footer .number-wrapper {
+    font-size: 16px;
+    color: #fff
+}
+
+.proportion-footer .number {
+    color: #fff !important;
+    font-size: 16px !important
+}
+
+.proportion-footer .suffix {
+    font-size: 14px;
+}
+
+.alarm-proportion .two .dot {
+    background: #fdc77c
+}
+
+.alarm-proportion .three .dot {
+    background: #5ac8ae
+}
+
+.realtime-title {
+    left: 40px;
+    top: 652px;
+    width: 205px;
+    height: 50px;
+    z-index: 14;
+}
+
+.realtime-title .data-wrapper {
+    width: 205px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: rgb(255, 255, 255);
+    font-weight: normal;
+    font-family: YouYuan, Arial, sans-serif;
+    font-size: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.realtime-subtitle {
+    left: 40px;
+    top: 676px;
+    width: 205px;
+    height: 50px;
+    z-index: 31;
+}
+
+.realtime-subtitle .data-wrapper {
+    width: 205px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: normal;
+    font-family: sans-serif, Arial, sans-serif;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }

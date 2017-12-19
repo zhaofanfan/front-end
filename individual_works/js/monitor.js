@@ -23,7 +23,7 @@ jQuery(function() {
     //     clearInterval(timer);
     // }, 35000);
 
-    // AbnormityChart.init();
+    AbnormityChart.init();
 });
 
 var AbnormityChart = (function() {
