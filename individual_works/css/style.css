@@ -282,6 +282,15 @@ body {
     height: 310px;
 }
 
+.echarts-proportion-pie-chart {
+    /*position: absolute;
+    padding: 25px;
+    right: 0;
+    bottom: 28px;*/
+    width: 450px;
+    height: 310px;
+}
+
 .echarts-line-chart {
     position: absolute;
     padding: 25px;
@@ -613,8 +622,7 @@ body {
 
 .alarm-proportion {
     top: 156px;
-    width: 420px;
-    height: 604px;
+    width: 410px;
     z-index: 15;
 }
 
@@ -753,4 +761,112 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.carousel-table {
+    left: 0 !important;
+    top: 722px;
+    width: 460px;
+    height: 336px;
+    z-index: 5;
+}
+
+.carousel-table .data-wrapper {
+    width: 460px;
+    height: 336px;
+    overflow: hidden;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.carousel-table .header {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    height: 40px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.carousel-table .index-list {
+    display: inline-block;
+    vertical-align: middle;
+    width: 22%;
+    height: 40px;
+}
+
+.carousel-table .column-title {
+    width: 28%;
+    display: inline-block;
+    text-overflow: ellipsis;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle;
+    background-color: transparent;
+    font-family: YouYuan;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: normal;
+}
+
+.carousel-table .column-title-2 {
+    width: 60%;
+}
+
+.carousel-table .row-content {
+    height: 40px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0);
+    padding-top: 0px;
+    margin-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+.carousel-table .index {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    width: 22%;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.carousel-table .index-bg {
+    background-color: rgba(241, 90, 34, 0.54);
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    vertical-align: middle;
+    margin: auto;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.carousel-table .cell-content {
+    width: 28%;
+    display: inline-block;
+    text-overflow: ellipsis;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle;
+    background-color: transparent;
+    font-family: Microsoft Yahei;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: normal;
+}
+
+.carousel-table .cell-content-2 {
+    width: 60%;
+    color: #d06a4d;
 }

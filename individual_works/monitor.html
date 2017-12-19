@@ -79,7 +79,7 @@
                             </g>
                         </g>
                     </svg>
-                    <span class="date">2017-12-19 05:31:25</span>
+                    <span id="timeShow" class="date"></span>
                 </div>
             </div>
             <div class="layout clearfix">
@@ -664,12 +664,36 @@
                                 </div>
                             </li>
                         </ul>
+                        <div class="echarts-proportion-pie-chart" id="echarts-proportion-pie-chart"></div>
                     </div>
                     <div class="data-com realtime-title">
                         <div class="data-wrapper">实时告警</div>
                     </div>
                     <div class="data-com realtime-subtitle">
                         <div class="data-wrapper">Real-time alarm</div>
+                    </div>
+                    <div class="data-com carousel-table">
+                        <div class="data-wrapper">
+                            <div class="line header">
+                                <div class="index-list"></div>
+                                <div class="column column-title">时间</div>
+                                <div class="column column-title-2">异常情况</div>
+                            </div>
+                            <div class="line row-content">
+                                <div class="index">
+                                    <div class="index-bg"></div>
+                                </div>
+                                <div class="column cell-content">12.28 12:00:05</div>
+                                <div class="column cell-content-2">选座值机异常</div>
+                            </div>
+                            <div class="line row-content" style="background-color: rgba(255, 255, 255, 0.05);">
+                                <div class="index">
+                                    <div class="index-bg"></div>
+                                </div>
+                                <div class="column cell-content">12.28 12:00:05</div>
+                                <div class="column cell-content-2">选座值机异常</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -703,6 +727,8 @@
                 $('#datavLoading').fadeOut();
 
                 window.screen.height && $('body').css('height', window.screen.height);
+
+                AbnormityChart.init();
             });
 
             function resize() {
