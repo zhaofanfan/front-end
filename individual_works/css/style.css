@@ -731,3 +731,26 @@ body {
     white-space: nowrap;
     overflow: hidden;
 }
+
+.timer {
+    left: 724px;
+    top: 92px;
+    width: 456px;
+    height: 52px;
+    z-index: 16;
+}
+
+.timer .data-wrapper {
+    width: 456px;
+    height: 52px;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: normal;
+    font-family: "Microsoft Yahei";
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
