@@ -139,7 +139,17 @@ var AbnormityChart = (function() {
                 }, {
                     name: '未处理',
                     icon: 'stack'
-                }]
+                }],
+                formatter: function(name) {
+                    var _label = name;
+                    jQuery(handleDataValues).each(function(index, item) {
+                        if (item.name == name) {
+                            _label = name + "：" + item.value + "个";
+                            return false;
+                        }
+                    });
+                    return _label;
+                }
             },
             color: ['#5ac8ae', '#fdc77c', '#f1786b'],
             calculable: false,
