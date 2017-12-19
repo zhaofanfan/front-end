@@ -660,7 +660,7 @@ body {
 .proportion-footer .counter {
     padding: 5px 2px;
     margin-top: 15px;
-    background: #b9d4ff;
+    background: rgba(185, 212, 255, 0.3);
     color: #fff
 }
 
