@@ -51,7 +51,7 @@ jQuery(function() {
 
 var AbnormityChart = (function() {
     var distChart = null;
-    handleChart = null;
+    var handleChart = null;
     var trendChart = null;
     var proportionChart = null;
 
