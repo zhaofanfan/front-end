@@ -654,8 +654,22 @@ body {
     color: #fff
 }
 
+.alarm-proportion .counter-trend .suffix {
+    display: inline-block;
+    width: 8px;
+    height: 15px;
+}
+
+.alarm-proportion .counter-trend .suffix.rise {
+    background-image: url(../image/rise.png)
+}
+
+.alarm-proportion .counter-trend .suffix.fall {
+    background-image: url(../image/fall.png)
+}
+
 .alarm-proportion .counter .number {
-    font-size: 32px;
+    font-size: 28px;
     font-weight: bold;
     color: #4ff5f5
 }
@@ -974,4 +988,36 @@ body {
     text-align: center;
     white-space: nowrap;
     font-size: 14px;
+}
+
+@keyframes scaleIn {
+    from {
+        -webkit-transform: scaleX(0);
+        transform: scaleX(0);
+    }
+    to {
+        -webkit-transform: scaleX(1);
+        transform: scaleX(1);
+    }
+}
+
+.scaleIn {
+    animation: scaleIn 0.5s;
+    -webkit-animation: scaleIn 0.5s;
+}
+
+@keyframes scaleOut {
+    from {
+        -webkit-transform: scaleX(1);
+        transform: scaleX(1);
+    }
+    to {
+        -webkit-transform: scaleX(0);
+        transform: scaleX(0);
+    }
+}
+
+.scaleOut {
+    animation: scaleOut 0.5s;
+    -webkit-animation: scaleOut 0.5s;
 }

@@ -230,8 +230,14 @@ var AbnormityChart = (function() {
                 dataIndex: currentIndex
             });
 
-            $(".percent-text").text(option.series[0].data[currentIndex].name);
-        }, 1000);
+            $(".percent-text").on("animationend", function() {
+                $(".percent-text").text(option.series[0].data[currentIndex].name)
+                    .off("animationend")
+                    .removeClass("scaleOut")
+                    .addClass("scaleIn");
+            }).removeClass("scaleIn").addClass("scaleOut");
+
+        }, 2000);
 
         proportionChart.setOption({
             tooltip: {
@@ -308,7 +314,7 @@ var AbnormityChart = (function() {
                     color: '#fff'
                 },
             },
-            color: ['#5ac8ae', '#fdc77c', '#f1786b'],
+            color: ['#b54a52', '#b6661a', '#49aa16'],
             xAxis: [{
                 type: 'category',
                 boundaryGap: false,
@@ -357,7 +363,7 @@ var AbnormityChart = (function() {
                 proportionDataValues = data.proportionInfos;
                 showChartFunc();
 
-                setTimeout(getDataFunc, 3E3);
+                setTimeout(getDataFunc, 6E3);
             } else {
                 alert(data.message);
             }
