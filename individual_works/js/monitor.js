@@ -40,6 +40,12 @@ jQuery(function() {
     //     clearInterval(timer);
     // }, 35000);
 
+    var oldAlarmCount = parseInt($("#todayAlarmCount").text().replace(/\,/g, "") || 0, 10);
+    var oldExpCount = parseInt($("#todayExpCount").text().replace(/\,/g, "") || 0, 10);
+    todayAlarmCountUp = new CountUp("todayAlarmCount", oldAlarmCount, 39463, 0, 1);
+    todayExpCountUp = new CountUp("todayExpCount", oldExpCount, 39463, 0, 1);
+    todayAlarmCountUp.start();
+    todayExpCountUp.start();
 
 });
 
@@ -230,8 +236,11 @@ var AbnormityChart = (function() {
                 dataIndex: currentIndex
             });
 
+            var _name = option.series[0].data[currentIndex].name;
+            $(".percent-box .number").text(getPercentByName(handleDataValues, _name));
+
             $(".percent-text").on("animationend", function() {
-                $(".percent-text").text(option.series[0].data[currentIndex].name)
+                $(".percent-text").text(_name)
                     .off("animationend")
                     .removeClass("scaleOut")
                     .addClass("scaleIn");
@@ -349,6 +358,17 @@ var AbnormityChart = (function() {
                 data: trendDataValues["3"]
             }]
         });
+    };
+
+    var getPercentByName = function(_seriesData, _name) {
+        var sum = 0,
+            value = 0;
+        jQuery(_seriesData).each(function(i, item) {
+            sum += item.value;
+            if (item.name == _name)
+                value = item.value;
+        });
+        return Math.round(value / sum * 100);
     };
 
     /**

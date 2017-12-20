@@ -268,7 +268,7 @@
                     <div class="echarts-pie-chart" id="echarts-pie-chart"></div>
                     <div class="percent-box">
                         <div class="up">
-                            <div class="number" style="display: inline-block;font-size:24px">15</div>
+                            <div class="number" style="display: inline-block;font-size:24px">0</div>
                             <span class="percent" style="font-size:14px">%</span>
                         </div>
                         <div class="percent-text"></div>
@@ -278,24 +278,14 @@
                     <div class="data-com counter-wrapper counter-wrapper__left">
                         <div class="data-wrapper title-container">今日告警数量</div>
                         <div class="counter-container">
-                            <span class="number">2</span>
-                            <span class="number">8</span>
-                            <span class="number">,</span>
-                            <span class="number">2</span>
-                            <span class="number">4</span>
-                            <span class="number">2</span>
+                            <span id="todayAlarmCount" class="number">28,242</span>
                             <span class="suffix">个</span>
                         </div>
                     </div>
                     <div class="data-com counter-wrapper counter-wrapper__right">
                         <div class="data-wrapper title-container">今日异常数量</div>
                         <div class="counter-container">
-                            <span class="number">2</span>
-                            <span class="number">8</span>
-                            <span class="number">,</span>
-                            <span class="number">2</span>
-                            <span class="number">4</span>
-                            <span class="number">2</span>
+                            <span id="todayExpCount" class="number">28,242</span>
                             <span class="suffix">个</span>
                         </div>
                     </div>
@@ -341,7 +331,7 @@
                                 </div>
                                 <div class="proportion-main">
                                     <div class="counter">
-                                        <span class="number">180</span>
+                                        <span class="number">150</span>
                                         <span class="suffix">个</span>
                                     </div>
                                     <div class="counter-trend">
@@ -432,6 +422,7 @@
             <div class="data-wrapper" style="width: 1920px;height: 1080px;border: none;background: rgba(0, 32, 45, 0.54);border-radius: 0px;"></div>
         </div>
         <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="js/countUp.min.js"></script>
         <script type="text/javascript" src="js/echarts-all.js"></script>
         <script type="text/javascript" src="js/china.js"></script>
         <script type="text/javascript" src="js/monitor.js"></script>
