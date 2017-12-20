@@ -45,7 +45,7 @@ jQuery(function() {
 
 var AbnormityChart = (function() {
     var distChart = null;
-    var handleChart = null;
+    handleChart = null;
     var trendChart = null;
     var proportionChart = null;
 
@@ -53,6 +53,8 @@ var AbnormityChart = (function() {
     var handleDataValues = [];
     var trendDataValues = {};
     var proportionDataValues = [];
+
+    var autohighlight;
 
     var init = function() {
         // 基于准备好的dom，初始化echarts实例
@@ -89,28 +91,31 @@ var AbnormityChart = (function() {
                 x: "left",
                 data: ["iphone5"]
             },
-            dataRange: {
+            visualMap: {
                 show: !1,
                 min: 0,
                 max: 2500,
+                inRange: {
+                    color: ['#1e9fd1', '#37b89b', '#1c7ac0']
+                },
                 x: "left",
                 y: "bottom",
                 text: ["高", "低"],
                 calculable: !0
             },
-            roamController: {
-                show: !1,
-                x: "right",
-                mapTypeControl: {
-                    china: !0
-                }
-            },
+            // roamController: {
+            //     show: !1,
+            //     x: "right",
+            //     mapTypeControl: {
+            //         china: !0
+            //     }
+            // },
             series: [{
                 name: "iphone5",
                 type: "map",
                 roam: !0,
                 mapType: "china",
-                itemStyle: {
+                label: {
                     normal: {
                         label: {
                             show: !0
@@ -126,7 +131,7 @@ var AbnormityChart = (function() {
             }]
         });
 
-        handleChart.setOption({
+        option = {
             title: {
                 text: '处理情况',
                 subtext: 'Treatment situation',
@@ -140,10 +145,10 @@ var AbnormityChart = (function() {
                     fontSize: 16
                 }
             },
-            tooltip: {
-                trigger: 'item',
-                formatter: "{a} <br/>{b} : {c} ({d}%)"
-            },
+            // tooltip: {
+            //     trigger: 'item',
+            //     formatter: "{a} <br/>{b} : {c} ({d}%)"
+            // },
             legend: {
                 orient: 'vertical',
                 x: 300,
@@ -192,7 +197,7 @@ var AbnormityChart = (function() {
                     },
                     emphasis: {
                         label: {
-                            show: true,
+                            show: !1,
                             position: 'center',
                             textStyle: {
                                 fontSize: '30',
@@ -203,7 +208,30 @@ var AbnormityChart = (function() {
                 },
                 data: handleDataValues
             }]
-        });
+        };
+        handleChart.setOption(option);
+
+        var currentIndex = -1;
+
+        clearInterval(autohighlight);
+        autohighlight = setInterval(function() {
+            var dataLen = option.series[0].data.length;
+            // 取消之前高亮的图形
+            handleChart.dispatchAction({
+                type: 'downplay',
+                seriesIndex: 0,
+                dataIndex: currentIndex
+            });
+            currentIndex = (currentIndex + 1) % dataLen;
+            // 高亮当前图形
+            handleChart.dispatchAction({
+                type: 'highlight',
+                seriesIndex: 0,
+                dataIndex: currentIndex
+            });
+
+            $(".percent-text").text(option.series[0].data[currentIndex].name);
+        }, 1000);
 
         proportionChart.setOption({
             tooltip: {
@@ -263,7 +291,9 @@ var AbnormityChart = (function() {
                 y2: 30
             },
             legend: {
-                x: '720',
+                x: '700',
+                itemWidth: 50,
+                itemHeight: 2,
                 data: [{
                     name: '严重',
                     icon: 'rect'
@@ -319,13 +349,15 @@ var AbnormityChart = (function() {
      * 获取信息
      */
     var getDataFunc = function() {
-        $.getJSON('js/mock.js').done(function(data) {
+        $.getJSON('js/mock.js?r=' + Math.random()).done(function(data) {
             if (data) {
                 distDataValues = data.distInfos;
                 handleDataValues = data.handleInfos;
                 trendDataValues = data.trendInfos;
                 proportionDataValues = data.proportionInfos;
                 showChartFunc();
+
+                setTimeout(getDataFunc, 3E3);
             } else {
                 alert(data.message);
             }

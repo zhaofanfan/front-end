@@ -945,3 +945,33 @@ body {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 0px;
 }
+
+.percent-box {
+    position: absolute;
+    background: transparent;
+    width: 76px;
+    height: 76px;
+    top: 888px;
+    left: 228px;
+    font-family: "Microsoft Yahei", Arial, sans-serif;
+    color: rgb(255, 255, 255);
+    font-weight: normal;
+}
+
+.percent-box .up {
+    display: inline-block;
+    width: 100%;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+}
+
+.percent-box .percent-text {
+    width: 100%;
+    height: 38px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    white-space: nowrap;
+    font-size: 14px;
+}
