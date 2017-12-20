@@ -89,14 +89,15 @@ var AbnormityChart = (function() {
                 x: "left",
                 data: ["iphone5"]
             },
-            // dataRange: {
-            //     min: 0,
-            //     max: 2500,
-            //     x: "left",
-            //     y: "bottom",
-            //     text: ["高", "低"],
-            //     calculable: !0
-            // },
+            dataRange: {
+                show: !1,
+                min: 0,
+                max: 2500,
+                x: "left",
+                y: "bottom",
+                text: ["高", "低"],
+                calculable: !0
+            },
             roamController: {
                 show: !1,
                 x: "right",
@@ -126,7 +127,6 @@ var AbnormityChart = (function() {
         });
 
         handleChart.setOption({
-            backgroundColor: 'rgba(14, 32, 51, 0.16)',
             title: {
                 text: '处理情况',
                 subtext: 'Treatment situation',
@@ -215,7 +215,7 @@ var AbnormityChart = (function() {
             series: [{
                 name: '处理情况',
                 type: 'pie',
-                radius: ['60%', '70%'],
+                radius: ['40%', '50%'],
                 center: ['50%', '60%'],
                 itemStyle: {
                     normal: {
@@ -243,7 +243,6 @@ var AbnormityChart = (function() {
         });
 
         trendChart.setOption({
-            backgroundColor: 'rgba(14, 32, 51, 0.16)',
             title: {
                 text: '近期严重趋势图',
                 subtext: 'One month trend map',
@@ -256,6 +255,12 @@ var AbnormityChart = (function() {
                 subtextStyle: {
                     fontSize: 16
                 }
+            },
+            grid: {
+                x: 35,
+                y: 75,
+                x2: 10,
+                y2: 30
             },
             legend: {
                 x: '720',

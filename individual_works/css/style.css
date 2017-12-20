@@ -283,11 +283,7 @@ body {
 }
 
 .echarts-proportion-pie-chart {
-    /*position: absolute;
-    padding: 25px;
-    right: 0;
-    bottom: 28px;*/
-    width: 450px;
+    width: 410px;
     height: 310px;
 }
 
@@ -301,15 +297,15 @@ body {
 }
 
 .counter-wrapper {
-    top: 90px;
+    top: 125px;
 }
 
 .counter-wrapper__left {
-    left: 0;
+    left: 36px;
 }
 
 .counter-wrapper__right {
-    right: 0;
+    right: 36px;
 }
 
 .counter-wrapper .title-container {
@@ -335,7 +331,6 @@ body {
     justify-content: flex-start;
     line-height: 110px;
     font-family: "Microsoft Yahei";
-    width: 352px;
     height: 94px;
     background-color: rgba(0, 0, 0, 0);
 }
@@ -869,4 +864,84 @@ body {
 .carousel-table .cell-content-2 {
     width: 60%;
     color: #d06a4d;
+}
+
+.bg-box-1 {
+    left: 36px;
+    top: 132px;
+    width: 454px;
+    height: 580px;
+    z-index: -1;
+}
+
+.bg-box-1 .data-wrapper {
+    width: 454px;
+    height: 580px;
+    border: none;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0px;
+}
+
+.bg-box-2 {
+    left: 36px;
+    top: 750px;
+    width: 454px;
+    height: 300px;
+    z-index: -1;
+}
+
+.bg-box-2 .data-wrapper {
+    width: 454px;
+    height: 300px;
+    border: none;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0px;
+}
+
+.bg-box-3 {
+    left: 1430px;
+    top: 136px;
+    width: 460px;
+    height: 500px;
+    z-index: -1;
+}
+
+.bg-box-3 .data-wrapper {
+    width: 460px;
+    height: 500px;
+    border: none;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0px;
+}
+
+.bg-box-4 {
+    left: 1430px;
+    top: 652px;
+    width: 460px;
+    height: 404px;
+    z-index: -1;
+}
+
+.bg-box-4 .data-wrapper {
+    width: 460px;
+    height: 404px;
+    border: none;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0px;
+}
+
+.bg-box-5 {
+    left: 526px;
+    top: 750px;
+    width: 868px;
+    height: 300px;
+    z-index: -1;
+}
+
+.bg-box-5 .data-wrapper {
+    width: 868px;
+    height: 300px;
+    border: none;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0px;
 }
