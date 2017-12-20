@@ -52,7 +52,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 html {
-    overflow-y: visible;
+    overflow-y: hidden;
     overflow-x: hidden
 }
 
@@ -932,13 +932,13 @@ body {
     left: 1430px;
     top: 652px;
     width: 460px;
-    height: 404px;
+    height: 400px;
     z-index: -1;
 }
 
 .bg-box-4 .data-wrapper {
     width: 460px;
-    height: 404px;
+    height: 400px;
     border: none;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 0px;

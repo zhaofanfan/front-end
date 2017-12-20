@@ -445,7 +445,7 @@
 
             window.screen = window.config || {};
             window.screen.width && $('body').css('width', window.screen.width);
-            // window.screen.height && $('body').css('height', window.screen.height);
+            window.screen.height && $('body').css('height', window.screen.height);
             $('head').append('<meta name="viewport" content="width=' + window.screen.width + '"/>');
             window.config && window.config.backgroundImage && $("body").css("background", "none" == window.config.backgroundImage ? window.config.backgroundImage : "url(" + window.config.backgroundImage + ")");
 
@@ -455,8 +455,6 @@
                 $('.datavLayout').css('visibility', 'visible');
                 resize();
                 $('#datavLoading').fadeOut();
-
-                window.screen.height && $('body').css('height', window.screen.height);
 
                 AbnormityChart.init();
             });
