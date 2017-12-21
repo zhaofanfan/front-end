@@ -268,7 +268,7 @@
                     <div class="echarts-pie-chart" id="echarts-pie-chart"></div>
                     <div class="percent-box">
                         <div class="up">
-                            <div class="number" style="display: inline-block;font-size:24px">0</div>
+                            <div id="percentNumber" class="number" style="display: inline-block;font-size:24px">0</div>
                             <span class="percent" style="font-size:14px">%</span>
                         </div>
                         <div class="percent-text"></div>
@@ -378,26 +378,7 @@
                         <div class="data-wrapper">Real-time alarm</div>
                     </div>
                     <div class="data-com carousel-table">
-                        <div class="data-wrapper">
-                            <div class="line header">
-                                <div class="index-list"></div>
-                                <div class="column column-title">时间</div>
-                                <div class="column column-title-2">异常情况</div>
-                            </div>
-                            <div class="line row-content">
-                                <div class="index">
-                                    <div class="index-bg"></div>
-                                </div>
-                                <div class="column cell-content">12.28 12:00:05</div>
-                                <div class="column cell-content-2">选座值机异常</div>
-                            </div>
-                            <div class="line row-content" style="background-color: rgba(255, 255, 255, 0.05);">
-                                <div class="index">
-                                    <div class="index-bg"></div>
-                                </div>
-                                <div class="column cell-content">12.28 12:00:05</div>
-                                <div class="column cell-content-2">选座值机异常</div>
-                            </div>
+                        <div id="carouselWrapper" class="data-wrapper">
                         </div>
                     </div>
                 </div>
@@ -425,6 +406,7 @@
         <script type="text/javascript" src="js/countUp.min.js"></script>
         <script type="text/javascript" src="js/echarts-all.js"></script>
         <script type="text/javascript" src="js/china.js"></script>
+        <script type="text/javascript" src="js/lodash.min.js"></script>
         <script type="text/javascript" src="js/monitor.js"></script>
         <script type="text/javascript">
             var config = {
