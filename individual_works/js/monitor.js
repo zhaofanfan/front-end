@@ -84,7 +84,7 @@ var AbnormityChart = (function() {
         distChart.setOption({
             title: {
                 show: !1,
-                text: "iphone销量",
+                text: "",
                 subtext: "纯属虚构",
                 x: "center"
             },
@@ -289,7 +289,7 @@ var AbnormityChart = (function() {
 
         trendChart.setOption({
             title: {
-                text: '近期严重趋势图',
+                text: '近期告警趋势图',
                 subtext: 'One month trend map',
                 x: 'left',
                 textStyle: {
@@ -504,9 +504,10 @@ function CarouselTable(i, d) {
     this.headerTemp = _.template(f);
     var g = '<div class="line row-content" style="height: <%= height %>px;text-overflow: ellipsis;overflow: hidden;vertical-align: middle; display: flex;align-items: center;background-color: <%= bgColor %>;"><% if (hasIndex) {%><div class="index" style="display: inline-block;text-align: center;vertical-align: middle;width: <%= idListWidth %>%;color: <%= idListColor %>;font-size: <%= idListFontSize %>px;"><div class="index-bg" style="background-color: <%= idListBgColor %>;width: <%= bgSize %>px;height: <%= bgSize %>px;line-height: <%= bgSize %>px;vertical-align: middle;margin: auto;border-radius: <%= radius %>px;text-align: center;"></div></div><%}%></div>';
     this.rowTemp = _.template(g);
-    var h = '<div class="<%=classname%>" style="width: <%= width %>%;display:inline-block;text-overflow: ellipsis;text-align: <%= textAlign %>;<% if (isBr) {%>word-wrap: break-word;word-break:normal;<%}%><% if (!isBr) {%>white-space: nowrap;<%}%>overflow: hidden;vertical-align: middle;background-color: transparent;font-family: <%= fontFamily %>;font-size: <%= fontSize %>px;color: <%= color %>;font-weight: <%= fontWeight %>;"><%= content %></div>';
+    var h = '<div class="<%=classname%>" title="<%= content %>" style="width: <%= width %>%;display:inline-block;text-overflow: ellipsis;text-align: <%= textAlign %>;<% if (isBr) {%>word-wrap: break-word;word-break:normal;<%}%><% if (!isBr) {%>white-space: nowrap;<%}%>overflow: hidden;vertical-align: middle;background-color: transparent;font-family: <%= fontFamily %>;font-size: <%= fontSize %>px;color: <%= color %>;font-weight: <%= fontWeight %>;"><%= content %></div>';
     this.cellTemp = _.template(h), this._data = null, this.config = e, this.apis = d.apis, this.isInit = !0, this.startIndex = 0, this.titleList = [], this.init(d)
 }
+
 CarouselTable.prototype = {
     init: function(a) {
         this.mergeConfig(a), this.initRank(), this.updateStyle(), this.initInteraction()
@@ -580,8 +581,11 @@ CarouselTable.prototype = {
                 })
             }
             f.append(i), f.on('click', function(c) {
-                // var b = $(this).data('data');
+                var b = $(this).data('data');
                 // e && e !== '' && (d.emit('click-rank-dot', b[e]), d.emit('global_var', e, b[e]))
+
+                // 2017/12/22 by zhaofan
+                b && b.clickUrl && (window.location.href = b.clickUrl);
             }), this.container.append(f)
         }
     },
@@ -654,7 +658,7 @@ CarouselTable.prototype = {
                 var c = f[g],
                     h = d[g].dataType,
                     e = '';
-                h === 'img' ? e = '<img src="' + (b[c] || '') + '" style="width:' + d[g].widthPercent + '%; height:100%;"/>' : e = !b[c] && Number(b[c]) !== 0 ? '-' : b[c], $(i).html(e)
+                h === 'img' ? e = '<img src="' + (b[c] || '') + '" style="width:' + d[g].widthPercent + '%; height:100%;"/>' : e = !b[c] && Number(b[c]) !== 0 ? '-' : b[c], $(i).html(e).attr("title", e)
             }), $(c).data('data', b) /*, $(c).find('.index-bg').html(e + g + 1)*/ )
         })
     },
@@ -831,9 +835,17 @@ var carouselConfig = {
     // }
 };
 
+function addClickUrl() {
+    jQuery(realtimeDataValues).each(function(index, el) {
+        el.clickUrl = "/" + (index + 1)
+    });
+}
+
 function run(_carouselInst, _autoUpdate) {
     1e3 > _autoUpdate && (_autoUpdate = 1e3), setTimeout(function() {
-        run(_carouselInst, _autoUpdate)
+        // 获取数据回来后重新render，run
+        // carouselInst.render(realtimeDataValues)
+        // run(_carouselInst, _autoUpdate)
     }, _autoUpdate - Date.now() % _autoUpdate)
 }
 
@@ -842,6 +854,7 @@ jQuery(function() {
 
     $.getJSON('js/realtime_mock.js').done(function(res) {
         realtimeDataValues = res.data;
+        addClickUrl();
 
         carouselInst.render(realtimeDataValues);
         run(carouselInst, 3E4);
