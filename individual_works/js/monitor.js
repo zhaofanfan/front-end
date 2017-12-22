@@ -773,7 +773,7 @@ var carouselConfig = {
             "backgroundColor": "rgba(255,255,255,0.05)",
             "textStyle": {
                 "textAlign": "left",
-                "fontFamily": "YouYuan",
+                "fontFamily": "Microsoft Yahei, Arial, sans-serif",
                 "color": "rgba(255,255,255,0.7)",
                 "fontSize": 16,
                 "fontWeight": "normal"
@@ -799,7 +799,7 @@ var carouselConfig = {
             "isBr": false,
             "textStyle": {
                 "textAlign": "left",
-                "fontFamily": "Microsoft Yahei",
+                "fontFamily": "Microsoft Yahei, Arial, sans-serif",
                 "fontSize": 14,
                 "color": "#0c0c0c",
                 "fontWeight": "normal"
