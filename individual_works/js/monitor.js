@@ -266,7 +266,18 @@ var AbnormityChart = (function() {
                     normal: {
                         label: {
                             show: !0,
-                            formatter: '{d}%\n{b}'
+                            formatter: '{percent|{d}%}\n{name|{b}}',
+                            rich: {
+                                percent: {
+                                    color: '#ffffff',
+                                    align: 'center'
+                                },
+                                name: {
+                                    fontSize: 16,
+                                    color: '#ffffff',
+                                    align: 'center'
+                                }
+                            }
                         },
                         labelLine: {
                             show: !0
