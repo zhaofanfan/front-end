@@ -705,7 +705,7 @@ body {
 }
 
 .realtime-title {
-    top: 610px;
+    top: 590px;
     width: 205px;
     height: 50px;
     z-index: 14;
@@ -728,7 +728,7 @@ body {
 
 .realtime-subtitle {
     left: 40px;
-    top: 635px;
+    top: 615px;
     width: 205px;
     height: 50px;
     z-index: 31;
@@ -774,15 +774,15 @@ body {
 
 .carousel-table {
     left: 0 !important;
-    top: 680px;
+    top: 660px;
     width: 444px;
-    height: 372px;
+    height: 390px;
     z-index: 5;
 }
 
 .carousel-table .data-wrapper {
     width: 444px;
-    height: 372px;
+    height: 390px;
     overflow: hidden;
     background-color: transparent;
     cursor: pointer;
@@ -916,13 +916,13 @@ body {
     left: 1440px;
     top: 136px;
     width: 444px;
-    height: 450px;
+    height: 430px;
     z-index: -1;
 }
 
 .bg-box-3 .data-wrapper {
     width: 444px;
-    height: 450px;
+    height: 430px;
     border: none;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 0px;
@@ -930,15 +930,15 @@ body {
 
 .bg-box-4 {
     left: 1440px;
-    top: 610px;
+    top: 590px;
     width: 444px;
-    height: 440px;
+    height: 460px;
     z-index: -1;
 }
 
 .bg-box-4 .data-wrapper {
     width: 444px;
-    height: 440px;
+    height: 460px;
     border: none;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 0px;

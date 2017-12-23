@@ -85,7 +85,7 @@ var AbnormityChart = (function() {
             title: {
                 show: !1,
                 text: "",
-                subtext: "纯属虚构",
+                subtext: "",
                 x: "center"
             },
             tooltip: {
@@ -95,7 +95,7 @@ var AbnormityChart = (function() {
                 show: !1,
                 orient: "vertical",
                 x: "left",
-                data: ["iphone5"]
+                data: ["告警数量"]
             },
             visualMap: {
                 show: !1,
@@ -117,7 +117,7 @@ var AbnormityChart = (function() {
             //     }
             // },
             series: [{
-                name: "iphone5",
+                name: "告警数量",
                 type: "map",
                 roam: !0,
                 mapType: "china",
@@ -291,7 +291,7 @@ var AbnormityChart = (function() {
                 name: '处理情况',
                 type: 'pie',
                 radius: ['40%', '50%'],
-                center: ['50%', '60%'],
+                center: ['45%', '50%'],
                 itemStyle: {
                     normal: {
                         label: {
@@ -835,7 +835,7 @@ var carouselConfig = {
     "config": {
         "global": {
             "animationMode": "top",
-            "rowCount": 7,
+            "rowCount": 8,
             "duration": 2
         },
         "header": {
