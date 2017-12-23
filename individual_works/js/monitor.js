@@ -241,13 +241,43 @@ var AbnormityChart = (function() {
             percentNumberCountUp = new CountUp("percentNumber", oldNumber, getPercentByName(handleDataValues, _name), 0, 1);
             percentNumberCountUp.start();
 
-            $(".percent-text").on("animationend", function() {
-                $(".percent-text").text(_name)
-                    .off("animationend")
-                    .removeClass("scaleOut")
-                    .addClass("scaleIn");
-            }).removeClass("scaleIn").addClass("scaleOut");
+            //添加class的动画导致页面抖动
+            // $(".percent-text").on("animationend", function() {
+            //     $(".percent-text").text(_name)
+            //         .off("animationend")
+            //         .removeClass("scaleOut")
+            //         .addClass("scaleIn");
+            // }).removeClass("scaleIn").addClass("scaleOut");
 
+            jQuery.extend(jQuery.easing, {
+                easeInSine: function(x, t, b, c, d) {
+                    return -c * Math.cos(t / d * (Math.PI / 2)) + c + b;
+                },
+                easeOutSine: function(x, t, b, c, d) {
+                    return c * Math.sin(t / d * (Math.PI / 2)) + b;
+                }
+            });
+
+            $(".percent-text").animate({
+                scaleX: 0
+            }, {
+                step: function(now, fx) {
+                    $(this).css("transform", "scaleX(" + now + ")");
+                },
+                duration: 500,
+                easing: 'easeInSine',
+                complete: function() {
+                    $(this).text(_name).animate({
+                        scaleX: 1
+                    }, {
+                        step: function(now, fx) {
+                            $(this).css("transform", "scaleX(" + now + ")");
+                        },
+                        duration: 500,
+                        easing: 'easeOutSine'
+                    });
+                }
+            });
         }, 2000);
 
         proportionChart.setOption({
@@ -315,11 +345,11 @@ var AbnormityChart = (function() {
             grid: {
                 x: 35,
                 y: 75,
-                x2: 10,
+                x2: 32,
                 y2: 30
             },
             legend: {
-                x: '700',
+                x: '750',
                 itemWidth: 50,
                 itemHeight: 2,
                 data: [{
@@ -340,37 +370,78 @@ var AbnormityChart = (function() {
             xAxis: [{
                 type: 'category',
                 boundaryGap: false,
-                axisLine: { onZero: false },
+                axisLine: {
+                    lineStyle: {
+                        color: '#fff'
+                    }
+                },
                 axisLabel: {
                     textStyle: {
                         color: '#fff'
                     }
                 },
-                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                data: getLatestOneMonth()
             }],
             yAxis: [{
                 type: 'value',
+                axisLine: {
+                    lineStyle: {
+                        color: '#fff'
+                    }
+                },
                 axisLabel: {
                     textStyle: {
                         color: '#fff'
                     }
-                },
-                max: 500
+                }
             }],
             series: [{
                 name: '严重',
                 type: 'line',
+                smooth: true,
+                symbol: 'none',
                 data: trendDataValues["1"]
             }, {
                 name: '警告',
                 type: 'line',
+                smooth: true,
+                symbol: 'none',
                 data: trendDataValues["2"]
             }, {
                 name: '提醒',
                 type: 'line',
+                smooth: true,
+                symbol: 'none',
                 data: trendDataValues["3"]
             }]
         });
+    };
+
+    var getLatestOneMonth = function() {
+        var xAxisData = [];
+        var dt = new Date();
+        var index = 3;
+
+        function getPlaceholderArray() {
+            var phArray = new Array(9);
+            jQuery(phArray).each(function(i) {
+                phArray[i] = "";
+            });
+            return phArray;
+        }
+
+        while (index >= 0) {
+            var newDt = new Date(dt.getTime() - index * 10 * 24 * 3600 * 1000);
+            var y = newDt.getFullYear();
+            var m = newDt.getMonth() + 1;
+            var d = newDt.getDate();
+            m = m < 10 ? "0" + m : m;
+            d = d < 10 ? "0" + d : d;
+            xAxisData.push([y, m, d].join("."));
+            index != 0 && (xAxisData = xAxisData.concat(getPlaceholderArray()));
+            index--;
+        }
+        return xAxisData;
     };
 
     var getPercentByName = function(_seriesData, _name) {
@@ -764,7 +835,7 @@ var carouselConfig = {
     "config": {
         "global": {
             "animationMode": "top",
-            "rowCount": 6,
+            "rowCount": 7,
             "duration": 2
         },
         "header": {

@@ -260,7 +260,7 @@ body {
     color: rgb(255, 255, 255);
     font-weight: bolder;
     font-family: "Microsoft Yahei", Arial, sans-serif;
-    font-size: 40px;
+    font-size: 48px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -291,9 +291,9 @@ body {
 .echarts-line-chart {
     position: absolute;
     padding: 25px;
-    left: 28px;
+    left: 36px;
     bottom: 28px;
-    width: 845px;
+    width: 888px;
     height: 310px;
 }
 
@@ -393,7 +393,7 @@ body {
     color: rgb(255, 255, 255);
     font-weight: normal;
     font-family: "Microsoft Yahei", Arial, sans-serif;
-    font-size: 20px;
+    font-size: 22px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -705,8 +705,7 @@ body {
 }
 
 .realtime-title {
-    left: 40px;
-    top: 652px;
+    top: 610px;
     width: 205px;
     height: 50px;
     z-index: 14;
@@ -721,7 +720,7 @@ body {
     color: rgb(255, 255, 255);
     font-weight: normal;
     font-family: "Microsoft Yahei", Arial, sans-serif;
-    font-size: 20px;
+    font-size: 22px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -729,7 +728,7 @@ body {
 
 .realtime-subtitle {
     left: 40px;
-    top: 676px;
+    top: 635px;
     width: 205px;
     height: 50px;
     z-index: 31;
@@ -775,15 +774,15 @@ body {
 
 .carousel-table {
     left: 0 !important;
-    top: 722px;
+    top: 680px;
     width: 444px;
-    height: 336px;
+    height: 372px;
     z-index: 5;
 }
 
 .carousel-table .data-wrapper {
     width: 444px;
-    height: 336px;
+    height: 372px;
     overflow: hidden;
     background-color: transparent;
     cursor: pointer;
@@ -917,13 +916,13 @@ body {
     left: 1440px;
     top: 136px;
     width: 444px;
-    height: 500px;
+    height: 450px;
     z-index: -1;
 }
 
 .bg-box-3 .data-wrapper {
     width: 444px;
-    height: 500px;
+    height: 450px;
     border: none;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 0px;
@@ -931,15 +930,15 @@ body {
 
 .bg-box-4 {
     left: 1440px;
-    top: 652px;
+    top: 610px;
     width: 444px;
-    height: 404px;
+    height: 440px;
     z-index: -1;
 }
 
 .bg-box-4 .data-wrapper {
     width: 444px;
-    height: 404px;
+    height: 440px;
     border: none;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 0px;
@@ -967,7 +966,7 @@ body {
     width: 76px;
     height: 76px;
     top: 888px;
-    left: 228px;
+    left: 220px;
     font-family: "Microsoft Yahei", Arial, sans-serif;
     color: rgb(255, 255, 255);
     font-weight: normal;
