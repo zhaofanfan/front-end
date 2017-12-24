@@ -1,32 +1,40 @@
-/**
+﻿/**
  *
  * @authors Your Name (you@example.org)
  * @date    2017-12-17 20:51:16
  * @version 1.0
  */
 
+/**
+ * 日期格式化
+ */
+Date.prototype.format || (Date.prototype.format = function(format) {
+    var o = {
+        "M+": this.getMonth() + 1, //month
+        "d+": this.getDate(), //day
+        "h+": this.getHours(), //hour
+        "m+": this.getMinutes(), //minute
+        "s+": this.getSeconds(), //second
+        "q+": Math.floor((this.getMonth() + 3) / 3), //quarter
+        "S": this.getMilliseconds() //millisecond
+    }
+    if (/(y+)/.test(format))
+        format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(format))
+            format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+    return format;
+});
+
 var t = setTimeout(time, 1000);
 
 function time() {
     clearTimeout(t);
-    var dt = new Date();
-    var y = dt.getFullYear();
-    var mm = dt.getMonth() + 1;
-    var d = dt.getDate();
-    var h = dt.getHours();
-    var m = dt.getMinutes();
-    var s = dt.getSeconds();
-    mm = mm < 10 ? "0" + mm : mm;
-    d = d < 10 ? "0" + d : d;
-    h = h < 10 ? "0" + h : h;
-    m = m < 10 ? "0" + m : m;
-    s = s < 10 ? "0" + s : s;
-    document.getElementById("timeShow").innerHTML = y + "-" + mm + "-" + d + " " + h + ":" + m + ":" + s;
+    $("#timeShow").html(new Date().format("yyyy-MM-dd hh:mm:ss"));
     t = setTimeout(time, 1000);
 }
 
 jQuery(function() {
-
 
     // var oCount = new DigitRoll({
     //     container: ".js_num",
@@ -249,15 +257,6 @@ var AbnormityChart = (function() {
             //         .addClass("scaleIn");
             // }).removeClass("scaleIn").addClass("scaleOut");
 
-            jQuery.extend(jQuery.easing, {
-                easeInSine: function(x, t, b, c, d) {
-                    return -c * Math.cos(t / d * (Math.PI / 2)) + c + b;
-                },
-                easeOutSine: function(x, t, b, c, d) {
-                    return c * Math.sin(t / d * (Math.PI / 2)) + b;
-                }
-            });
-
             $(".percent-text").animate({
                 scaleX: 0
             }, {
@@ -432,12 +431,7 @@ var AbnormityChart = (function() {
 
         while (index >= 0) {
             var newDt = new Date(dt.getTime() - index * 10 * 24 * 3600 * 1000);
-            var y = newDt.getFullYear();
-            var m = newDt.getMonth() + 1;
-            var d = newDt.getDate();
-            m = m < 10 ? "0" + m : m;
-            d = d < 10 ? "0" + d : d;
-            xAxisData.push([y, m, d].join("."));
+            xAxisData.push(newDt.format("yyyy.MM.dd"));
             index != 0 && (xAxisData = xAxisData.concat(getPlaceholderArray()));
             index--;
         }
@@ -763,7 +757,7 @@ CarouselTable.prototype = {
                     var c = f[g],
                         h = d[g].dataType,
                         e = '';
-                    h === 'img' ? e = '<img src="' + (b[c] || '') + '" style="width:' + d[g].widthPercent + '%; height:100%;"/>' : e = !b[c] && Number(b[c]) !== 0 ? '-' : b[c], $(i).html(e)
+                    h === 'img' ? e = '<img src="' + (b[c] || '') + '" style="width:' + d[g].widthPercent + '%; height:100%;"/>' : e = !b[c] && Number(b[c]) !== 0 ? '-' : b[c], $(i).html(e).attr("title", e)
                 });
                 var g = i + h + 1;
                 c.css('background-color', g % 2 == 0 ? k : j), c.data('data', b) /*, c.find('.index-bg').html(g)*/
@@ -941,4 +935,13 @@ jQuery(function() {
         carouselInst.render(realtimeDataValues);
         run(carouselInst, 3E4);
     });
+});
+
+jQuery.extend(jQuery.easing, {
+    easeInSine: function(x, t, b, c, d) {
+        return -c * Math.cos(t / d * (Math.PI / 2)) + c + b;
+    },
+    easeOutSine: function(x, t, b, c, d) {
+        return c * Math.sin(t / d * (Math.PI / 2)) + b;
+    }
 });
