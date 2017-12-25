@@ -269,9 +269,9 @@ body {
 .echarts-map-chart {
     position: absolute;
     left: 0;
-    top: 150px;
-    width: 80%;
-    height: 520px;
+    top: 130px;
+    width: 78%;
+    height: 620px;
 }
 
 .echarts-pie-chart {
@@ -355,7 +355,7 @@ body {
     text-indent: 0.02em;
     height: auto;
     line-height: normal;
-    font-size: 56px;
+    font-size: 44px;
     letter-spacing: 0.02em;
     margin-right: 0em;
     border-radius: 0px;
@@ -760,7 +760,7 @@ body {
 .timer .data-wrapper {
     width: 456px;
     height: 52px;
-    font-size: 24px;
+    font-size: 28px;
     color: rgba(255, 255, 255, 0.7);
     font-weight: normal;
     font-family: "Microsoft Yahei", Arial, sans-serif;

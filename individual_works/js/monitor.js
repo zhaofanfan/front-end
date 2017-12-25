@@ -108,7 +108,7 @@ var AbnormityChart = (function() {
             visualMap: {
                 show: !1,
                 min: 0,
-                max: 2500,
+                max: 1000,
                 inRange: {
                     color: ['#1e9fd1', '#37b89b', '#1c7ac0']
                 },
@@ -284,12 +284,12 @@ var AbnormityChart = (function() {
                 trigger: 'item',
                 formatter: "{a} <br/>{b} : {c} ({d}%)"
             },
-            color: ['#ff6063', '#a3ff6c', '#ffffff'],
+            color: ['#5ac8ae', '#fdc77c', '#f1786b'],
             calculable: false,
             series: [{
                 name: '处理情况',
                 type: 'pie',
-                radius: ['40%', '50%'],
+                radius: ['30%', '55%'],
                 center: ['45%', '50%'],
                 itemStyle: {
                     normal: {
