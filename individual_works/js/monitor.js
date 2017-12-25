@@ -110,7 +110,7 @@ var AbnormityChart = (function() {
                 min: 0,
                 max: 1000,
                 inRange: {
-                    color: ['#1e9fd1', '#37b89b', '#1c7ac0']
+                    color: ['#5186ab', '#8a7e7a', '#c97446']
                 },
                 x: "left",
                 y: "bottom",
@@ -284,7 +284,7 @@ var AbnormityChart = (function() {
                 trigger: 'item',
                 formatter: "{a} <br/>{b} : {c} ({d}%)"
             },
-            color: ['#5ac8ae', '#fdc77c', '#f1786b'],
+            color: ['#d06a4d', '#c7ce5a', '#35bdd0'],
             calculable: false,
             series: [{
                 name: '处理情况',

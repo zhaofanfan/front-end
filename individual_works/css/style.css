@@ -330,9 +330,9 @@ body {
     text-align: center;
     white-space: nowrap;
     justify-content: flex-start;
-    line-height: 110px;
+    line-height: 85px;
     font-family: "Microsoft Yahei", Arial, sans-serif;
-    height: 94px;
+    height: 75px;
     background-color: rgba(0, 0, 0, 0);
 }
 
@@ -369,11 +369,11 @@ body {
 }
 
 .counter-wrapper__left .number {
-    background-color: rgba(241, 120, 107, 0.7);
+    background-color: rgba(61, 172, 179, 0.7);
 }
 
 .counter-wrapper__right .number {
-    background-color: rgba(45, 50, 67, 0.7);
+    background-color: rgba(150, 95, 85, 0.5);
 }
 
 .business-alarm-title {
@@ -673,6 +673,10 @@ body {
     font-size: 28px;
     font-weight: bold;
     color: #4ff5f5
+}
+
+.alarm-proportion .counter-trend .number {
+    font-size: 12px;
 }
 
 .proportion-footer .counter {

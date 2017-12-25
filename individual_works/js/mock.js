@@ -56,7 +56,37 @@
     }, {
         "name": "澳门",
         "value": 1000
-    }],
+    }, {
+        "name": "云南",
+        "value": 300
+    }, {
+        "name": "青海",
+        "value": 300
+    }, {
+        "name": "甘肃",
+        "value": 300
+    }, {
+        "name": "陕西",
+        "value": 300
+    }, {
+        "name": "湖北",
+        "value": 300
+    }, {
+        "name": "湖南",
+        "value": 300
+    }, {
+        "name": "海南",
+        "value": 300
+    }, {
+        "name": "贵州",
+        "value": 300
+    }, {
+        "name": "广西",
+        "value": 300
+    }
+
+
+    ],
     "handleInfos": [{
         "value": 78,
         "name": "已处理"

@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>E-Eye Monitor</title>
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <link rel="stylesheet" type="text/css" href="css/reset.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="leaflet/leaflet.css" />
+        <script type="text/javascript">
+            // ~ function() {
+            //     var designWidth = 800;
+
+            //     var asideDesignWidth = 175;
+
+            //     function resizefn() {
+            //         var width = document.documentElement.scrollWidth || window.innerWidth;
+
+            //         var asideWidth = parseInt(asideDesignWidth / designWidth * width, 10);
+
+            //         var cssStr = '.layout{padding: 0 ' + asideWidth + 'px;} .layout-aside{width: ' + asideWidth + 'px;} .layout-aside__left{margin-left: -' + asideWidth + 'px;} .layout-aside__right{margin-right: -' + asideWidth + 'px;}';
+
+            //         if (!document.getElementById("J_asideStyle")) {
+            //             addStyle(cssStr, "J_asideStyle");
+            //         } else {
+            //             document.getElementById("J_asideStyle").innerHTML = cssStr;
+            //         }
+            //     }
+
+            //     window.onresize = resizefn;
+            //     resizefn();
+            // }();
+
+            // function addStyle(cssString, id) {
+            //     var doc = document;
+            //     var style = doc.createElement("style");
+            //     !id || style.setAttribute("id", id);
+            //     style.setAttribute("type", "text/css");
+
+            //     if (style.styleSheet) { // IE
+            //         style.styleSheet.cssText = cssString;
+            //     } else { // w3c
+            //         var cssText = doc.createTextNode(cssString);
+            //         style.appendChild(cssText);
+            //     }
+
+            //     var heads = doc.getElementsByTagName("head");
+            //     if (heads.length) {
+            //         heads[0].appendChild(style);
+            //     } else {
+            //         doc.documentElement.appendChild(style);
+            //     }
+            // }
+        </script>
+    </head>
+
+    <body>
+        <div id="datavLoading">
+            <a target="_blank" href="javascript:;">
+                <img src="image/loading.svg" />
+            </a>
+        </div>
+        <div class="datavLayout">
+            <div class="data-com main-img">
+                <div class="data-wrapper"></div>
+            </div>
+            <div class="data-com main-title">
+                <div class="data-wrapper">e 眼 日 志 监 控 大 屏</div>
+            </div>
+            <div class="data-com timer">
+                <div class="data-wrapper">
+                    <svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="width: 18px; height: 18px; margin-right: 5px;">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g transform="translate(-920.000000, -643.000000)" fill="#5DF5F4" class="icon-path" style="fill: rgb(93, 245, 244);">
+                                <path d="M929,661 C924.028906,661 920,656.971094 920,652 C920,647.028906 924.028906,643 929,643 C933.971094,643 938,647.028906 938,652 C938,656.971094 933.971094,661 929,661 L929,661 Z M934.468555,646.531445 C933.758398,645.821289 932.930469,645.262305 932.009375,644.873828 C931.056641,644.469531 930.044141,644.265625 929,644.265625 C927.955859,644.265625 926.943359,644.469531 925.990625,644.87207 C925.069531,645.262305 924.243359,645.819531 923.531445,646.529688 C922.821289,647.239844 922.262305,648.067773 921.873828,648.988867 C921.469531,649.943359 921.265625,650.955859 921.265625,652 C921.265625,653.044141 921.469531,654.056641 921.87207,655.009375 C922.262305,655.930469 922.819531,656.756641 923.529688,657.468555 C924.239844,658.178711 925.067773,658.737695 925.988867,659.126172 C926.943359,659.530469 927.955859,659.734375 929,659.734375 C930.044141,659.734375 931.056641,659.530469 932.009375,659.12793 C932.930469,658.737695 933.756641,658.180469 934.468555,657.470312 C935.178711,656.760156 935.737695,655.932227 936.126172,655.011133 C936.530469,654.056641 936.734375,653.044141 936.734375,652 C936.734375,650.955859 936.530469,649.943359 936.12793,648.990625 C935.737695,648.069531 935.180469,647.241602 934.468555,646.531445 L934.468555,646.531445 Z M932.884766,652.140625 L929.632812,652.140625 L929.632812,656.359375 C929.632812,656.70918 929.349805,656.992188 929,656.992188 L929,656.992188 C928.650195,656.992188 928.367188,656.70918 928.367188,656.359375 L928.367188,652.140625 L928.367188,652.140625 C928.367188,651.441016 928.933203,650.875 929.632812,650.875 L929.632812,650.875 L932.884766,650.875 C933.23457,650.875 933.517578,651.158008 933.517578,651.507812 L933.517578,651.507812 C933.517578,651.857617 933.23457,652.140625 932.884766,652.140625 L932.884766,652.140625 Z" transform="translate(929.000000, 652.000000) scale(1, -1) translate(-929.000000, -652.000000)"></path>
+                            </g>
+                        </g>
+                    </svg>
+                    <span id="timeShow" class="date"></span>
+                </div>
+            </div>
+            <div class="layout clearfix">
+                <div class="layout-aside layout-aside__left">
+                    <!-- <span class="number_box js_num"></span> -->
+                    <div class="data-com business-alarm-title">
+                        <div class="data-wrapper">业务告警情况</div>
+                    </div>
+                    <div class="data-com business-alarm-subtitle">
+                        <div class="data-wrapper">Business alarm</div>
+                    </div>
+                    <div class="data-com ml-table-bar">
+                        <div class="data-wrapper">
+                            <div class="table-line">
+                                <div class="rotate">
+                                    <div class="table-content">
+                                        <div class="inner">选座值机</div>
+                                    </div>
+                                </div>
+                                <div class="line-segment">
+                                    <div class="light"></div>
+                                </div>
+                            </div>
+                            <div class="table-line">
+                                <div class="rotate">
+                                    <div class="table-content">
+                                        <div class="inner">航班动态</div>
+                                    </div>
+                                </div>
+                                <div class="line-segment">
+                                    <div class="light"></div>
+                                </div>
+                            </div>
+                            <div class="table-line">
+                                <div class="rotate">
+                                    <div class="table-content">
+                                        <div class="inner">电子发票</div>
+                                    </div>
+                                </div>
+                                <div class="line-segment">
+                                    <div class="light"></div>
+                                </div>
+                            </div>
+                            <div class="table-line">
+                                <div class="rotate">
+                                    <div class="table-content">
+                                        <div class="inner">特殊服务</div>
+                                    </div>
+                                </div>
+                                <div class="line-segment">
+                                    <div class="light"></div>
+                                </div>
+                            </div>
+                            <div class="table-line">
+                                <div class="rotate">
+                                    <div class="table-content">
+                                        <div class="inner">餐食服务</div>
+                                    </div>
+                                </div>
+                                <div class="line-segment">
+                                    <div class="light"></div>
+                                </div>
+                            </div>
+                            <div class="table-line">
+                                <div class="rotate">
+                                    <div class="table-content">
+                                        <div class="inner">行李服务</div>
+                                    </div>
+                                </div>
+                                <div class="line-segment">
+                                    <div class="light"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="data-com percentage-bar">
+                        <div class="data-wrapper">
+                            <div class="percentage-bar">
+                                <div class="percent" style="padding-bottom: 13px;">
+                                    <div class="percent-tooltip">
+                                        <div class="border">
+                                            <div class="left-border"></div>
+                                            <div class="top-m-border" style="width: 15px;">
+                                                <div class="arrow"></div>
+                                            </div>
+                                            <div class="right-border"></div>
+                                        </div>
+                                        <div class="text" style="color: rgb(255, 255, 255);">0.0%</div>
+                                        <div class="text-hide" style="visibility: hidden;position: absolute;">100.%</div>
+                                    </div>
+                                </div>
+                                <div class="bar-box" style="padding: 0px 12px;">
+                                    <span class="right"><i class="right-before"></i></span>
+                                    <span class="left"><i class="left-before"></i></span>
+                                    <div class="bar" style="width: 97%; margin: 0px auto;">
+                                        <div class="inner" style="">
+                                            <svg class="dotted-line" style="width: 100%; height: 100%; display: inherit;">
+                                                <defs>
+                                                    <linearGradient id="gradientsvg-path-5oc51udq2xw" x1="0" y1="0" x2="100%" y2="0">
+                                                        <stop offset="0%" stop-color="#009cff"></stop>
+                                                        <stop offset="100%" stop-color="#fffc00"></stop>
+                                                    </linearGradient>
+                                                    <clipPath id="svg-path-5oc51udq2xw"></clipPath>
+                                                </defs>
+                                                <rect id="rect" x="0" y="0" width="100%" height="100%" fill="url(#gradientsvg-path-5oc51udq2xw)" clip-path="url(#svg-path-5oc51udq2xw)" style="width: 0%;"></rect>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="data-com percentage-bar percentage-bar-2">
+                        <div class="data-wrapper">
+                            <div class="percentage-bar">
+                                <div class="percent" style="padding-bottom: 13px;">
+                                    <div class="percent-tooltip">
+                                        <div class="border">
+                                            <div class="left-border"></div>
+                                            <div class="top-m-border" style="width: 15px;">
+                                                <div class="arrow"></div>
+                                            </div>
+                                            <div class="right-border"></div>
+                                        </div>
+                                        <div class="text" style="color: rgb(255, 255, 255);">69%</div>
+                                        <div class="text-hide" style="visibility: hidden;position: absolute;">100.%</div>
+                                    </div>
+                                </div>
+                                <div class="bar-box" style="padding: 0px 12px;">
+                                    <span class="right"><i class="right-before"></i></span>
+                                    <span class="left"><i class="left-before"></i></span>
+                                    <div class="bar" style="width: 97%; margin: 0px auto;">
+                                        <div class="inner" style="">
+                                            <svg class="dotted-line" style="width: 100%; height: 100%; display: inherit;">
+                                                <defs>
+                                                    <linearGradient id="gradientsvg-path-q42pbb13zb" x1="0" y1="0" x2="100%" y2="0">
+                                                        <stop offset="0%" stop-color="#ef762e"></stop>
+                                                        <stop offset="100%" stop-color="#44d7da"></stop>
+                                                    </linearGradient>
+                                                    <clipPath id="svg-path-q42pbb13zb">
+                                                        <rect x="0" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="4.72626" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="9.45252" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="14.17878" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="18.90504" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="23.6313" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="28.35756" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="33.08382" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="37.81008" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="42.536339999999996" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="47.2626" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="51.98886" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="56.71512" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="61.441379999999995" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="66.16764" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="70.8939" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="75.62016" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="80.34642" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="85.07267999999999" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="89.79894" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="94.5252" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="99.25146" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="103.97772" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="108.70398" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="113.43024" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="118.1565" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="122.88275999999999" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="127.60902" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="132.33528" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="137.06154" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="141.7878" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="146.51406" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="151.24032" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="155.96658" y="0" width="3.72626" height="100%"></rect>
+                                                        <rect x="160.69284" y="0" width="2.363129999999966" height="100%"></rect>
+                                                    </clipPath>
+                                                </defs>
+                                                <rect id="rect" x="0" y="0" width="100%" height="100%" fill="url(#gradientsvg-path-q42pbb13zb)" clip-path="url(#svg-path-q42pbb13zb)" style="width: 69%;"></rect>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="echarts-pie-chart" id="echarts-pie-chart"></div>
+                    <div class="percent-box">
+                        <div class="up">
+                            <div id="percentNumber" class="number" style="display: inline-block;font-size:24px">0</div>
+                            <span class="percent" style="font-size:14px">%</span>
+                        </div>
+                        <div class="percent-text"></div>
+                    </div>
+                </div>
+                <div class="layout-main">
+                    <div class="data-com counter-wrapper counter-wrapper__left">
+                        <div class="data-wrapper title-container">今日告警数量</div>
+                        <div class="counter-container">
+                            <span id="todayAlarmCount" class="number">28,242</span>
+                            <span class="suffix">个</span>
+                        </div>
+                    </div>
+                    <div class="data-com counter-wrapper counter-wrapper__right">
+                        <div class="data-wrapper title-container">今日异常数量</div>
+                        <div class="counter-container">
+                            <span id="todayExpCount" class="number">28,242</span>
+                            <span class="suffix">个</span>
+                        </div>
+                    </div>
+                    <div class="echarts-map-chart" id="echarts-map-chart"></div>
+                    <div class="echarts-line-chart" id="echarts-line-chart"></div>
+                </div>
+                <div class="layout-aside layout-aside__right">
+                    <!-- <input type="text" value="75" class="dial" data-fgColor="#1AB394" data-width="85" data-height="85" /> -->
+                    <div class="data-com business-alarm-title">
+                        <div class="data-wrapper">告警占比</div>
+                    </div>
+                    <div class="data-com business-alarm-subtitle">
+                        <div class="data-wrapper">The proportion of alarm</div>
+                    </div>
+                    <div class="data-com alarm-proportion">
+                        <ul class="clearfix">
+                            <li class="one">
+                                <div class="proportion-header">
+                                    <span class="dot"></span>
+                                    <span class="proportion-txt">严重告警</span>
+                                </div>
+                                <div class="proportion-main">
+                                    <div class="counter">
+                                        <span class="number">180</span>
+                                        <span class="suffix">个</span>
+                                    </div>
+                                    <div class="counter-trend">
+                                        <span class="number">11.5%</span>
+                                        <span class="suffix rise"></span>
+                                    </div>
+                                </div>
+                                <div class="proportion-footer">
+                                    <div class="counter">
+                                        <span class="number-wrapper">昨日<span class="number">162</span></span>
+                                        <span class="suffix">个</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="two">
+                                <div class="proportion-header">
+                                    <span class="dot"></span>
+                                    <span class="proportion-txt">警告告警</span>
+                                </div>
+                                <div class="proportion-main">
+                                    <div class="counter">
+                                        <span class="number">150</span>
+                                        <span class="suffix">个</span>
+                                    </div>
+                                    <div class="counter-trend">
+                                        <span class="number">11.5%</span>
+                                        <span class="suffix fall"></span>
+                                    </div>
+                                </div>
+                                <div class="proportion-footer">
+                                    <div class="counter">
+                                        <span class="number-wrapper">昨日<span class="number">162</span></span>
+                                        <span class="suffix">个</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="three">
+                                <div class="proportion-header">
+                                    <span class="dot"></span>
+                                    <span class="proportion-txt">提醒告警</span>
+                                </div>
+                                <div class="proportion-main">
+                                    <div class="counter">
+                                        <span class="number">180</span>
+                                        <span class="suffix">个</span>
+                                    </div>
+                                    <div class="counter-trend">
+                                        <span class="number">11.5%</span>
+                                        <span class="suffix rise"></span>
+                                    </div>
+                                </div>
+                                <div class="proportion-footer">
+                                    <div class="counter">
+                                        <span class="number-wrapper">昨日<span class="number">162</span></span>
+                                        <span class="suffix">个</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="echarts-proportion-pie-chart" id="echarts-proportion-pie-chart"></div>
+                    </div>
+                    <div class="data-com realtime-title">
+                        <div class="data-wrapper">实时告警</div>
+                    </div>
+                    <div class="data-com realtime-subtitle">
+                        <div class="data-wrapper">Real-time alarm</div>
+                    </div>
+                    <div class="data-com carousel-table">
+                        <div id="carouselWrapper" class="data-wrapper">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="data-com bg-box-1">
+                <div class="data-wrapper"></div>
+            </div>
+            <div class="data-com bg-box-2">
+                <div class="data-wrapper"></div>
+            </div>
+            <div class="data-com bg-box-3">
+                <div class="data-wrapper"></div>
+            </div>
+            <div class="data-com bg-box-4">
+                <div class="data-wrapper"></div>
+            </div>
+            <div class="data-com bg-box-5">
+                <div class="data-wrapper"></div>
+            </div>
+        </div>
+        <div class="data-com bg-box" style="left: 0px; top: 0px; width: 1920px; height: 1080px; z-index: 0;">
+            <div class="data-wrapper" style="width: 1920px;height: 1080px;border: none;background: rgba(0, 32, 45, 0.54);border-radius: 0px;"></div>
+        </div>
+        <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="js/countUp.min.js"></script>
+        <script type="text/javascript" src="js/echarts-all.js"></script>
+        <script type="text/javascript" src="js/china.js"></script>
+        <script type="text/javascript" src="leaflet/leaflet.js"></script>
+        <script type="text/javascript" src="js/leaflet-echarts3.js"></script>
+        <script type="text/javascript" src="js/lodash.min.js"></script>
+        <script type="text/javascript" src="js/monitor.js"></script>
+        <script type="text/javascript">
+            var config = {
+                "backgroundImage": "image/screenbg.jpg",
+                "width": 1920,
+                "height": 1080,
+                "display": 2
+            };
+
+            window.screen = window.config || {};
+            window.screen.width && $('body').css('width', window.screen.width);
+            window.screen.height && $('body').css('height', window.screen.height);
+            $('head').append('<meta name="viewport" content="width=' + window.screen.width + '"/>');
+            window.config && window.config.backgroundImage && $("body").css("background", "none" == window.config.backgroundImage ? window.config.backgroundImage : "url(" + window.config.backgroundImage + ")");
+
+            $(window, document).resize(function() {
+                resize();
+            }).load(function() {
+                $('.datavLayout').css('visibility', 'visible');
+                resize();
+                $('#datavLoading').fadeOut();
+
+                AbnormityChart.init();
+            });
+
+            function resize() {
+                if (window.screen.display == 2) {
+                    resizeCenter();
+                } else if (window.screen.display == 3) {
+                    resizeFull();
+                } else {
+                    resizeWidth();
+                }
+            }
+
+            function resizeWidth() {
+                var ratio = $(window).width() / (window.screen.width || $('body').width());
+
+                $('body').css({
+                    transform: "scale(" + ratio + ")",
+                    transformOrigin: "left top",
+                    backgroundSize: "100%"
+                });
+            }
+
+            function resizeCenter() {
+                if (!window.screen.height || !window.screen.width) return resizeCenterBak();
+                var ratio = $(window).height() / window.screen.height;
+
+                $('body').css({
+                    transform: "scale(" + ratio + ")",
+                    transformOrigin: "left top",
+                    backgroundSize: 100 * (window.screen.width / $(window).width() * ratio) + "%" + ' 100%',
+                    backgroundPosition: ($(window).width() - $('body').width() * ratio) / 2 + "px top",
+                    marginLeft: ($(window).width() - $('body').width() * ratio) / 2
+                });
+            }
+
+            function resizeFull() {
+                if (!window.screen.height || !window.screen.width) return resizeFullBak();
+                var ratioX = $(window).width() / window.screen.width;
+                var ratioY = $(window).height() / window.screen.height;
+
+                $('body').css({
+                    transform: "scale(" + ratioX + ", " + ratioY + ")",
+                    transformOrigin: "left top",
+                    backgroundSize: "100% 100%",
+                });
+            }
+
+            function resizeCenterBak() {
+                var ratioX = $(window).width() / $('body').width();
+                var ratioY = $(window).height() / $('body').height();
+                var ratio = Math.min(ratioX, ratioY);
+
+                $('body').css({
+                    transform: "scale(" + ratio + ")",
+                    transformOrigin: "left top",
+                    backgroundSize: (1 / ratioX) * 100 * ratio + "%",
+                    backgroundPosition: ($(window).width() - $('body').width() * ratio) / 2 + "px top",
+                    marginLeft: ($(window).width() - $('body').width() * ratio) / 2
+                });
+            }
+
+            function resizeFullBak() {
+                var ratioX = $(window).width() / $('body').width();
+                var ratioY = $(window).height() / $('body').height();
+                $('body').css({
+                    transform: "scale(" + ratioX + ", " + ratioY + ")",
+                    transformOrigin: "left top",
+                    backgroundSize: "100% " + ratioY * 100 + "%",
+                });
+            }
+
+            var data = [{
+                name: '拉萨',
+                value: 24
+            }, {
+                name: '上海',
+                value: 25
+            }, {
+                name: '福州',
+                value: 29
+            }, {
+                name: '南宁',
+                value: 37
+            }, {
+                name: '广州',
+                value: 38
+            }, {
+                name: '太原',
+                value: 39
+            }, {
+                name: '昆明',
+                value: 39
+            }, {
+                name: '海口',
+                value: 44
+            }, {
+                name: '沈阳',
+                value: 50
+            }, {
+                name: '长春',
+                value: 51
+            }, {
+                name: '银川',
+                value: 52
+            }, {
+                name: '南昌',
+                value: 54
+            }, {
+                name: '西宁',
+                value: 57
+            }, {
+                name: '呼和浩特',
+                value: 58
+            }, {
+                name: '成都',
+                value: 58
+            }, {
+                name: '西安',
+                value: 61
+            }, {
+                name: '重庆',
+                value: 66
+            }, {
+                name: '南京',
+                value: 67
+            }, {
+                name: '贵阳',
+                value: 71
+            }, {
+                name: '北京',
+                value: 79
+            }, {
+                name: '乌鲁木齐',
+                value: 84
+            }, {
+                name: '杭州',
+                value: 84
+            }, {
+                name: '济南',
+                value: 92
+            }, {
+                name: '兰州',
+                value: 99
+            }, {
+                name: '天津',
+                value: 105
+            }, {
+                name: '郑州',
+                value: 113
+            }, {
+                name: '哈尔滨',
+                value: 114
+            }, {
+                name: '石家庄',
+                value: 147
+            }, {
+                name: '长沙',
+                value: 175
+            }, {
+                name: '合肥',
+                value: 229
+            }, {
+                name: '武汉',
+                value: 273
+            }];
+
+            var geoCoordMap = {
+                '拉萨': [91.11, 29.97],
+                '上海': [121.48, 31.22],
+                '福州': [119.3, 26.08],
+                '南宁': [108.33, 22.84],
+                '广州': [113.23, 23.16],
+                '太原': [112.53, 37.87],
+                '昆明': [102.73, 25.04],
+                '海口': [110.35, 20.02],
+                '沈阳': [123.38, 41.8],
+                '长春': [125.35, 43.88],
+                '银川': [106.27, 38.47],
+                '南昌': [115.89, 28.68],
+                '西宁': [101.74, 36.56],
+                '呼和浩特': [111.65, 40.82],
+                '成都': [104.06, 30.67],
+                '西安': [108.95, 34.27],
+                '重庆': [106.54, 29.59],
+                '南京': [118.78, 32.04],
+                '贵阳': [106.71, 26.57],
+                '北京': [116.46, 39.92],
+                '乌鲁木齐': [87.68, 43.77],
+                '杭州': [120.19, 30.26],
+                '济南': [117, 36.65],
+                '兰州': [103.73, 36.03],
+                '天津': [117.2, 39.13],
+                '郑州': [113.65, 34.76],
+                '哈尔滨': [126.63, 45.75],
+                '石家庄': [114.48, 38.03],
+                '长沙': [113, 28.21],
+                '合肥': [117.27, 31.86],
+                '武汉': [114.31, 30.52]
+            };
+
+            var convertData = function(data) {
+                var res = [];
+                for (var i = 0; i < data.length; i++) {
+                    var geoCoord = geoCoordMap[data[i].name];
+                    if (geoCoord) {
+                        res.push({
+                            name: data[i].name,
+                            value: geoCoord.concat(data[i].value)
+                        });
+                    }
+                }
+                return res;
+            };
+
+            var myChart = echarts.init(document.getElementById('echarts-map-chart'));
+
+            myChart.setOption({
+                title: {
+                    text: '',
+                    subtext: '',
+                    left: 'center',
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
+                tooltip: {
+                    trigger: 'item'
+                },
+                leaflet: {
+                    center: [104.114129, 37.550339],
+                    zoom: 4,
+                    roam: true,
+                    layerControl: {
+                        position: 'topleft'
+                    },
+                    tiles: [{
+                        label: '天地图',
+                        urlTemplate: 'http://t2.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}',
+                        options: {
+                            attribution: 'tianditu.com'
+                        }
+                    }, {
+                        label: 'Open Street Map',
+                        urlTemplate: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
+                        options: {
+                            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
+                        }
+                    }]
+                },
+                series: [{
+                    name: 'pm2.5',
+                    type: 'scatter',
+                    coordinateSystem: 'leaflet',
+                    data: convertData(data),
+                    symbolSize: function(val) {
+                        return val[2] / 10;
+                    },
+                    label: {
+                        normal: {
+                            formatter: '{b}',
+                            position: 'right',
+                            show: false
+                        },
+                        emphasis: {
+                            show: true
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#ddb926'
+                        }
+                    }
+                }, {
+                    name: 'Top 5',
+                    type: 'effectScatter',
+                    coordinateSystem: 'leaflet',
+                    data: convertData(data.sort(function(a, b) {
+                        return b.value - a.value;
+                    }).slice(0, 6)),
+                    symbolSize: function(val) {
+                        return val[2] / 10;
+                    },
+                    showEffectOn: 'emphasis',
+                    rippleEffect: {
+                        brushType: 'stroke'
+                    },
+                    hoverAnimation: true,
+                    label: {
+                        normal: {
+                            formatter: '{b}',
+                            position: 'right',
+                            show: true
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#f4e925',
+                            shadowBlur: 10,
+                            shadowColor: '#333'
+                        }
+                    },
+                    zlevel: 1
+                }]
+            });
+
+            // https://developer.mozilla.org/en-US/docs/Web/Events/resize
+            (function() {
+                var throttle = function(type, name, obj) {
+                    obj = obj || window;
+                    var running = false;
+                    var func = function() {
+                        if (running) {
+                            return;
+                        }
+                        running = true;
+                        requestAnimationFrame(function() {
+                            obj.dispatchEvent(new CustomEvent(name));
+                            running = false;
+                        });
+                    };
+                    obj.addEventListener(type, func);
+                };
+
+                /* init - you can init any event */
+                throttle("resize", "optimizedResize");
+            })();
+
+            // handle event
+            window.addEventListener("optimizedResize", function() {
+                myChart.resize({
+                    width: 'auto',
+                    height: 'auto'
+                });
+            });
+        </script>
+    </body>
+
+</html>
