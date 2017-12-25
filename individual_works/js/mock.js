@@ -83,10 +83,7 @@
     }, {
         "name": "广西",
         "value": 300
-    }
-
-
-    ],
+    }],
     "handleInfos": [{
         "value": 78,
         "name": "已处理"
