@@ -89,179 +89,176 @@ var AbnormityChart = (function() {
 
     // 使用刚指定的配置项和数据显示图表。
     var showChartFunc = function() {
-        var data = [{
-            name: '拉萨',
-            value: 24
-        }, {
-            name: '上海',
-            value: 25
-        }, {
-            name: '福州',
-            value: 29
-        }, {
-            name: '南宁',
-            value: 37
-        }, {
-            name: '广州',
-            value: 38
-        }, {
-            name: '太原',
-            value: 39
-        }, {
-            name: '昆明',
-            value: 39
-        }, {
-            name: '海口',
-            value: 44
-        }, {
-            name: '沈阳',
-            value: 50
-        }, {
-            name: '长春',
-            value: 51
-        }, {
-            name: '银川',
-            value: 52
-        }, {
-            name: '南昌',
-            value: 54
-        }, {
-            name: '西宁',
-            value: 57
-        }, {
-            name: '呼和浩特',
-            value: 58
-        }, {
-            name: '成都',
-            value: 58
-        }, {
-            name: '西安',
-            value: 61
-        }, {
-            name: '重庆',
-            value: 66
-        }, {
-            name: '南京',
-            value: 67
-        }, {
-            name: '贵阳',
-            value: 71
-        }, {
-            name: '北京',
-            value: 79
-        }, {
-            name: '乌鲁木齐',
-            value: 84
-        }, {
-            name: '杭州',
-            value: 84
-        }, {
-            name: '济南',
-            value: 92
-        }, {
-            name: '兰州',
-            value: 99
-        }, {
-            name: '天津',
-            value: 105
-        }, {
-            name: '郑州',
-            value: 113
-        }, {
-            name: '哈尔滨',
-            value: 114
-        }, {
-            name: '石家庄',
-            value: 147
-        }, {
-            name: '长沙',
-            value: 175
-        }, {
-            name: '合肥',
-            value: 229
-        }, {
-            name: '武汉',
-            value: 273
-        }];
         var geoCoordMap = {
-            '拉萨': [91.11, 29.97],
-            '上海': [121.48, 31.22],
-            '福州': [119.3, 26.08],
-            '南宁': [108.33, 22.84],
-            '广州': [113.23, 23.16],
-            '太原': [112.53, 37.87],
-            '昆明': [102.73, 25.04],
-            '海口': [110.35, 20.02],
-            '沈阳': [123.38, 41.8],
-            '长春': [125.35, 43.88],
-            '银川': [106.27, 38.47],
-            '南昌': [115.89, 28.68],
-            '西宁': [101.74, 36.56],
-            '呼和浩特': [111.65, 40.82],
-            '成都': [104.06, 30.67],
-            '西安': [108.95, 34.27],
-            '重庆': [106.54, 29.59],
-            '南京': [118.78, 32.04],
-            '贵阳': [106.71, 26.57],
-            '北京': [116.46, 39.92],
-            '乌鲁木齐': [87.68, 43.77],
-            '杭州': [120.19, 30.26],
-            '济南': [117, 36.65],
-            '兰州': [103.73, 36.03],
-            '天津': [117.2, 39.13],
-            '郑州': [113.65, 34.76],
-            '哈尔滨': [126.63, 45.75],
-            '石家庄': [114.48, 38.03],
-            '长沙': [113, 28.21],
-            '合肥': [117.27, 31.86],
-            '武汉': [114.31, 30.52]
+            '广州': [113.5107, 23.2196],
+            '北京': [116.4551, 40.2539],
+            '天津': [117.4219, 39.4189],
+            '上海': [121.4648, 31.2891],
+            '重庆': [106.557165, 29.563206],
+            '河北': [114.508958, 38.066606],
+            '河南': [113.673367, 34.748062],
+            '云南': [102.721896, 25.047632],
+            '辽宁': [123.445621, 41.806698],
+            '黑龙江': [126.655705, 45.759581],
+            '湖南': [112.950888, 28.229114],
+            '安徽': [117.300842, 31.887672],
+            '山东': [117.029895, 36.677424],
+            '新疆': [87.616327, 43.800508],
+            '江苏': [118.814345, 32.061445],
+            '浙江': [120.16991, 30.272236],
+            '江西': [115.904962, 28.674132],
+            '湖北': [114.290138, 30.595623],
+            '广西': [108.381781, 22.815042],
+            '甘肃': [103.851217, 36.061978],
+            '山西': [112.57197, 37.879532],
+            '内蒙古': [112.57197, 37.879532],
+            '陕西': [108.960062, 34.285251],
+            '吉林': [126.572746, 43.86785],
+            '福建': [119.319713, 26.072564],
+            '贵州': [106.557165, 29.563206],
+            '广东': [113.238778, 23.161621],
+            '青海': [101.787147, 36.621234],
+            '西藏': [91.154492, 29.665953],
+            '四川': [104.082256, 30.652565],
+            '宁夏': [106.234805, 38.487468],
+            '海南': [109.910757, 19.108187],
+            '台湾': [121.098613, 23.778734],
+            '香港': [114.168545, 22.36641],
+            '澳门': [113.549978, 22.1943]
         };
+
+        var GZData = [
+            [{ name: '北京', value: 96 }, { name: '广州' }],
+            [{ name: '黑龙江', value: 90 }, { name: '广州' }],
+            [{ name: '内蒙古', value: 66 }, { name: '广州' }],
+            [{ name: '西藏', value: 70 }, { name: '广州' }],
+            [{ name: '陕西', value: 94 }, { name: '广州' }],
+            [{ name: '广西', value: 79 }, { name: '广州' }],
+            [{ name: '新疆', value: 51 }, { name: '广州' }],
+            [{ name: '青海', value: 67 }, { name: '广州' }],
+            [{ name: '海南', value: 30 }, { name: '广州' }],
+            [{ name: '云南', value: 56 }, { name: '广州' }],
+            [{ name: '四川', value: 96 }, { name: '广州' }],
+            [{ name: '福建', value: 74 }, { name: '广州' }]
+
+            //  [{name: '宁夏',value:47}, {name:'广州'}],
+            //  [{name: '西藏',value:19}, {name:'广州'}],
+            //  [{name: '黑龙江',value:33}, {name:'广州'}],
+            //  [{name: '新疆',value:28}, {name:'广州'}],
+            //  [{name: '天津',value:11}, {name:'广州'}],
+            //  [{name: '上海',value:13}, {name:'广州'}],
+            //  [{name: '重庆',value:9}, {name:'广州'}],
+            //  [{name: '辽宁',value:46}, {name:'广州'}],
+            //  [{name: '安徽',value:88}, {name:'广州'}],
+            //  [{name: '山东',value:82}, {name:'广州'}],
+            //  [{name: '江苏',value:38}, {name:'广州'}],
+            //  [{name: '甘肃',value:23}, {name:'广州'}],
+            //  [{name: '山西',value:36}, {name:'广州'}],
+            //  [{name: '内蒙古',value:29}, {name:'广州'}],
+            //  [{name: '陕西',value:45}, {name:'广州'}],
+            //  [{name: '吉林',value:44}, {name:'广州'}],
+            //  [{name: '广东',value:59}, {name:'广州'}],
+            //  [{name: '青海',value:23}, {name:'广州'}],
+            //  [{name: '台湾',value:26}, {name:'广州'}],
+            //  [{name: '香港',value:27}, {name:'广州'}],
+            //  [{name: '澳门',value:13}, {name:'广州'}]
+        ];
+
 
         var convertData = function(data) {
             var res = [];
             for (var i = 0; i < data.length; i++) {
-                var geoCoord = geoCoordMap[data[i].name];
-                if (geoCoord) {
-                    res.push({
-                        name: data[i].name,
-                        value: geoCoord.concat(data[i].value)
-                    });
+                var dataItem = data[i];
+                var fromCoord = geoCoordMap[dataItem[1].name];
+                var toCoord = geoCoordMap[dataItem[0].name];
+                if (fromCoord && toCoord) {
+                    res.push([{
+                        coord: fromCoord
+                    }, {
+                        coord: toCoord,
+                        value: dataItem[0].value //来源或流向修改
+                    }]);
                 }
             }
             return res;
         };
 
+
+        var series = [];
+        [
+            ['广州', GZData]
+        ].forEach(function(item, i) {
+            series.push({ //线
+                type: 'lines',
+                zlevel: 2,
+                symbol: ['none', 'arrow'], //'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'线两端的标记类型
+                symbolSize: 5, //箭头大小
+                lineStyle: {
+                    normal: {
+                        width: 1,
+                        opacity: 0.4,
+                        curveness: 0.3
+                    },
+                },
+                effect: {
+                    show: true, //是否显示特效
+                    period: 2, //特效动画的时间，单位为 s
+                    symbol: 'pin', //特效图形的类型
+                    constantSpeed: 100, //固定速度，大于0的值后会忽略 period 配置项
+                    symbolSize: 5,
+                    color: '#fff',
+                    shadowBlur: 8
+                },
+                data: convertData(item[1])
+            }, {
+                type: 'effectScatter',
+                coordinateSystem: 'geo',
+                zlevel: 2,
+                rippleEffect: { //涟漪特效相关配置
+                    period: '4', //动画的时间
+                    scale: '20', //动画中波纹的最大缩放比例
+                    brushType: 'stroke'
+                },
+                label: { //图形上的城市文本标签
+                    normal: {
+                        show: true,
+                        position: 'right',
+                        formatter: '{b}',
+                        textStyle: {
+                            color: '#fff',
+                            fontStyle: 'normal',
+                            fontFamily: 'arial',
+                            fontSize: 12,
+                        }
+                    }
+                },
+                symbolSize: 3, //点大小
+                data: item[1].map(function(dataItem) {
+                    return {
+                        name: dataItem[0].name, //来源或流向修改
+                        value: geoCoordMap[dataItem[0].name].concat([dataItem[0].value]) //来源或流向修改
+                    };
+                })
+            });
+        });
+
         doption = {
-            title: {
-                text: '',
-                subtext: '',
-                sublink: '',
-                left: 'center',
-                textStyle: {
-                    color: '#fff'
-                }
-            },
-            tooltip: {
-                trigger: 'item',
-                formatter: "{a} <br/>{b} : {c}"
-            },
-            legend: {
-                show: !1,
-                orient: "vertical",
-                x: "left",
-                data: ["告警数量"]
+            tooltip: { //提示组件
+                trigger: 'item'
             },
             visualMap: {
-                show: !1,
                 min: 0,
                 max: 100,
+                //seriesIndex:['0', '1'],//选择应用那几条数据
+                calculable: true,
                 inRange: {
                     color: ['#5186ab', '#8a7e7a', '#c97446']
                 },
-                x: "left",
-                y: "bottom",
-                text: ["高", "低"],
-                calculable: !0
+                textStyle: {
+                    color: '#fff'
+                },
+                x: "36",
+                y: "400"
             },
             geo: {
                 map: 'china',
@@ -270,129 +267,31 @@ var AbnormityChart = (function() {
                         show: false
                     }
                 },
-                roam: true,
+                roam: true, //开启缩放或者平移
+                zoom: 1.1, //缩放比例
                 itemStyle: {
                     normal: {
-                        areaColor: '#323c48',
-                        borderColor: '#111'
+                        areaColor: 'none', //地图背景色
+                        borderColor: 'rgba(100, 149, 237, 1)' //省市边界线
                     },
                     emphasis: {
-                        areaColor: '#2a333d'
+                        areaColor: '#1b1b1b' //悬浮背景
                     }
-                }
+                },
+                regions: [{
+                    name: '广东',
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#c97446',
+                            color: '#c97446'
+                        }
+                    }
+                }]
             },
-            series: [{
-                name: '告警数量',
-                type: 'scatter',
-                coordinateSystem: 'geo',
-                data: convertData(data),
-                symbolSize: function(val) {
-                    return val[2] / 10;
-                },
-                label: {
-                    normal: {
-                        formatter: '{b}',
-                        position: 'right',
-                        show: false
-                    },
-                    emphasis: {
-                        show: true
-                    }
-                },
-                itemStyle: {
-                    normal: {
-                        color: '#ddb926'
-                    }
-                }
-            }, {
-                name: 'Top 5',
-                type: 'effectScatter',
-                coordinateSystem: 'geo',
-                data: convertData(data.sort(function(a, b) {
-                    return b.value - a.value;
-                }).slice(0, 6)),
-                symbolSize: function(val) {
-                    return val[2] / 10;
-                },
-                showEffectOn: 'render',
-                rippleEffect: {
-                    brushType: 'stroke'
-                },
-                hoverAnimation: true,
-                label: {
-                    normal: {
-                        formatter: '{b}',
-                        position: 'right',
-                        show: true
-                    }
-                },
-                itemStyle: {
-                    normal: {
-                        color: '#f4e925',
-                        shadowBlur: 10,
-                        shadowColor: '#333'
-                    }
-                },
-                zlevel: 1
-            }]
+            series: series
         };
 
         distChart.setOption(doption);
-        // distChart.setOption({
-        //     title: {
-        //         show: !1,
-        //         text: "",
-        //         subtext: "",
-        //         x: "center"
-        //     },
-        //     tooltip: {
-        //         trigger: "item"
-        //     },
-        //     legend: {
-        //         show: !1,
-        //         orient: "vertical",
-        //         x: "left",
-        //         data: ["告警数量"]
-        //     },
-        //     visualMap: {
-        //         show: !1,
-        //         min: 0,
-        //         max: 1000,
-        //         inRange: {
-        //             color: ['#5186ab', '#8a7e7a', '#c97446']
-        //         },
-        //         x: "left",
-        //         y: "bottom",
-        //         text: ["高", "低"],
-        //         calculable: !0
-        //     },
-        //     // roamController: {
-        //     //     show: !1,
-        //     //     x: "right",
-        //     //     mapTypeControl: {
-        //     //         china: !0
-        //     //     }
-        //     // },
-        //     series: [{
-        //         name: "告警数量",
-        //         type: "map",
-        //         roam: !0,
-        //         mapType: "china",
-        //         label: {
-        //             normal: {
-        //                 label: {
-        //                     show: !0
-        //                 }
-        //             },
-        //             emphasis: {
-        //                 label: {
-        //                     show: !0
-        //                 }
-        //             }
-        //         },
-        //         data: distDataValues
-        //     }]
-        // });
 
         option = {
             title: {
@@ -579,7 +478,7 @@ var AbnormityChart = (function() {
         trendChart.setOption({
             title: {
                 text: '近期告警趋势图',
-                subtext: 'One month trend map',
+                subtext: 'One week trend map',
                 x: 'left',
                 textStyle: {
                     fontSize: 22,
@@ -614,55 +513,89 @@ var AbnormityChart = (function() {
                     color: '#fff'
                 },
             },
-            color: ['#b54a52', '#b6661a', '#49aa16'],
+            color: ['#d06a4d', '#c7ce5a', '#35bdd0'],
             xAxis: [{
                 type: 'category',
                 boundaryGap: false,
                 axisLine: {
                     lineStyle: {
-                        color: '#fff'
+                        color: 'rgba(255, 255, 255, 0.2)'
                     }
+                },
+                axisTick: {
+                    show: !1
                 },
                 axisLabel: {
                     textStyle: {
                         color: '#fff'
                     }
                 },
-                data: getLatestOneMonth()
+                data: getLatestOneWeek()
             }],
             yAxis: [{
                 type: 'value',
                 axisLine: {
                     lineStyle: {
-                        color: '#fff'
+                        color: 'rgba(255, 255, 255, 0.2)'
                     }
+                },
+                axisTick: {
+                    show: !1
                 },
                 axisLabel: {
                     textStyle: {
                         color: '#fff'
+                    }
+                },
+                splitLine: { // 分隔线
+                    show: true, // 默认显示，属性show控制显示与否
+                    // onGap: null,
+                    lineStyle: { // 属性lineStyle（详见lineStyle）控制线条样式
+                        color: 'rgba(255, 255, 255, 0.05)',
+                        width: 1,
+                        type: 'dashed'
                     }
                 }
             }],
             series: [{
                 name: '严重',
                 type: 'line',
-                smooth: true,
-                symbol: 'none',
+                symbol: 'circle',
+                symbolSize: 10,
+                // smooth: true,
+                // symbol: 'none',
                 data: trendDataValues["1"]
             }, {
                 name: '警告',
                 type: 'line',
-                smooth: true,
-                symbol: 'none',
+                symbol: 'circle',
+                symbolSize: 10,
+                // smooth: true,
+                // symbol: 'none',
                 data: trendDataValues["2"]
             }, {
                 name: '提醒',
                 type: 'line',
-                smooth: true,
-                symbol: 'none',
+                symbol: 'circle',
+                symbolSize: 10,
+                // smooth: true,
+                // symbol: 'none',
                 data: trendDataValues["3"]
             }]
         });
+    };
+
+    var getLatestOneWeek = function() {
+        var xAxisData = [];
+        var dt = new Date();
+        var index = 6;
+
+        while (index >= 0) {
+            var newDt = new Date(dt.getTime() - index * 24 * 3600 * 1000);
+            xAxisData.push(newDt.format("MM.dd"));
+            index--;
+        }
+        return xAxisData;
     };
 
     var getLatestOneMonth = function() {
