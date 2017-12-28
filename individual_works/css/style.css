@@ -424,7 +424,7 @@ body {
 
 .ml-table-bar {
     left: 55px;
-    top: 156px;
+    top: 168px;
     width: 152px;
     height: 604px;
     z-index: 15;
@@ -488,6 +488,7 @@ body {
     transition: transform 600ms ease-in-out;
 }
 
+
 .percentage-bar {
     left: 130px;
     top: 140px;
@@ -503,99 +504,8 @@ body {
     overflow: hidden;
 }
 
-.percentage-bar .percent-tooltip {
-    display: inline-block;
-    margin: 0px auto 0px 21.8435px;
-    position: relative;
-    padding: 5px;
-    opacity: 1;
-    font-size: 14px;
-    transform: translate3d(-50%, 0px, 0px);
-}
-
-.percentage-bar .border {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    border-top: 1px solid rgba(255, 255, 255, 0.6);
-    border-right: 1px solid rgba(255, 255, 255, 0.6);
-    border-bottom: none;
-    border-left: 1px solid rgba(255, 255, 255, 0.6);
-    border-image: initial;
-    border-radius: 1px;
-    opacity: 1;
-}
-
-.percentage-bar .left-border {
-    width: 60%;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
-}
-
-.percentage-bar .arrow {
-    position: absolute;
-    bottom: -5px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
-    border-right: 1px solid rgba(255, 255, 255, 0.6);
-    width: 11px;
-    height: 11px;
-    border-radius: 0px 0px 1px;
-    transform: rotate(45deg) skew(10deg, 10deg);
-}
-
-.percentage-bar .right-border {
-    width: 60%;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
-}
-
-.percentage-bar .right {
-    position: relative;
-    width: 1.5%;
-    float: right;
-    height: 16px;
-}
-
-.percentage-bar .bar-num {
-    width: 12%;
-    text-align: right;
-    color: #fff;
-}
-
-.percentage-bar .right-before {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    border-radius: 1px;
-    box-sizing: border-box;
-}
-
-.percentage-bar .left {
-    position: relative;
-    width: 1.5%;
-    float: left;
-    height: 16px;
-}
-
-.percentage-bar .left-before {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    border-radius: 1px;
-    box-sizing: border-box;
-}
-
-.percentage-bar .inner {
-    border-radius: 1px;
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    padding: 2px;
-    position: relative;
-    margin: 0px 3px;
-    box-sizing: content-box;
-    height: 10px;
+.data-wrapper .percentage-bar-box {
+    margin-top: 36px;
 }
 
 .percentage-bar-2 {
@@ -616,6 +526,21 @@ body {
 
 .percentage-bar-6 {
     top: 488px;
+}
+
+.data-number {
+    position: absolute;
+    left: 400px;
+    top: 177px;
+    width: 100px;
+    height: 500px;
+    z-index: 33;
+}
+
+.data-number .number {
+    color: #fff;
+    display: block;
+    height: 70px;
 }
 
 .layout-aside__right .data-com {

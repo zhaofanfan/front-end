@@ -10,6 +10,7 @@
         <meta name="keywords" content="">
         <link rel="stylesheet" type="text/css" href="css/reset.css" />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/percentageBar.css" />
     </head>
 
     <body>
@@ -112,447 +113,47 @@
                     </div>
                     <div class="data-com percentage-bar percentage">
                         <div class="data-wrapper">
-                            <div class="percentage-bar">
-                                <div class="percent" style="padding-bottom: 13px;">
-                                    <div class="percent-tooltip">
-                                        <div class="border">
-                                            <div class="left-border"></div>
-                                            <div class="top-m-border" style="width: 15px;">
-                                                <div class="arrow"></div>
-                                            </div>
-                                            <div class="right-border"></div>
-                                        </div>
-                                        <div class="text" style="color: rgb(255, 255, 255);">0.0%</div>
-                                        <div class="text-hide" style="visibility: hidden;position: absolute;">100.%</div>
-                                    </div>
-                                </div>
-                                <div class="bar-box clearfix">
-                                    <span class="left"><i class="left-before"></i></span>
-                                    <div class="bar left" style="width: 75%;margin-left: 1%;">
-                                        <div class="inner">
-                                            <svg class="dotted-line" style="width: 100%; height: 100%; display: inherit;">
-                                                <defs>
-                                                    <linearGradient id="gradientsvg-path-q42pbb13zb" x1="0" y1="0" x2="100%" y2="0">
-                                                        <stop offset="0%" stop-color="#ef762e"></stop>
-                                                        <stop offset="100%" stop-color="#44d7da"></stop>
-                                                    </linearGradient>
-                                                    <clipPath id="svg-path-q42pbb13zb">
-                                                        <rect x="0" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="4.72626" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="9.45252" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="14.17878" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="18.90504" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="23.6313" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="28.35756" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="33.08382" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="37.81008" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="42.536339999999996" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="47.2626" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="51.98886" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="56.71512" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="61.441379999999995" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="66.16764" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="70.8939" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="75.62016" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="80.34642" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="85.07267999999999" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="89.79894" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="94.5252" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="99.25146" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="103.97772" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="108.70398" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="113.43024" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="118.1565" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="122.88275999999999" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="127.60902" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="132.33528" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="137.06154" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="141.7878" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="146.51406" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="151.24032" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="155.96658" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="160.69284" y="0" width="2.363129999999966" height="100%"></rect>
-                                                    </clipPath>
-                                                </defs>
-                                                <rect id="rect" x="0" y="0" width="100%" height="100%" fill="url(#gradientsvg-path-q42pbb13zb)" clip-path="url(#svg-path-q42pbb13zb)" style="width: 69%;"></rect>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <span class="right bar-num">45个</span>
-                                    <span class="right" style="margin-right: 1%;"><i class="right-before"></i></span>
-                                </div>
+                            <div class="percentage-bar-box">
                             </div>
                         </div>
                     </div>
                     <div class="data-com percentage-bar percentage-bar-2 percentage">
                         <div class="data-wrapper">
-                            <div class="percentage-bar">
-                                <div class="percent" style="padding-bottom: 13px;">
-                                    <div class="percent-tooltip">
-                                        <div class="border">
-                                            <div class="left-border"></div>
-                                            <div class="top-m-border" style="width: 15px;">
-                                                <div class="arrow"></div>
-                                            </div>
-                                            <div class="right-border"></div>
-                                        </div>
-                                        <div class="text" style="color: rgb(255, 255, 255);">69%</div>
-                                        <div class="text-hide" style="visibility: hidden;position: absolute;">100.%</div>
-                                    </div>
-                                </div>
-                                <div class="bar-box clearfix">
-                                    <span class="left"><i class="left-before"></i></span>
-                                    <div class="bar left" style="width: 75%;margin-left: 1%;">
-                                        <div class="inner">
-                                            <svg class="dotted-line" style="width: 100%; height: 100%; display: inherit;">
-                                                <defs>
-                                                    <linearGradient id="gradientsvg-path-q42pbb13zb" x1="0" y1="0" x2="100%" y2="0">
-                                                        <stop offset="0%" stop-color="#ef762e"></stop>
-                                                        <stop offset="100%" stop-color="#44d7da"></stop>
-                                                    </linearGradient>
-                                                    <clipPath id="svg-path-q42pbb13zb">
-                                                        <rect x="0" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="4.72626" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="9.45252" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="14.17878" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="18.90504" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="23.6313" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="28.35756" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="33.08382" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="37.81008" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="42.536339999999996" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="47.2626" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="51.98886" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="56.71512" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="61.441379999999995" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="66.16764" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="70.8939" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="75.62016" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="80.34642" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="85.07267999999999" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="89.79894" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="94.5252" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="99.25146" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="103.97772" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="108.70398" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="113.43024" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="118.1565" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="122.88275999999999" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="127.60902" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="132.33528" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="137.06154" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="141.7878" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="146.51406" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="151.24032" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="155.96658" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="160.69284" y="0" width="2.363129999999966" height="100%"></rect>
-                                                    </clipPath>
-                                                </defs>
-                                                <rect id="rect" x="0" y="0" width="100%" height="100%" fill="url(#gradientsvg-path-q42pbb13zb)" clip-path="url(#svg-path-q42pbb13zb)" style="width: 69%;"></rect>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <span class="right bar-num">45个</span>
-                                    <span class="right" style="margin-right: 1%;"><i class="right-before"></i></span>
-                                </div>
+                            <div class="percentage-bar-box">
                             </div>
                         </div>
                     </div>
                     <div class="data-com percentage-bar percentage-bar-3 percentage">
                         <div class="data-wrapper">
-                            <div class="percentage-bar">
-                                <div class="percent" style="padding-bottom: 13px;">
-                                    <div class="percent-tooltip">
-                                        <div class="border">
-                                            <div class="left-border"></div>
-                                            <div class="top-m-border" style="width: 15px;">
-                                                <div class="arrow"></div>
-                                            </div>
-                                            <div class="right-border"></div>
-                                        </div>
-                                        <div class="text" style="color: rgb(255, 255, 255);">69%</div>
-                                        <div class="text-hide" style="visibility: hidden;position: absolute;">100.%</div>
-                                    </div>
-                                </div>
-                                <div class="bar-box clearfix">
-                                    <span class="left"><i class="left-before"></i></span>
-                                    <div class="bar left" style="width: 75%;margin-left: 1%;">
-                                        <div class="inner">
-                                            <svg class="dotted-line" style="width: 100%; height: 100%; display: inherit;">
-                                                <defs>
-                                                    <linearGradient id="gradientsvg-path-q42pbb13zb" x1="0" y1="0" x2="100%" y2="0">
-                                                        <stop offset="0%" stop-color="#ef762e"></stop>
-                                                        <stop offset="100%" stop-color="#44d7da"></stop>
-                                                    </linearGradient>
-                                                    <clipPath id="svg-path-q42pbb13zb">
-                                                        <rect x="0" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="4.72626" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="9.45252" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="14.17878" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="18.90504" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="23.6313" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="28.35756" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="33.08382" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="37.81008" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="42.536339999999996" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="47.2626" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="51.98886" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="56.71512" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="61.441379999999995" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="66.16764" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="70.8939" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="75.62016" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="80.34642" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="85.07267999999999" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="89.79894" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="94.5252" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="99.25146" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="103.97772" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="108.70398" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="113.43024" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="118.1565" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="122.88275999999999" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="127.60902" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="132.33528" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="137.06154" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="141.7878" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="146.51406" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="151.24032" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="155.96658" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="160.69284" y="0" width="2.363129999999966" height="100%"></rect>
-                                                    </clipPath>
-                                                </defs>
-                                                <rect id="rect" x="0" y="0" width="100%" height="100%" fill="url(#gradientsvg-path-q42pbb13zb)" clip-path="url(#svg-path-q42pbb13zb)" style="width: 69%;"></rect>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <span class="right bar-num">45个</span>
-                                    <span class="right" style="margin-right: 1%;"><i class="right-before"></i></span>
-                                </div>
+                            <div class="percentage-bar-box">
                             </div>
                         </div>
                     </div>
                     <div class="data-com percentage-bar percentage-bar-4 percentage">
                         <div class="data-wrapper">
-                            <div class="percentage-bar">
-                                <div class="percent" style="padding-bottom: 13px;">
-                                    <div class="percent-tooltip">
-                                        <div class="border">
-                                            <div class="left-border"></div>
-                                            <div class="top-m-border" style="width: 15px;">
-                                                <div class="arrow"></div>
-                                            </div>
-                                            <div class="right-border"></div>
-                                        </div>
-                                        <div class="text" style="color: rgb(255, 255, 255);">69%</div>
-                                        <div class="text-hide" style="visibility: hidden;position: absolute;">100.%</div>
-                                    </div>
-                                </div>
-                                <div class="bar-box clearfix">
-                                    <span class="left"><i class="left-before"></i></span>
-                                    <div class="bar left" style="width: 75%;margin-left: 1%;">
-                                        <div class="inner">
-                                            <svg class="dotted-line" style="width: 100%; height: 100%; display: inherit;">
-                                                <defs>
-                                                    <linearGradient id="gradientsvg-path-q42pbb13zb" x1="0" y1="0" x2="100%" y2="0">
-                                                        <stop offset="0%" stop-color="#ef762e"></stop>
-                                                        <stop offset="100%" stop-color="#44d7da"></stop>
-                                                    </linearGradient>
-                                                    <clipPath id="svg-path-q42pbb13zb">
-                                                        <rect x="0" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="4.72626" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="9.45252" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="14.17878" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="18.90504" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="23.6313" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="28.35756" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="33.08382" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="37.81008" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="42.536339999999996" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="47.2626" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="51.98886" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="56.71512" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="61.441379999999995" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="66.16764" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="70.8939" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="75.62016" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="80.34642" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="85.07267999999999" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="89.79894" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="94.5252" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="99.25146" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="103.97772" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="108.70398" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="113.43024" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="118.1565" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="122.88275999999999" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="127.60902" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="132.33528" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="137.06154" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="141.7878" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="146.51406" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="151.24032" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="155.96658" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="160.69284" y="0" width="2.363129999999966" height="100%"></rect>
-                                                    </clipPath>
-                                                </defs>
-                                                <rect id="rect" x="0" y="0" width="100%" height="100%" fill="url(#gradientsvg-path-q42pbb13zb)" clip-path="url(#svg-path-q42pbb13zb)" style="width: 69%;"></rect>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <span class="right bar-num">45个</span>
-                                    <span class="right" style="margin-right: 1%;"><i class="right-before"></i></span>
-                                </div>
+                            <div class="percentage-bar-box">
                             </div>
                         </div>
                     </div>
                     <div class="data-com percentage-bar percentage-bar-5 percentage">
                         <div class="data-wrapper">
-                            <div class="percentage-bar">
-                                <div class="percent" style="padding-bottom: 13px;">
-                                    <div class="percent-tooltip">
-                                        <div class="border">
-                                            <div class="left-border"></div>
-                                            <div class="top-m-border" style="width: 15px;">
-                                                <div class="arrow"></div>
-                                            </div>
-                                            <div class="right-border"></div>
-                                        </div>
-                                        <div class="text" style="color: rgb(255, 255, 255);">69%</div>
-                                        <div class="text-hide" style="visibility: hidden;position: absolute;">100.%</div>
-                                    </div>
-                                </div>
-                                <div class="bar-box clearfix">
-                                    <span class="left"><i class="left-before"></i></span>
-                                    <div class="bar left" style="width: 75%;margin-left: 1%;">
-                                        <div class="inner">
-                                            <svg class="dotted-line" style="width: 100%; height: 100%; display: inherit;">
-                                                <defs>
-                                                    <linearGradient id="gradientsvg-path-q42pbb13zb" x1="0" y1="0" x2="100%" y2="0">
-                                                        <stop offset="0%" stop-color="#ef762e"></stop>
-                                                        <stop offset="100%" stop-color="#44d7da"></stop>
-                                                    </linearGradient>
-                                                    <clipPath id="svg-path-q42pbb13zb">
-                                                        <rect x="0" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="4.72626" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="9.45252" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="14.17878" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="18.90504" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="23.6313" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="28.35756" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="33.08382" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="37.81008" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="42.536339999999996" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="47.2626" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="51.98886" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="56.71512" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="61.441379999999995" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="66.16764" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="70.8939" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="75.62016" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="80.34642" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="85.07267999999999" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="89.79894" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="94.5252" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="99.25146" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="103.97772" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="108.70398" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="113.43024" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="118.1565" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="122.88275999999999" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="127.60902" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="132.33528" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="137.06154" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="141.7878" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="146.51406" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="151.24032" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="155.96658" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="160.69284" y="0" width="2.363129999999966" height="100%"></rect>
-                                                    </clipPath>
-                                                </defs>
-                                                <rect id="rect" x="0" y="0" width="100%" height="100%" fill="url(#gradientsvg-path-q42pbb13zb)" clip-path="url(#svg-path-q42pbb13zb)" style="width: 69%;"></rect>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <span class="right bar-num">45个</span>
-                                    <span class="right" style="margin-right: 1%;"><i class="right-before"></i></span>
-                                </div>
+                            <div class="percentage-bar-box">
                             </div>
                         </div>
                     </div>
                     <div class="data-com percentage-bar percentage-bar-6 percentage">
                         <div class="data-wrapper">
-                            <div class="percentage-bar">
-                                <div class="percent" style="padding-bottom: 13px;">
-                                    <div class="percent-tooltip">
-                                        <div class="border">
-                                            <div class="left-border"></div>
-                                            <div class="top-m-border" style="width: 15px;">
-                                                <div class="arrow"></div>
-                                            </div>
-                                            <div class="right-border"></div>
-                                        </div>
-                                        <div class="text" style="color: rgb(255, 255, 255);">69%</div>
-                                        <div class="text-hide" style="visibility: hidden;position: absolute;">100.%</div>
-                                    </div>
-                                </div>
-                                <div class="bar-box clearfix">
-                                    <span class="left"><i class="left-before"></i></span>
-                                    <div class="bar left" style="width: 75%;margin-left: 1%;">
-                                        <div class="inner">
-                                            <svg class="dotted-line" style="width: 100%; height: 100%; display: inherit;">
-                                                <defs>
-                                                    <linearGradient id="gradientsvg-path-q42pbb13zb" x1="0" y1="0" x2="100%" y2="0">
-                                                        <stop offset="0%" stop-color="#ef762e"></stop>
-                                                        <stop offset="100%" stop-color="#44d7da"></stop>
-                                                    </linearGradient>
-                                                    <clipPath id="svg-path-q42pbb13zb">
-                                                        <rect x="0" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="4.72626" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="9.45252" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="14.17878" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="18.90504" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="23.6313" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="28.35756" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="33.08382" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="37.81008" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="42.536339999999996" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="47.2626" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="51.98886" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="56.71512" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="61.441379999999995" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="66.16764" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="70.8939" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="75.62016" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="80.34642" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="85.07267999999999" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="89.79894" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="94.5252" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="99.25146" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="103.97772" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="108.70398" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="113.43024" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="118.1565" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="122.88275999999999" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="127.60902" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="132.33528" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="137.06154" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="141.7878" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="146.51406" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="151.24032" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="155.96658" y="0" width="3.72626" height="100%"></rect>
-                                                        <rect x="160.69284" y="0" width="2.363129999999966" height="100%"></rect>
-                                                    </clipPath>
-                                                </defs>
-                                                <rect id="rect" x="0" y="0" width="100%" height="100%" fill="url(#gradientsvg-path-q42pbb13zb)" clip-path="url(#svg-path-q42pbb13zb)" style="width: 69%;"></rect>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    <span class="right bar-num">45个</span>
-                                    <span class="right" style="margin-right: 1%;"><i class="right-before"></i></span>
-                                </div>
+                            <div class="percentage-bar-box">
                             </div>
                         </div>
+                    </div>
+                    <div class="data-number">
+                        <span class="number">0个</span>
+                        <span class="number">0个</span>
+                        <span class="number">0个</span>
+                        <span class="number">0个</span>
+                        <span class="number">0个</span>
+                        <span class="number">0个</span>
                     </div>
                     <div class="echarts-pie-chart" id="echarts-pie-chart"></div>
                     <div class="percent-box">
@@ -598,17 +199,17 @@
                                 </div>
                                 <div class="proportion-main">
                                     <div class="counter">
-                                        <span class="number">180</span>
+                                        <span class="number">0</span>
                                         <span class="suffix">个</span>
                                     </div>
                                     <div class="counter-trend">
-                                        <span class="number">11.5%</span>
-                                        <span class="suffix rise"></span>
+                                        <span class="number">0%</span>
+                                        <span class="suffix"></span>
                                     </div>
                                 </div>
                                 <div class="proportion-footer">
                                     <div class="counter">
-                                        <span class="number-wrapper">昨日<span class="number">162</span></span>
+                                        <span class="number-wrapper">昨日<span class="number">0</span></span>
                                         <span class="suffix">个</span>
                                     </div>
                                 </div>
@@ -620,17 +221,17 @@
                                 </div>
                                 <div class="proportion-main">
                                     <div class="counter">
-                                        <span class="number">150</span>
+                                        <span class="number">0</span>
                                         <span class="suffix">个</span>
                                     </div>
                                     <div class="counter-trend">
-                                        <span class="number">11.5%</span>
-                                        <span class="suffix fall"></span>
+                                        <span class="number">0%</span>
+                                        <span class="suffix"></span>
                                     </div>
                                 </div>
                                 <div class="proportion-footer">
                                     <div class="counter">
-                                        <span class="number-wrapper">昨日<span class="number">162</span></span>
+                                        <span class="number-wrapper">昨日<span class="number">0</span></span>
                                         <span class="suffix">个</span>
                                     </div>
                                 </div>
@@ -642,17 +243,17 @@
                                 </div>
                                 <div class="proportion-main">
                                     <div class="counter">
-                                        <span class="number">180</span>
+                                        <span class="number">0</span>
                                         <span class="suffix">个</span>
                                     </div>
                                     <div class="counter-trend">
-                                        <span class="number">11.5%</span>
-                                        <span class="suffix rise"></span>
+                                        <span class="number">0%</span>
+                                        <span class="suffix"></span>
                                     </div>
                                 </div>
                                 <div class="proportion-footer">
                                     <div class="counter">
-                                        <span class="number-wrapper">昨日<span class="number">162</span></span>
+                                        <span class="number-wrapper">昨日<span class="number">0</span></span>
                                         <span class="suffix">个</span>
                                     </div>
                                 </div>
@@ -697,7 +298,7 @@
         <script type="text/javascript" src="js/china.js"></script>
         <script type="text/javascript" src="js/lodash.min.js"></script>
         <script type="text/javascript" src="js/monitor__.js"></script>
-        <script type="text/javascript" src="js/data.js"></script>
+        <script type="text/javascript" src="js/percentage.js"></script>
         <script type="text/javascript">
             var config = {
                 "backgroundImage": "image/screenbg.jpg",
