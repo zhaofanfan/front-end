@@ -5,6 +5,44 @@
  * @version 1.0
  */
 
+var AJAX_RESCODE = {
+    SUCCESS_CODE: "200",
+    ERROR_CODE: -1
+};
+
+function ajaxReq(url, data, successfn, errorfn, method, beforefn, jsonp) {
+    data = data || { timestamp: new Date().getTime() };
+    var ajaxSetting = {
+        url: url,
+        type: method || "post",
+        data: data,
+        contentType: "application/x-www-form-urlencoded;charset=utf-8",
+        dataType: "json",
+        beforeSend: function() {
+            !beforefn || beforefn();
+        },
+        success: function(res) {
+            // if (res && res.code == AJAX_RESCODE.SUCCESS_CODE) {
+            if (res && res.success) {
+                !successfn || successfn(res);
+            } else {
+                !errorfn || errorfn(res);
+            }
+        },
+        error: function(res) {
+            !errorfn || errorfn(res);
+        },
+        complete: function(xhr, textStatus) {
+
+        }
+    };
+    if (jsonp) {
+        ajaxSetting.dataType = "jsonp";
+        ajaxSetting.jsonp = "jsonpCallback";
+    }
+    return $.ajax(ajaxSetting)
+}
+
 /**
  * 日期格式化
  */
@@ -25,641 +63,6 @@ Date.prototype.format || (Date.prototype.format = function(format) {
             format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
     return format;
 });
-
-var t = setTimeout(time, 1000);
-
-function time() {
-    clearTimeout(t);
-    $("#timeShow").html(new Date().format("yyyy-MM-dd hh:mm:ss"));
-    t = setTimeout(time, 1000);
-}
-
-jQuery(function() {
-
-    // var oCount = new DigitRoll({
-    //     container: ".js_num",
-    //     width: 8
-    // });
-    // var num = 99999999;
-    // timer = setInterval(function() {
-    //     oCount.roll(num -= Math.ceil(Math.random() * 100));
-    // }, 10000);
-    // setTimeout(function() {
-    //     clearInterval(timer);
-    // }, 35000);
-
-    var oldAlarmCount = parseInt($("#todayAlarmCount").text().replace(/\,/g, "") || 0, 10);
-    var oldExpCount = parseInt($("#todayExpCount").text().replace(/\,/g, "") || 0, 10);
-    todayAlarmCountUp = new CountUp("todayAlarmCount", oldAlarmCount, 39463, 0, 1);
-    todayExpCountUp = new CountUp("todayExpCount", oldExpCount, 39463, 0, 1);
-    todayAlarmCountUp.start();
-    todayExpCountUp.start();
-
-});
-
-var AbnormityChart = (function() {
-    var distChart = null;
-    var handleChart = null;
-    var trendChart = null;
-    var proportionChart = null;
-
-    var distDataValues = [];
-    var handleDataValues = [];
-    var trendDataValues = {};
-    var proportionDataValues = [];
-
-    var autohighlight;
-
-    var init = function() {
-        // 基于准备好的dom，初始化echarts实例
-        distChart = echarts.init(document.getElementById("echarts-map-chart"));
-        handleChart = echarts.init(document.getElementById("echarts-pie-chart"));
-        trendChart = echarts.init(document.getElementById("echarts-line-chart"));
-        proportionChart = echarts.init(document.getElementById("echarts-proportion-pie-chart"));
-
-        $(window).resize(function() {
-            distChart.resize();
-            handleChart.resize();
-            trendChart.resize();
-            proportionChart.resize();
-        });
-
-        getDataFunc();
-    }
-
-    // 使用刚指定的配置项和数据显示图表。
-    var showChartFunc = function() {
-        var geoCoordMap = {
-            '广州': [113.5107, 23.2196],
-            '北京': [116.4551, 40.2539],
-            '天津': [117.4219, 39.4189],
-            '上海': [121.4648, 31.2891],
-            '重庆': [106.557165, 29.563206],
-            '河北': [114.508958, 38.066606],
-            '河南': [113.673367, 34.748062],
-            '云南': [102.721896, 25.047632],
-            '辽宁': [123.445621, 41.806698],
-            '黑龙江': [126.655705, 45.759581],
-            '湖南': [112.950888, 28.229114],
-            '安徽': [117.300842, 31.887672],
-            '山东': [117.029895, 36.677424],
-            '新疆': [87.616327, 43.800508],
-            '江苏': [118.814345, 32.061445],
-            '浙江': [120.16991, 30.272236],
-            '江西': [115.904962, 28.674132],
-            '湖北': [114.290138, 30.595623],
-            '广西': [108.381781, 22.815042],
-            '甘肃': [103.851217, 36.061978],
-            '山西': [112.57197, 37.879532],
-            '内蒙古': [112.57197, 37.879532],
-            '陕西': [108.960062, 34.285251],
-            '吉林': [126.572746, 43.86785],
-            '福建': [119.319713, 26.072564],
-            '贵州': [106.557165, 29.563206],
-            '广东': [113.238778, 23.161621],
-            '青海': [101.787147, 36.621234],
-            '西藏': [91.154492, 29.665953],
-            '四川': [104.082256, 30.652565],
-            '宁夏': [106.234805, 38.487468],
-            '海南': [109.910757, 19.108187],
-            '台湾': [121.098613, 23.778734],
-            '香港': [114.168545, 22.36641],
-            '澳门': [113.549978, 22.1943]
-        };
-
-        var GZData = [
-            [{ name: '北京', value: 96 }, { name: '广州' }],
-            [{ name: '黑龙江', value: 90 }, { name: '广州' }],
-            [{ name: '内蒙古', value: 66 }, { name: '广州' }],
-            [{ name: '西藏', value: 70 }, { name: '广州' }],
-            [{ name: '陕西', value: 94 }, { name: '广州' }],
-            [{ name: '广西', value: 79 }, { name: '广州' }],
-            [{ name: '新疆', value: 51 }, { name: '广州' }],
-            [{ name: '青海', value: 67 }, { name: '广州' }],
-            [{ name: '海南', value: 30 }, { name: '广州' }],
-            [{ name: '云南', value: 56 }, { name: '广州' }],
-            [{ name: '四川', value: 96 }, { name: '广州' }],
-            [{ name: '福建', value: 74 }, { name: '广州' }]
-
-            //  [{name: '宁夏',value:47}, {name:'广州'}],
-            //  [{name: '西藏',value:19}, {name:'广州'}],
-            //  [{name: '黑龙江',value:33}, {name:'广州'}],
-            //  [{name: '新疆',value:28}, {name:'广州'}],
-            //  [{name: '天津',value:11}, {name:'广州'}],
-            //  [{name: '上海',value:13}, {name:'广州'}],
-            //  [{name: '重庆',value:9}, {name:'广州'}],
-            //  [{name: '辽宁',value:46}, {name:'广州'}],
-            //  [{name: '安徽',value:88}, {name:'广州'}],
-            //  [{name: '山东',value:82}, {name:'广州'}],
-            //  [{name: '江苏',value:38}, {name:'广州'}],
-            //  [{name: '甘肃',value:23}, {name:'广州'}],
-            //  [{name: '山西',value:36}, {name:'广州'}],
-            //  [{name: '内蒙古',value:29}, {name:'广州'}],
-            //  [{name: '陕西',value:45}, {name:'广州'}],
-            //  [{name: '吉林',value:44}, {name:'广州'}],
-            //  [{name: '广东',value:59}, {name:'广州'}],
-            //  [{name: '青海',value:23}, {name:'广州'}],
-            //  [{name: '台湾',value:26}, {name:'广州'}],
-            //  [{name: '香港',value:27}, {name:'广州'}],
-            //  [{name: '澳门',value:13}, {name:'广州'}]
-        ];
-
-
-        var convertData = function(data) {
-            var res = [];
-            for (var i = 0; i < data.length; i++) {
-                var dataItem = data[i];
-                var fromCoord = geoCoordMap[dataItem[1].name];
-                var toCoord = geoCoordMap[dataItem[0].name];
-                if (fromCoord && toCoord) {
-                    res.push([{
-                        coord: fromCoord
-                    }, {
-                        coord: toCoord,
-                        value: dataItem[0].value //来源或流向修改
-                    }]);
-                }
-            }
-            return res;
-        };
-
-
-        var series = [];
-        [
-            ['广州', GZData]
-        ].forEach(function(item, i) {
-            series.push({ //线
-                type: 'lines',
-                zlevel: 2,
-                symbol: ['none', 'arrow'], //'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'线两端的标记类型
-                symbolSize: 5, //箭头大小
-                lineStyle: {
-                    normal: {
-                        width: 1,
-                        opacity: 0.4,
-                        curveness: 0.3
-                    },
-                },
-                effect: {
-                    show: true, //是否显示特效
-                    period: 2, //特效动画的时间，单位为 s
-                    symbol: 'pin', //特效图形的类型
-                    constantSpeed: 100, //固定速度，大于0的值后会忽略 period 配置项
-                    symbolSize: 5,
-                    color: '#fff',
-                    shadowBlur: 8
-                },
-                data: convertData(item[1])
-            }, {
-                type: 'effectScatter',
-                coordinateSystem: 'geo',
-                zlevel: 2,
-                rippleEffect: { //涟漪特效相关配置
-                    period: '4', //动画的时间
-                    scale: '20', //动画中波纹的最大缩放比例
-                    brushType: 'stroke'
-                },
-                label: { //图形上的城市文本标签
-                    normal: {
-                        show: true,
-                        position: 'right',
-                        formatter: '{b}',
-                        textStyle: {
-                            color: '#fff',
-                            fontStyle: 'normal',
-                            fontFamily: 'arial',
-                            fontSize: 12,
-                        }
-                    }
-                },
-                symbolSize: 3, //点大小
-                data: item[1].map(function(dataItem) {
-                    return {
-                        name: dataItem[0].name, //来源或流向修改
-                        value: geoCoordMap[dataItem[0].name].concat([dataItem[0].value]) //来源或流向修改
-                    };
-                })
-            });
-        });
-
-        doption = {
-            tooltip: { //提示组件
-                trigger: 'item'
-            },
-            visualMap: {
-                min: 0,
-                max: 100,
-                //seriesIndex:['0', '1'],//选择应用那几条数据
-                calculable: true,
-                inRange: {
-                    color: ['#5186ab', '#8a7e7a', '#c97446']
-                },
-                textStyle: {
-                    color: '#fff'
-                },
-                x: "36",
-                y: "400"
-            },
-            geo: {
-                map: 'china',
-                label: {
-                    emphasis: {
-                        show: false
-                    }
-                },
-                roam: true, //开启缩放或者平移
-                zoom: 1.1, //缩放比例
-                itemStyle: {
-                    normal: {
-                        areaColor: 'none', //地图背景色
-                        borderColor: 'rgba(100, 149, 237, 1)' //省市边界线
-                    },
-                    emphasis: {
-                        areaColor: '#1b1b1b' //悬浮背景
-                    }
-                },
-                regions: [{
-                    name: '广东',
-                    itemStyle: {
-                        normal: {
-                            areaColor: '#c97446',
-                            color: '#c97446'
-                        }
-                    }
-                }]
-            },
-            series: series
-        };
-
-        distChart.setOption(doption);
-
-        option = {
-            title: {
-                text: '处理情况',
-                subtext: 'Treatment situation',
-                x: 'left',
-                textStyle: {
-                    fontSize: 22,
-                    fontWeight: 'normal',
-                    color: '#fff'
-                },
-                subtextStyle: {
-                    fontSize: 16
-                }
-            },
-            // tooltip: {
-            //     trigger: 'item',
-            //     formatter: "{a} <br/>{b} : {c} ({d}%)"
-            // },
-            legend: {
-                orient: 'vertical',
-                x: 300,
-                textStyle: {
-                    color: '#fff'
-                },
-                itemWidth: 14,
-                itemHeight: 14,
-                data: [{
-                    name: '已处理',
-                    icon: 'stack'
-                }, {
-                    name: '处理中',
-                    icon: 'stack'
-                }, {
-                    name: '未处理',
-                    icon: 'stack'
-                }],
-                formatter: function(name) {
-                    var _label = name;
-                    jQuery(handleDataValues).each(function(index, item) {
-                        if (item.name == name) {
-                            _label = name + "：" + item.value + "个";
-                            return false;
-                        }
-                    });
-                    return _label;
-                }
-            },
-            color: ['#5ac8ae', '#fdc77c', '#f1786b'],
-            calculable: false,
-            series: [{
-                name: '处理情况',
-                type: 'pie',
-                selectedMode: 'single',
-                radius: ['40%', '70%'],
-                center: ['50%', '60%'],
-                itemStyle: {
-                    normal: {
-                        label: {
-                            show: false
-                        },
-                        labelLine: {
-                            show: false
-                        }
-                    },
-                    emphasis: {
-                        label: {
-                            show: !1,
-                            position: 'center',
-                            textStyle: {
-                                fontSize: '30',
-                                fontWeight: 'bold'
-                            }
-                        }
-                    }
-                },
-                data: handleDataValues
-            }]
-        };
-        handleChart.setOption(option);
-
-        var currentIndex = -1;
-
-        clearInterval(autohighlight);
-        autohighlight = setInterval(function() {
-            var dataLen = option.series[0].data.length;
-            // 取消之前高亮的图形
-            handleChart.dispatchAction({
-                type: 'downplay',
-                seriesIndex: 0,
-                dataIndex: currentIndex
-            });
-            currentIndex = (currentIndex + 1) % dataLen;
-            // 高亮当前图形
-            handleChart.dispatchAction({
-                type: 'highlight',
-                seriesIndex: 0,
-                dataIndex: currentIndex
-            });
-
-            var _name = option.series[0].data[currentIndex].name;
-            var oldNumber = parseInt($("#percentNumber").text(), 10);
-            percentNumberCountUp = new CountUp("percentNumber", oldNumber, getPercentByName(handleDataValues, _name), 0, 1);
-            percentNumberCountUp.start();
-
-            //添加class的动画导致页面抖动
-            // $(".percent-text").on("animationend", function() {
-            //     $(".percent-text").text(_name)
-            //         .off("animationend")
-            //         .removeClass("scaleOut")
-            //         .addClass("scaleIn");
-            // }).removeClass("scaleIn").addClass("scaleOut");
-
-            $(".percent-text").animate({
-                scaleX: 0
-            }, {
-                step: function(now, fx) {
-                    $(this).css("transform", "scaleX(" + now + ")");
-                },
-                duration: 500,
-                easing: 'easeInSine',
-                complete: function() {
-                    $(this).text(_name).animate({
-                        scaleX: 1
-                    }, {
-                        step: function(now, fx) {
-                            $(this).css("transform", "scaleX(" + now + ")");
-                        },
-                        duration: 500,
-                        easing: 'easeOutSine'
-                    });
-                }
-            });
-        }, 2000);
-
-        proportionChart.setOption({
-            tooltip: {
-                trigger: 'item',
-                formatter: "{a} <br/>{b} : {c} ({d}%)"
-            },
-            color: ['#d06a4d', '#c7ce5a', '#35bdd0'],
-            calculable: false,
-            series: [{
-                name: '处理情况',
-                type: 'pie',
-                radius: ['30%', '55%'],
-                center: ['45%', '50%'],
-                itemStyle: {
-                    normal: {
-                        label: {
-                            show: !0,
-                            formatter: '{percent|{d}%}\n{name|{b}}',
-                            rich: {
-                                percent: {
-                                    color: '#ffffff',
-                                    align: 'center'
-                                },
-                                name: {
-                                    fontSize: 16,
-                                    color: '#ffffff',
-                                    align: 'center'
-                                }
-                            }
-                        },
-                        labelLine: {
-                            show: !0
-                        }
-                    },
-                    emphasis: {
-                        label: {
-                            show: true,
-                            position: 'center',
-                            textStyle: {
-                                fontSize: '30',
-                                fontWeight: 'bold'
-                            }
-                        }
-                    }
-                },
-                data: proportionDataValues
-            }]
-        });
-
-        trendChart.setOption({
-            title: {
-                text: '近期告警趋势图',
-                subtext: 'One week trend map',
-                x: 'left',
-                textStyle: {
-                    fontSize: 22,
-                    fontWeight: 'normal',
-                    color: '#fff'
-                },
-                subtextStyle: {
-                    fontSize: 16
-                }
-            },
-            grid: {
-                x: 35,
-                y: 75,
-                x2: 32,
-                y2: 30
-            },
-            legend: {
-                x: '750',
-                itemWidth: 50,
-                itemHeight: 2,
-                data: [{
-                    name: '严重',
-                    icon: 'rect'
-                }, {
-                    name: '警告',
-                    icon: 'rect'
-                }, {
-                    name: '提醒',
-                    icon: 'rect'
-                }],
-                textStyle: {
-                    color: '#fff'
-                },
-            },
-            color: ['#d06a4d', '#c7ce5a', '#35bdd0'],
-            xAxis: [{
-                type: 'category',
-                boundaryGap: false,
-                axisLine: {
-                    lineStyle: {
-                        color: 'rgba(255, 255, 255, 0.2)'
-                    }
-                },
-                axisTick: {
-                    show: !1
-                },
-                axisLabel: {
-                    textStyle: {
-                        color: '#fff'
-                    }
-                },
-                data: getLatestOneWeek()
-            }],
-            yAxis: [{
-                type: 'value',
-                axisLine: {
-                    lineStyle: {
-                        color: 'rgba(255, 255, 255, 0.2)'
-                    }
-                },
-                axisTick: {
-                    show: !1
-                },
-                axisLabel: {
-                    textStyle: {
-                        color: '#fff'
-                    }
-                },
-                splitLine: { // 分隔线
-                    show: true, // 默认显示，属性show控制显示与否
-                    // onGap: null,
-                    lineStyle: { // 属性lineStyle（详见lineStyle）控制线条样式
-                        color: 'rgba(255, 255, 255, 0.05)',
-                        width: 1,
-                        type: 'dashed'
-                    }
-                }
-            }],
-            series: [{
-                name: '严重',
-                type: 'line',
-                symbol: 'circle',
-                symbolSize: 10,
-                // smooth: true,
-                // symbol: 'none',
-                data: trendDataValues["1"]
-            }, {
-                name: '警告',
-                type: 'line',
-                symbol: 'circle',
-                symbolSize: 10,
-                // smooth: true,
-                // symbol: 'none',
-                data: trendDataValues["2"]
-            }, {
-                name: '提醒',
-                type: 'line',
-                symbol: 'circle',
-                symbolSize: 10,
-                // smooth: true,
-                // symbol: 'none',
-                data: trendDataValues["3"]
-            }]
-        });
-    };
-
-    var getLatestOneWeek = function() {
-        var xAxisData = [];
-        var dt = new Date();
-        var index = 6;
-
-        while (index >= 0) {
-            var newDt = new Date(dt.getTime() - index * 24 * 3600 * 1000);
-            xAxisData.push(newDt.format("MM.dd"));
-            index--;
-        }
-        return xAxisData;
-    };
-
-    var getLatestOneMonth = function() {
-        var xAxisData = [];
-        var dt = new Date();
-        var index = 3;
-
-        function getPlaceholderArray() {
-            var phArray = new Array(9);
-            jQuery(phArray).each(function(i) {
-                phArray[i] = "";
-            });
-            return phArray;
-        }
-
-        while (index >= 0) {
-            var newDt = new Date(dt.getTime() - index * 10 * 24 * 3600 * 1000);
-            xAxisData.push(newDt.format("yyyy.MM.dd"));
-            index != 0 && (xAxisData = xAxisData.concat(getPlaceholderArray()));
-            index--;
-        }
-        return xAxisData;
-    };
-
-    var getPercentByName = function(_seriesData, _name) {
-        var sum = 0,
-            value = 0;
-        jQuery(_seriesData).each(function(i, item) {
-            sum += item.value;
-            if (item.name == _name)
-                value = item.value;
-        });
-        return Math.round(value / sum * 100);
-    };
-
-    /**
-     * 获取信息
-     */
-    var getDataFunc = function() {
-        $.getJSON('js/mock.js?r=' + Math.random()).done(function(data) {
-            if (data) {
-                distDataValues = data.distInfos;
-                handleDataValues = data.handleInfos;
-                trendDataValues = data.trendInfos;
-                proportionDataValues = data.proportionInfos;
-                showChartFunc();
-
-                setTimeout(getDataFunc, 6E3);
-            } else {
-                alert(data.message);
-            }
-        });
-    };
-
-    return {
-        init: init,
-        getData: getDataFunc
-    }
-})();
-
-var AJAX_RESCODE = {
-    SUCCESS_CODE: "00",
-    ERROR_CODE: -1
-};
 
 function DigitRoll(options) {
     if (this.container = document.querySelector(options.container), this.width = options.width || 1, !this.container)
@@ -717,38 +120,6 @@ DigitRoll.prototype.setWidth = function(width) {
     }
     this.container.innerHTML = str;
 };
-
-function ajaxReq(url, data, successfn, errorfn, method, beforefn, jsonp) {
-    data = data || { timestamp: new Date().getTime() };
-    var ajaxSetting = {
-        url: url,
-        type: method || "post",
-        data: data,
-        contentType: "application/x-www-form-urlencoded;charset=utf-8",
-        dataType: "json",
-        beforeSend: function() {
-            !beforefn || beforefn();
-        },
-        success: function(res) {
-            if (res && res.ret_code == AJAX_RESCODE.SUCCESS_CODE) {
-                !successfn || successfn(res);
-            } else {
-                !errorfn || errorfn(res);
-            }
-        },
-        error: function(res) {
-            !errorfn || errorfn(res);
-        },
-        complete: function(xhr, textStatus) {
-
-        }
-    };
-    if (jsonp) {
-        ajaxSetting.dataType = "jsonp";
-        ajaxSetting.jsonp = "jsonpCallback";
-    }
-    return $.ajax(ajaxSetting)
-}
 
 function CarouselTable(i, d) {
     this.container = $(i);
@@ -1001,12 +372,406 @@ CarouselTable.prototype = {
     updateStyle: function() {}
 };
 
-var percentNumberCountUp = null;
+jQuery.extend(jQuery.easing, {
+    easeInSine: function(x, t, b, c, d) {
+        return -c * Math.cos(t / d * (Math.PI / 2)) + c + b;
+    },
+    easeOutSine: function(x, t, b, c, d) {
+        return c * Math.sin(t / d * (Math.PI / 2)) + b;
+    }
+});
+
+var distDataValues = [];
+var handleDataValues = [];
+var trendDataValues = {};
+var proportionDataValues = [];
+
+var geoCoordMap = {
+    '广州': [113.5107, 23.2196],
+    '北京': [116.4551, 40.2539],
+    '天津': [117.4219, 39.4189],
+    '上海': [121.4648, 31.2891],
+    '重庆': [106.557165, 29.563206],
+    '河北': [114.508958, 38.066606],
+    '河南': [113.673367, 34.748062],
+    '云南': [102.721896, 25.047632],
+    '辽宁': [123.445621, 41.806698],
+    '黑龙江': [126.655705, 45.759581],
+    '湖南': [112.950888, 28.229114],
+    '安徽': [117.300842, 31.887672],
+    '山东': [117.029895, 36.677424],
+    '新疆': [87.616327, 43.800508],
+    '江苏': [118.814345, 32.061445],
+    '浙江': [120.16991, 30.272236],
+    '江西': [115.904962, 28.674132],
+    '湖北': [114.290138, 30.595623],
+    '广西': [108.381781, 22.815042],
+    '甘肃': [103.851217, 36.061978],
+    '山西': [112.57197, 37.879532],
+    '内蒙古': [112.57197, 37.879532],
+    '陕西': [108.960062, 34.285251],
+    '吉林': [126.572746, 43.86785],
+    '福建': [119.319713, 26.072564],
+    '贵州': [106.557165, 29.563206],
+    '广东': [113.238778, 23.161621],
+    '青海': [101.787147, 36.621234],
+    '西藏': [91.154492, 29.665953],
+    '四川': [104.082256, 30.652565],
+    '宁夏': [106.234805, 38.487468],
+    '海南': [109.910757, 19.108187],
+    '台湾': [121.098613, 23.778734],
+    '香港': [114.168545, 22.36641],
+    '澳门': [113.549978, 22.1943]
+};
+
+var GZData = [
+    // [{ name: '北京', value: 96 }, { name: '广州' }],
+    // [{ name: '黑龙江', value: 90 }, { name: '广州' }],
+    // [{ name: '内蒙古', value: 66 }, { name: '广州' }],
+    // [{ name: '西藏', value: 70 }, { name: '广州' }],
+    // [{ name: '陕西', value: 94 }, { name: '广州' }],
+    // [{ name: '广西', value: 79 }, { name: '广州' }],
+    // [{ name: '新疆', value: 51 }, { name: '广州' }],
+    // [{ name: '青海', value: 67 }, { name: '广州' }],
+    // [{ name: '海南', value: 30 }, { name: '广州' }],
+    // [{ name: '云南', value: 56 }, { name: '广州' }],
+    // [{ name: '四川', value: 96 }, { name: '广州' }],
+    // [{ name: '福建', value: 74 }, { name: '广州' }]
+
+    //  [{name: '宁夏',value:47}, {name:'广州'}],
+    //  [{name: '西藏',value:19}, {name:'广州'}],
+    //  [{name: '黑龙江',value:33}, {name:'广州'}],
+    //  [{name: '新疆',value:28}, {name:'广州'}],
+    //  [{name: '天津',value:11}, {name:'广州'}],
+    //  [{name: '上海',value:13}, {name:'广州'}],
+    //  [{name: '重庆',value:9}, {name:'广州'}],
+    //  [{name: '辽宁',value:46}, {name:'广州'}],
+    //  [{name: '安徽',value:88}, {name:'广州'}],
+    //  [{name: '山东',value:82}, {name:'广州'}],
+    //  [{name: '江苏',value:38}, {name:'广州'}],
+    //  [{name: '甘肃',value:23}, {name:'广州'}],
+    //  [{name: '山西',value:36}, {name:'广州'}],
+    //  [{name: '内蒙古',value:29}, {name:'广州'}],
+    //  [{name: '陕西',value:45}, {name:'广州'}],
+    //  [{name: '吉林',value:44}, {name:'广州'}],
+    //  [{name: '广东',value:59}, {name:'广州'}],
+    //  [{name: '青海',value:23}, {name:'广州'}],
+    //  [{name: '台湾',value:26}, {name:'广州'}],
+    //  [{name: '香港',value:27}, {name:'广州'}],
+    //  [{name: '澳门',value:13}, {name:'广州'}]
+];
+
+var convertData = function(data) {
+    var res = [];
+    for (var i = 0; i < data.length; i++) {
+        var dataItem = data[i];
+        var fromCoord = geoCoordMap[dataItem[1].name];
+        var toCoord = geoCoordMap[dataItem[0].name];
+        if (fromCoord && toCoord) {
+            res.push([{
+                coord: fromCoord
+            }, {
+                coord: toCoord,
+                value: dataItem[0].value //来源或流向修改
+            }]);
+        }
+    }
+    return res;
+};
+
+var series = [];
+
+var distOption = {
+    tooltip: { //提示组件
+        trigger: 'item'
+    },
+    visualMap: {
+        min: 0,
+        max: 10000,
+        //seriesIndex:['0', '1'],//选择应用那几条数据
+        calculable: true,
+        inRange: {
+            color: ['#5186ab', '#8a7e7a', '#c97446']
+        },
+        textStyle: {
+            color: '#fff'
+        },
+        x: "36",
+        y: "400"
+    },
+    geo: {
+        map: 'china',
+        label: {
+            emphasis: {
+                show: false
+            }
+        },
+        roam: true, //开启缩放或者平移
+        zoom: 1.1, //缩放比例
+        itemStyle: {
+            normal: {
+                areaColor: 'none', //地图背景色
+                borderColor: 'rgba(100, 149, 237, 1)' //省市边界线
+            },
+            emphasis: {
+                areaColor: '#1b1b1b' //悬浮背景
+            }
+        },
+        regions: [{
+            name: '广东',
+            itemStyle: {
+                normal: {
+                    areaColor: '#c97446',
+                    color: '#fff'
+                }
+            }
+        }]
+    },
+    series: series
+};
+
+var handleOption = {
+    title: {
+        text: '处理情况',
+        subtext: 'Treatment situation',
+        x: 'left',
+        textStyle: {
+            fontSize: 22,
+            fontWeight: 'normal',
+            color: '#fff'
+        },
+        subtextStyle: {
+            fontSize: 16
+        }
+    },
+    // tooltip: {
+    //     trigger: 'item',
+    //     formatter: "{a} <br/>{b} : {c} ({d}%)"
+    // },
+    legend: {
+        orient: 'vertical',
+        x: 300,
+        textStyle: {
+            color: '#fff'
+        },
+        itemWidth: 14,
+        itemHeight: 14,
+        data: [{
+            name: '已处理',
+            icon: 'stack'
+        }, {
+            name: '处理中',
+            icon: 'stack'
+        }, {
+            name: '未处理',
+            icon: 'stack'
+        }],
+        formatter: function(name) {
+            var _label = name;
+            jQuery(handleDataValues).each(function(index, item) {
+                if (item.name == name) {
+                    _label = name + "：" + item.value + "个";
+                    return false;
+                }
+            });
+            return _label;
+        }
+    },
+    color: ['#5ac8ae', '#fdc77c', '#f1786b'],
+    calculable: false,
+    series: [{
+        name: '处理情况',
+        type: 'pie',
+        selectedMode: 'single',
+        radius: ['40%', '70%'],
+        center: ['50%', '60%'],
+        itemStyle: {
+            normal: {
+                label: {
+                    show: false
+                },
+                labelLine: {
+                    show: false
+                }
+            },
+            emphasis: {
+                label: {
+                    show: !1,
+                    position: 'center',
+                    textStyle: {
+                        fontSize: '30',
+                        fontWeight: 'bold'
+                    }
+                }
+            }
+        },
+        data: handleDataValues
+    }]
+};
+
+var proportionOption = {
+    tooltip: {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    color: ['#d06a4d', '#c7ce5a', '#35bdd0'],
+    calculable: false,
+    series: [{
+        name: '处理情况',
+        type: 'pie',
+        radius: ['30%', '55%'],
+        center: ['45%', '50%'],
+        itemStyle: {
+            normal: {
+                label: {
+                    show: !0,
+                    formatter: '{percent|{d}%}\n{name|{b}}',
+                    rich: {
+                        percent: {
+                            color: '#ffffff',
+                            align: 'center'
+                        },
+                        name: {
+                            fontSize: 16,
+                            color: '#ffffff',
+                            align: 'center'
+                        }
+                    }
+                },
+                labelLine: {
+                    show: !0
+                }
+            },
+            emphasis: {
+                label: {
+                    show: true,
+                    position: 'center',
+                    textStyle: {
+                        fontSize: '30',
+                        fontWeight: 'bold'
+                    }
+                }
+            }
+        },
+        data: proportionDataValues
+    }]
+};
+
+
+var trendOption = {
+    title: {
+        text: '近期告警趋势图',
+        subtext: 'One week trend map',
+        x: 'left',
+        textStyle: {
+            fontSize: 22,
+            fontWeight: 'normal',
+            color: '#fff'
+        },
+        subtextStyle: {
+            fontSize: 16
+        }
+    },
+    grid: {
+        x: 35,
+        y: 75,
+        x2: 32,
+        y2: 30
+    },
+    tooltip: {
+        trigger: 'axis'
+    },
+    legend: {
+        x: '750',
+        itemWidth: 50,
+        itemHeight: 2,
+        data: [{
+            name: '严重',
+            icon: 'rect'
+        }, {
+            name: '警告',
+            icon: 'rect'
+        }, {
+            name: '提醒',
+            icon: 'rect'
+        }],
+        textStyle: {
+            color: '#fff'
+        },
+    },
+    color: ['#d06a4d', '#c7ce5a', '#35bdd0'],
+    xAxis: [{
+        type: 'category',
+        boundaryGap: false,
+        axisLine: {
+            lineStyle: {
+                color: 'rgba(255, 255, 255, 0.2)'
+            }
+        },
+        axisTick: {
+            show: !1
+        },
+        axisLabel: {
+            textStyle: {
+                color: '#fff'
+            }
+        },
+        data: []
+    }],
+    yAxis: [{
+        type: 'value',
+        axisLine: {
+            lineStyle: {
+                color: 'rgba(255, 255, 255, 0.2)'
+            }
+        },
+        axisTick: {
+            show: !1
+        },
+        axisLabel: {
+            textStyle: {
+                color: '#fff'
+            }
+        },
+        splitLine: { // 分隔线
+            show: true, // 默认显示，属性show控制显示与否
+            // onGap: null,
+            lineStyle: { // 属性lineStyle（详见lineStyle）控制线条样式
+                color: 'rgba(255, 255, 255, 0.05)',
+                width: 1,
+                type: 'dashed'
+            }
+        }
+    }],
+    series: [{
+        name: '严重',
+        type: 'line',
+        symbol: 'circle',
+        symbolSize: 10,
+        // smooth: true,
+        // symbol: 'none',
+        data: []
+    }, {
+        name: '警告',
+        type: 'line',
+        symbol: 'circle',
+        symbolSize: 10,
+        // smooth: true,
+        // symbol: 'none',
+        data: []
+    }, {
+        name: '提醒',
+        type: 'line',
+        symbol: 'circle',
+        symbolSize: 10,
+        // smooth: true,
+        // symbol: 'none',
+        data: []
+    }]
+};
 
 var realtimeDataValues = [];
-
 var carouselInst = null;
-
 var carouselConfig = {
     "config": {
         "global": {
@@ -1092,38 +857,3 @@ var carouselConfig = {
     //     }
     // }
 };
-
-function addClickUrl() {
-    jQuery(realtimeDataValues).each(function(index, el) {
-        el.clickUrl = "/" + (index + 1)
-    });
-}
-
-function run(_carouselInst, _autoUpdate) {
-    1e3 > _autoUpdate && (_autoUpdate = 1e3), setTimeout(function() {
-        // 获取数据回来后重新render，run
-        // carouselInst.render(realtimeDataValues)
-        // run(_carouselInst, _autoUpdate)
-    }, _autoUpdate - Date.now() % _autoUpdate)
-}
-
-jQuery(function() {
-    carouselInst = new CarouselTable("#carouselWrapper", carouselConfig.config);
-
-    $.getJSON('js/realtime_mock.js').done(function(res) {
-        realtimeDataValues = res.data;
-        addClickUrl();
-
-        carouselInst.render(realtimeDataValues);
-        run(carouselInst, 3E4);
-    });
-});
-
-jQuery.extend(jQuery.easing, {
-    easeInSine: function(x, t, b, c, d) {
-        return -c * Math.cos(t / d * (Math.PI / 2)) + c + b;
-    },
-    easeOutSine: function(x, t, b, c, d) {
-        return c * Math.sin(t / d * (Math.PI / 2)) + b;
-    }
-});

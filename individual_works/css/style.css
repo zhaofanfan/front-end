@@ -423,7 +423,7 @@ body {
 }
 
 .ml-table-bar {
-    left: 68px;
+    left: 55px;
     top: 156px;
     width: 152px;
     height: 604px;
@@ -489,15 +489,15 @@ body {
 }
 
 .percentage-bar {
-    left: 180px;
-    top: 128px;
-    width: 280px;
+    left: 130px;
+    top: 140px;
+    width: 330px;
     height: 58px;
     z-index: 32;
 }
 
 .percentage-bar .data-wrapper {
-    width: 280px;
+    width: 330px;
     height: 58px;
     font-family: "Microsoft Yahei", Arial, sans-serif;
     overflow: hidden;
@@ -557,6 +557,12 @@ body {
     height: 16px;
 }
 
+.percentage-bar .bar-num {
+    width: 12%;
+    text-align: right;
+    color: #fff;
+}
+
 .percentage-bar .right-before {
     position: absolute;
     width: 100%;
@@ -593,23 +599,23 @@ body {
 }
 
 .percentage-bar-2 {
-    top: 196px;
+    top: 208px;
 }
 
 .percentage-bar-3 {
-    top: 268px;
+    top: 280px;
 }
 
 .percentage-bar-4 {
-    top: 340px;
+    top: 352px;
 }
 
 .percentage-bar-5 {
-    top: 408px;
+    top: 420px;
 }
 
 .percentage-bar-6 {
-    top: 476px;
+    top: 488px;
 }
 
 .layout-aside__right .data-com {
@@ -661,6 +667,7 @@ body {
     display: inline-block;
     width: 8px;
     height: 15px;
+    vertical-align: middle;
 }
 
 .alarm-proportion .counter-trend .suffix.rise {
@@ -678,10 +685,17 @@ body {
 }
 
 .alarm-proportion .counter-trend .number {
-    font-size: 12px;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.proportion-footer {
+    text-align: left;
+    padding-left: 12px;
 }
 
 .proportion-footer .counter {
+    display: inline-block;
     padding: 5px 2px;
     margin-top: 15px;
     background: rgba(185, 212, 255, 0.3);
