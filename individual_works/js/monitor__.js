@@ -381,6 +381,21 @@ CarouselTable.prototype = {
     updateStyle: function() {}
 };
 
+$.fn.extend({
+    percentageBar: function(num) {
+        var self = $(this),
+            len = Math.floor(num / 2);
+        var el = '<div class="percentageBar"><div class="container"><div class="wrapper"><ul class="progress"></ul></div><div class="layer"></div></div></div>';
+        self.append(el);
+        for (var i = 0; i <= len; i++) {
+            self.find(".progress").append('<li></li>');
+        }
+        self.find(".wrapper").width(num + '%');
+        var left = self.find(".wrapper").width() - self.find(".layer").width() / 2;
+        self.find(".layer").text(num + '%').css({ 'left': left });
+    }
+});
+
 jQuery.extend(jQuery.easing, {
     easeInSine: function(x, t, b, c, d) {
         return -c * Math.cos(t / d * (Math.PI / 2)) + c + b;
@@ -460,8 +475,9 @@ var distOption = {
         trigger: 'item'
     },
     visualMap: {
+        show: !1,
         min: 0,
-        max: 10000,
+        max: 1000,
         //seriesIndex:['0', '1'],//选择应用那几条数据
         calculable: true,
         inRange: {
@@ -490,16 +506,7 @@ var distOption = {
             emphasis: {
                 areaColor: '#1b1b1b' //悬浮背景
             }
-        },
-        regions: [{
-            name: '广东',
-            itemStyle: {
-                normal: {
-                    areaColor: '#c97446',
-                    color: '#fff'
-                }
-            }
-        }]
+        }
     },
     series: []
 };
@@ -595,7 +602,7 @@ var proportionOption = {
         name: '处理情况',
         type: 'pie',
         radius: ['30%', '55%'],
-        center: ['45%', '50%'],
+        center: ['45%', '40%'],
         itemStyle: {
             normal: {
                 label: {
@@ -884,8 +891,9 @@ var AbnormityChart = (function() {
         getCarouseltDataFunc(3E3);
     };
 
+    var currentIndex = -1;
+
     var autoHighlight = function() {
-        var currentIndex = -1;
         clearInterval(autohighlight);
 
         autohighlight = setInterval(function() {
@@ -896,6 +904,7 @@ var AbnormityChart = (function() {
                 dataIndex: currentIndex
             });
             currentIndex = (currentIndex + 1) % dataLen;
+            // console.log(currentIndex);
             // 高亮当前图形
             handleChart.dispatchAction({
                 type: 'highlight',
@@ -1082,9 +1091,8 @@ var AbnormityChart = (function() {
             $(arr).each(function(index, item) {
                 $(".table-line").eq(index).find(".inner").text(item[0]);
                 $(".data-number .number").eq(index).text(item[1] + '个');
-                $(".percentage-bar-box").eq(index).html("").percentageBar(
-                    parseInt((item[3] + item[4] + item[5]) / item[1] * 100, 10)
-                );
+                var number = parseInt((item[3] + item[4] + item[5]) / item[1] * 100);
+                $(".percentage-bar-box").eq(index).empty().percentageBar(number);
                 undoneSumValue += item[2];
                 doingSumValue += item[3];
                 doneSumValue += item[5];
@@ -1110,17 +1118,35 @@ var AbnormityChart = (function() {
     var getDistDataFunc = function() {
         ajaxReq(API_INTERFACE.GROUPBYREGION, null, function(res) {
             var arr = res.body.values;
+            GZData = [];
+            distSeries = [];
             $(arr).each(function() {
                 // [{ name: '北京', value: 96 }, { name: '广州' }],
                 GZData.push([{ name: this[0], value: this[1] }, { name: '广州' }]);
             });
-            distSeries = [];
             [
                 ['广州', GZData]
             ].forEach(function(item, i) {
-                distSeries.push({ //线
+                distSeries.push({
+                    // name: 'categoryA',
+                    type: 'map',
+                    geoIndex: 0,
+                    // tooltip: {show: false},
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'left'
+                        }
+                    },
+                    data: item[1].map(function(dataItem) {
+                        return {
+                            name: dataItem[0].name,
+                            value: dataItem[0].value
+                        };
+                    })
+                }, { //线
                     type: 'lines',
-                    zlevel: 2,
+                    zlevel: 3,
                     symbol: ['none', 'arrow'], //'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'线两端的标记类型
                     symbolSize: 5, //箭头大小
                     lineStyle: {
@@ -1139,16 +1165,57 @@ var AbnormityChart = (function() {
                         color: '#fff',
                         shadowBlur: 8
                     },
-                    data: convertData(item[1])
+                    data: convertData(item[1].sort(function(a, b) {
+                        return b[0].value - a[0].value;
+                    }).slice(0, 5))
                 }, {
+                    // name: '点',
+                    type: 'scatter',
+                    coordinateSystem: 'geo',
+                    // symbol: 'pin',
+                    // symbolSize: function(val) {
+                    //     var max = 480,
+                    //         min = 9; // todo
+                    //     var maxSize4Pin = 100,
+                    //         minSize4Pin = 20;
+
+                    //     var a = (maxSize4Pin - minSize4Pin) / (max - min);
+                    //     var b = minSize4Pin - a * min;
+                    //     b = maxSize4Pin - a * max;
+                    //     return a * val[2] + b;
+                    // },
+                    label: {
+                        normal: {
+                            show: false,
+                            textStyle: {
+                                color: '#fff',
+                                fontSize: 14
+                            }
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#F62157', //标志颜色
+                        }
+                    },
+                    zlevel: 1,
+                    data: item[1].map(function(dataItem) {
+                        return {
+                            name: dataItem[0].name, //来源或流向修改
+                            value: geoCoordMap[dataItem[0].name].concat([dataItem[0].value]) //来源或流向修改
+                        };
+                    })
+                }, {
+                    name: 'Top 5',
                     type: 'effectScatter',
                     coordinateSystem: 'geo',
-                    zlevel: 2,
+                    showEffectOn: 'render',
                     rippleEffect: { //涟漪特效相关配置
                         period: '4', //动画的时间
-                        scale: '20', //动画中波纹的最大缩放比例
+                        scale: '5', //动画中波纹的最大缩放比例
                         brushType: 'stroke'
                     },
+                    silent: true,
                     label: { //图形上的城市文本标签
                         normal: {
                             show: true,
@@ -1162,13 +1229,26 @@ var AbnormityChart = (function() {
                             }
                         }
                     },
-                    symbolSize: 3, //点大小
-                    data: item[1].map(function(dataItem) {
+                    symbolSize: function(val) {
+                        return val[2] / 50;
+                    }, //点大小
+                    data: item[1].sort(function(a, b) {
+                        return b[0].value - a[0].value;
+                    }).slice(0, 5).map(function(dataItem) {
                         return {
-                            name: dataItem[0].name, //来源或流向修改
-                            value: geoCoordMap[dataItem[0].name].concat([dataItem[0].value]) //来源或流向修改
+                            name: dataItem[0].name,
+                            value: geoCoordMap[dataItem[0].name].concat([dataItem[0].value])
                         };
-                    })
+                    }),
+                    hoverAnimation: true,
+                    itemStyle: {
+                        normal: {
+                            color: '#f4e925',
+                            shadowBlur: 10,
+                            shadowColor: '#333'
+                        }
+                    },
+                    zlevel: 2
                 });
             });
             distOption.series = distSeries;
